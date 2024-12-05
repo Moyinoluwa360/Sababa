@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { device } from './theme';
 
 export default function SignUp(){
     const [formData, setFormData] = useState({
@@ -89,5 +90,15 @@ export default function SignUp(){
 }
 
 const SignUpDiv = styled.div`
-    
+    background-color: #D9D9D9;
+    height: 100vh;
+    width: 100vw;
+    img{
+        height: 30px;
+        width: 30px;
+    }
+    @media ${device.mobile} {
+    padding: 10px;
+    background-color: #751d1d;
+  }
 `
