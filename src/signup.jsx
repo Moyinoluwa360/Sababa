@@ -21,21 +21,24 @@ export default function SignUp(){
     return(
         <SignUpDiv>
             <header>
-                <div className="logo-sec">
-                    <img src="/3bars.svg" alt="collapsable bar" />
-                    <span>sababa</span>
-                </div>
-                <div className="icons">
-                    <img src="/shopping.svg" alt="shopping iccon" />
-                    <img src="like.svg" alt="liked icon" />
-                    <img src="account.svg" alt="account icon" />
+                <div className="headerContent">
+                    <div className="logo-sec">
+                        <img src="/3bars.svg" alt="collapsable bar" height={"20px"} width={"26px"}/>
+                        <img src="sababa.svg" alt="sababa" height={"25px"} width={"90px"}/>
+                    </div>
+                    <div className="icons">
+                        <img src="/shopping.svg" alt="shopping iccon" height={"20px"} width={"16px"}/>
+                        <img src="like.svg" alt="liked icon" height={"20px"} width={"22px"} />
+                        <img src="account.svg" alt="account icon" height={"20px"} width={"20px"} />
+                    </div>
                 </div>
             </header>
             <div className="join-signIn">
                 <div className="join">
                     Join
                 </div>
-                <div className="signUp">
+                |
+                <div className="signIn">
                     Sign In
                 </div>
             </div>
@@ -46,7 +49,6 @@ export default function SignUp(){
                         <input
                         type="email"
                         name="email"
-                        placeholder="Enter your email"
                         className="input"
                         value={formData.email}
                         onChange={handleChange}
@@ -57,7 +59,6 @@ export default function SignUp(){
                         <input
                         type="password"
                         name="password"
-                        placeholder="Enter your password"
                         className="input"
                         value={formData.password}
                         onChange={handleChange}
@@ -68,7 +69,7 @@ export default function SignUp(){
                             Sign In
                         </button>
                         <div className="forgot-password">
-                            Forgot passsword?
+                            <u>Forgot passsword?</u> 
                         </div>
                     </div>
                 </form>
@@ -77,12 +78,15 @@ export default function SignUp(){
                 <span> or sign in with</span>
                 <div className="other-sign-in-option-btn">
                     <img src="/google.svg" alt="sign in with Google" />
+                    <span>Goggle</span>
                 </div>
                 <div className="other-sign-in-option-btn">
-                    <img src="/apple.svg" alt="sign in with Google" />
+                    <img src="/apple.svg" alt="sign in with Apple" />
+                    <span>Apple</span>
                 </div>
                 <div className="other-sign-in-option-btn">
-                    <img src="/facebook.svg" alt="sign in with Google" />
+                    <img src="/facebook.svg" alt="sign in with facebook" />
+                    <span>Facebook</span>
                 </div>
             </div>
         </SignUpDiv>
@@ -90,15 +94,135 @@ export default function SignUp(){
 }
 
 const SignUpDiv = styled.div`
-    background-color: #D9D9D9;
+    background-color: #ffffff;
     height: 100vh;
     width: 100vw;
-    img{
-        height: 30px;
-        width: 30px;
-    }
+    overflow: hidden;
+    font-family: inter;
     @media ${device.mobile} {
-    padding: 10px;
-    background-color: #751d1d;
   }
+  header{
+        width: 100%;
+        height: 34px;
+        display: flex;
+        justify-content: center;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        .headerContent{
+            margin: 0 16px 0 16px;
+            width: inherit;
+            height: inherit;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .logo-sec{
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
+            .icons{
+                display: flex;
+                gap: 16px ;
+            }
+        }
+    }
+    .join-signIn{
+        @media ${device.mobile} {
+            width: 100%;
+            height: 46px;
+        }
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 32px;
+        div{
+            width:49%;
+            height: inherit;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            border-bottom: 1px solid #c5c5c5;
+        }
+    }
+    .input-section{
+        margin: 0 16px 0 16px;
+        height: 250px;
+        form{
+            width: inherit;
+            height: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            .input-group{
+                font-size: 12px;
+                font-weight: bold;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                input{
+                    width: inherit;
+                    height: 48px;
+                    border-radius:5px;
+                    border: 1px solid grey;
+                }
+            }
+            .signIn-forgotPassword{
+                margin-top: 16px;
+                width: 100%;
+                height: 49px;
+                button{
+                    width: inherit;
+                    height: 49px;
+                    background-color: black;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 16px;
+                    color:  #D9D9D9;
+                    font-weight: bold;
+                    border-radius: 5px;
+                }
+                .forgot-password{
+                    display: flex;
+                    justify-content: end;
+                    margin-top: 4px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    .other-sign-in-options{
+            margin: 48px 16px 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            font-weight: bold;
+            img{
+                width: 20px;
+                height: 20px;
+            }
+            >span{
+                text-align: center;
+
+            }
+            .other-sign-in-option-btn{
+                width: inherit;
+                height: 48px;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                padding-left: 30px;
+                border: 1px solid black;
+                text-align: center;
+                img{
+                    margin-right: auto;
+                }
+                span{
+                        position: absolute;
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
+            }
+        }
 `
