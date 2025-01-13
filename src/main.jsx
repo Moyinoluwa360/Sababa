@@ -6,5 +6,5 @@ import SignUpDiv from './signup'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <SignUpDiv/>
-  </StrictMode>,
+  </StrictMode>
 )

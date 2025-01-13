@@ -23,14 +23,23 @@ export default function SignUp(){
             <header>
                 <div className="headerContent">
                     <div className="logo-sec">
-                        <img src="/3bars.svg" alt="collapsable bar" height={"20px"} width={"26px"}/>
+                        <img src="/SababaLogo.svg" alt="Sababa Logo" height={"40px"} width={"40px"}/>
                         <img src="sababa.svg" alt="sababa" height={"25px"} width={"90px"}/>
                     </div>
-                    <div className="icons">
-                        <img src="/shopping.svg" alt="shopping iccon" height={"20px"} width={"16px"}/>
-                        <img src="like.svg" alt="liked icon" height={"20px"} width={"22px"} />
-                        <img src="account.svg" alt="account icon" height={"20px"} width={"20px"} />
-                    </div>
+                    {
+                        window.innerWidth > 500 ?
+                        <div className="other-pages-link">
+                            <div id="aboutUs">About Us</div>
+                            <div id="logIn">Log In</div>
+                            <div id="createAccount">Create Account</div>
+                        </div>
+                        :
+                        <div className="icons">
+                            <img src="/shopping.svg" alt="shopping iccon" height={"20px"} width={"16px"}/>
+                            <img src="like.svg" alt="liked icon" height={"20px"} width={"22px"} />
+                            <img src="account.svg" alt="account icon" height={"20px"} width={"20px"} />
+                        </div>
+                    }
                 </div>
             </header>
             <div className="join-signIn">
@@ -123,6 +132,27 @@ const SignUpDiv = styled.div`
             .icons{
                 display: flex;
                 gap: 16px ;
+            }
+            .other-pages-link{
+                height: inherit;
+                display: flex;
+                gap: 32px;
+                width: 334px;
+                font-size: 16px;
+                align-items: center;
+                #aboutUs{
+                    color: #727272;
+                }
+                #createAccount{
+                    background-color: black;
+                    height: 100%;
+                    border-radius: 10px;
+                    color: white;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 142px;
+                }
             }
         }
     }
