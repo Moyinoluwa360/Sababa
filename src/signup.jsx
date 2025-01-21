@@ -1,23 +1,36 @@
 import styled from "styled-components";
-import LogInForm from "./LogInForm";
+import {LogInForm} from "./LogInForm";
 import Footer from "./Footer";
+import CreateAccForm from "./CreateAccForm";
+import { useState } from "react";
 export default function SignUp(){
+    const [currentForm, setCurrentForm] = useState("log in")
     return(
-        <SignUpDiv>
+        <SignUpDiv currentForm = {currentForm}>
             <header>
                 <div className="headerContent">
                     <div className="logo-sec">
-                        <img src="/SababaLogo.svg" alt="Sababa Logo" height={"40px"} width={"40px"}/>
-                        <img src="sababa.svg" alt="sababa" height={"25px"} width={"90px"}/>
+                        <img src="/SababaLogo.svg" alt="Sababa Logo" height={"50px"} width={"50px"}/>
+                        <img src="sababa.svg" alt="sababa" height={"45px"} width={"130px"}/>
                     </div>
                     <div className="other-pages-link">
-                        <div id="aboutUs">About Us</div>
-                        <div id="logIn">Log In</div>
-                        <div id="createAccount">Create Account</div>
+                        <div id="aboutUs">About us</div>
+                        <div id="logIn"
+                        onClick={()=>{setCurrentForm("log in")}}
+                        currentForm = {currentForm}
+                        >Log in</div>
+                        <div id="createAccount"
+                        onClick={()=>{setCurrentForm("create account")}}
+                        >Create account</div>
                     </div>
                 </div>
             </header>
-            <LogInForm/>
+            {
+              currentForm === "log in" ?
+              <LogInForm setCurrentForm = {setCurrentForm} />
+              :
+              <CreateAccForm setCurrentForm = {setCurrentForm} />
+            }
             <Footer/>
         </SignUpDiv>
 
@@ -34,11 +47,12 @@ const SignUpDiv = styled.div`
   box-sizing: border-box;
   header {
     width: 100%;
-    height: 34px;
+    height: 80px;
     display: flex;
     justify-content: center;
-    margin-top: 16px;
+    align-items: center;
     margin-bottom: 16px;
+    border-bottom: 1px solid  #d3d3d3;
 
     .headerContent {
       margin: 0 16px 0 16px;
@@ -70,9 +84,13 @@ const SignUpDiv = styled.div`
         #aboutUs {
           color: #727272;
         }
+        #logIn{
+          color: ${(prop) => (prop.currentForm === "log in" ? "black" : "#727272")};
+          font-weight: ${(prop) => (prop.currentForm === "log in" ? "bold" : "light")};
+        }
         #createAccount {
           background-color: black;
-          height: 100%;
+          height: 60%;
           border-radius: 10px;
           color: white;
           display: flex;

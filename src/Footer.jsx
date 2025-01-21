@@ -86,9 +86,7 @@ const FooterDiv = styled.div`
       }
     }
     .rightSideDiv{
-      width: 171px;
-      word-wrap: break-word;
-      outline: 1px solid #000000;
+      width: 260px;
       display: flex;
       div{
         height: auto;
