@@ -6,6 +6,6 @@ import StaticPageDiv from './staticPage'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <StaticPageDiv/>
+    <SignUpDiv/>
   </StrictMode>
 )
