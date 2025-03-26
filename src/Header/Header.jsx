@@ -1,16 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Navigation } from './Navigation';
-import { IconButtons } from './IconButtons';
-
+import Nav2 from './leftsideNav';
+import useWindowWidth from '../useWindowWidth';
+import { deviceSizes } from '../deviceSize';
 export const Header = () => {
+    useWindowWidth();
   return (
     <HeaderWrapper>
       <HeaderContainer>
         <HeaderContent>
-          <img src="Sababaa.svg" alt="sababa" />
-          <Navigation />
-          <IconButtons />
+          {
+            useWindowWidth() < 1090 ?
+            <div className='hamburgerMenu'>
+              <img src="/hamburgerMenu.svg" alt="menu bar" />
+            </div>
+            : null
+          }
+          <div className="logo">
+            <img src="fullSababaLogo.svg" alt="sababa"/>
+          </div>
+          {
+            useWindowWidth() > 1090 ?
+            <Navigation/>
+            : null
+          }
+          <Nav2/>
         </HeaderContent>
       </HeaderContainer>
     </HeaderWrapper>
@@ -22,9 +37,12 @@ const HeaderWrapper = styled.header`
   border-top-width: 2px;
   border-bottom-width: 2px;
   width: 100%;
-  padding: 30px 32px;
-  @media (max-width: 991px) {
-    padding: 20px;
+  padding: 0 32px 0 32px;
+  margin-bottom: 40px;
+  margin-top: 29px;
+  @media (max-width: ${deviceSizes.mobile}) {
+    height: 26px;
+    padding: 0 16px 0 16px;
   }
 `;
 
@@ -32,14 +50,47 @@ const HeaderContainer = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
+  .logo{
+    width: 131px;
+    height: 40px;
+    margin-left: 0;
+    img{
+      width: 131px;
+      height: 40px;
+    }
+  }
+  @media (max-width: ${deviceSizes.mobile}) {
+    height: 26px;
+    .logo{
+    width: 90px;
+    height: 26px;
+    img{
+      width: 90px;
+      height: 26px;
+    }
+  }
+  }
 `;
 
 const HeaderContent = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  gap: 40px 100px;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  .hamburgerMenu{
+    margin: 0%;
+    margin-right: 12px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    img{
+      height: 25px;
+    }
+    @media (max-width: ${deviceSizes.mobile}) {
+      height: inherit;
+      img{
+        height: 15px;
+        width: 22px;
+      }
+    }
+  }
 `;
