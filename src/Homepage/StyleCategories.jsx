@@ -27,7 +27,7 @@ export function StyleCategories() {
 
 const Container = styled.section`
   width: 100%;
-  max-width: 1360px;
+  max-width: 95%;
   margin-top: 39px;
 `;
 
@@ -35,13 +35,26 @@ const Title = styled.h2`
   color: rgba(0, 0, 0, 1);
   font: 600 20px Inter, sans-serif;
   margin-bottom: 16px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  @media (max-width: 480px) {
+    font-size: 17px;
+  }
 `;
 
 const CategoriesGrid = styled.div`
   display: flex;
   gap: 4px;
-  flex-wrap: wrap;
-  
+  overflow-x: auto;
+  white-space: nowrap;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
   @media (max-width: 991px) {
     max-width: 100%;
   }
@@ -50,12 +63,20 @@ const CategoriesGrid = styled.div`
 const CategoryCard = styled.div`
   position: relative;
   border-radius: 4px;
-  aspect-ratio: 0.791;
+  min-height: 340px;
+  min-width: 268px;
   overflow: hidden;
   cursor: pointer;
-  
+  height: 450px;
+  flex: 1;
+  flex-shrink: 0;
   &:hover {
     opacity: 0.9;
+  }
+  @media (max-width: 480px) {
+    max-height: 196px;
+    max-width: 119px;
+    flex: 0;
   }
 `;
 
@@ -71,6 +92,6 @@ const CategoryTitle = styled.span`
   left: 50%;
   transform: translateX(-50%);
   color: white;
-  font: 600 16px Inter, sans-serif;
+  font: 600 20px Inter, sans-serif;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
 `;

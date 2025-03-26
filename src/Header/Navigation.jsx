@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-
-const navItems = [
-  { id: 1, text: 'Shop' },
-  { id: 2, text: 'All Features' },
-  { id: 3, text: 'Contact' },
-  { id: 4, text: 'About Us' }
-];
+import NavigationMenu from './AllOutfits/NavigationMenu';
 
 export const Navigation = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <Nav>
-      {navItems.map(item => (
-        <NavItem key={item.id} tabIndex="0">
-          {item.text}
-        </NavItem>
-      ))}
+      <NavItem tabIndex="0">Shop</NavItem>
+      <HoverWrapper
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <NavItem tabIndex="0">All Features <img src="dropdown.svg" alt="all feature drop down" /> </NavItem>
+        {isHovered && <NavigationMenu />}
+      </HoverWrapper>
+      <NavItem tabIndex="0">Contact Us</NavItem>
     </Nav>
   );
 };
@@ -26,20 +26,34 @@ const Nav = styled.nav`
   align-items: center;
   gap: 16px;
   color: #000;
-  font: 500 18px Inter, sans-serif;
+  margin-left: 64px;
+  font: 500 16px Inter, sans-serif;
+
   @media (max-width: 640px) {
     display: none;
   }
 `;
 
 const NavItem = styled.div`
-  align-self: stretch;
-  margin: auto 0;
   padding: 10px;
-  gap: 10px;
+  font-size: 17.5px;
+  font-weight: 600;
   cursor: pointer;
   transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
   &:hover {
     color: #545454;
   }
+  img{
+    height: 15px;
+    width: 15px;
+  }
+`;
+
+const HoverWrapper = styled.div`
+  position: relative;
+  display: inline-block;
 `;

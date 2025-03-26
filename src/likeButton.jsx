@@ -1,45 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export function OutfitCard({ image, likes, id }) {
+export function likeBtn() {
   return (
-    <CardContainer>
-      <OutfitImage src={image} alt={`Outfit of the day ${id}`} loading="lazy" />
       <LikeButton aria-label={`Like outfit ${id}`}>
         <LikeIcon src="https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c44b90513fc161d45e980628189af31a658fae5fc05b1e5e4b6050dd361f8626?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&" alt="" />
       </LikeButton>
-      <OutfitLabels>
-        <OutfitLabel>OOTD {id}</OutfitLabel>
-      </OutfitLabels>
-    </CardContainer>
   );
 }
 
-const CardContainer = styled.div`
-  position: relative;
-  border-radius: 4px;
-  width: 217px;
-  height: 335px;
-  overflow: hidden;
-  @media (max-width: 480px) {
-    width: 119px;
-    height: 215px;
-  }
-`;
-
-const OutfitImage = styled.img`
-  width: 100%;
-  height: 304px;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-  
-  &:hover {
-    transform: scale(1.05);
-  }
-  @media (max-width: 480px) {
-    height: 196px;
-  }
-`;
 
 const LikeButton = styled.button`
   position: absolute;
@@ -79,17 +48,5 @@ const LikeIcon = styled.img`
   @media (max-width:480px){
     width: 13px;
     height: 12px;
-  }
-`;
-const OutfitLabels = styled.div`
-  margin-top: 4px;
-`;
-
-const OutfitLabel = styled.div`
-  color: rgba(0, 0, 0, 1);
-  font: 500 16px Inter, sans-serif;
-  text-align: center;
-  @media (max-width: 480px) {
-    font-size: 12px;
   }
 `;
