@@ -9,6 +9,8 @@ import OrderSummary from "./OrderSummary";
 import Footer from "../Footer";
 import PaymentSection from "./PaymentSection";
 import PaymentDetailsSummary from "./PaymentsDetailsSummary";
+import useWindowWidth from "../useWindowWidth";
+import MobileCheckoutComponent from "./MobileCheckoutComponent";
 
 function CheckoutPage() {
   return (
@@ -20,11 +22,18 @@ function CheckoutPage() {
       <Header />
       <BreadcrumbNav />
       <MainTitle>Checkout</MainTitle>
-      <CheckoutSteps />
-      <CheckoutContainer>
-        <ShippingForm/>
-        <OrderSummary/>
-      </CheckoutContainer>
+      {
+        useWindowWidth() >= 630 ?
+        <>
+          <CheckoutSteps />
+          <CheckoutContainer>
+            <ShippingForm/>
+            <OrderSummary/>
+          </CheckoutContainer>
+        </>
+        :
+         <MobileCheckoutComponent/>
+      }
       <Footer />
     </>
   );

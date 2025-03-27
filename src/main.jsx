@@ -7,12 +7,12 @@ import HomePage from './Homepage/HomePage'
 import AllOutfits from './All Outfits/AllOutfits'
 import OutfitBreakdown from './Outfit Breakdown/OutfitBreakdown'
 import OutfitsPayment from './OutfitPayment/OutfitPayment'
-import ShoppingBag from './Bag/shoppingBag'
+import ShoppingBag from './Bag/ShoppingBag'
 import CheckoutPage from './Checkout/Checkout'
 import ContactUs from './ContactUs/ContactUs'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ShoppingBag/>
+    <CheckoutPage/>
   </StrictMode>
 )
