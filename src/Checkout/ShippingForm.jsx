@@ -69,7 +69,7 @@ function ShippingForm() {
           <Label htmlFor="city">City</Label>
           <Input type="text" id="city" value="Warri" />
         </FormGroup>
-        <FormGroup>
+        <FormGroup id="zip">
           <Label htmlFor="zipCode">ZIP Code</Label>
           <Input type="text" id="zipCode" value="330201" />
         </FormGroup>
@@ -96,6 +96,9 @@ const ShippingDetails = styled.section`
   @media (max-width: 991px) {
     width: 100%;
   }
+  @media (max-width: 480px){
+    padding: 0%;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -104,6 +107,9 @@ const SectionTitle = styled.h2`
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 8px;
+  @media (max-width: 480px){
+    font-size: 14px;
+  }
 `;
 
 const DeliveryOptions = styled.div`
@@ -111,6 +117,9 @@ const DeliveryOptions = styled.div`
   align-items: center;
   gap: 4px;
   margin-bottom: 20px;
+  @media (max-width: 480px){
+    display: none;
+  }
 `;
 
 const DeliveryOption = styled.button`
@@ -131,6 +140,9 @@ const DeliveryOption = styled.button`
 
 const FormGroup = styled.div`
   margin-bottom: 20px;
+  @media (max-width: 480px){
+    margin-bottom: 5px;
+  }
 `;
 
 const Label = styled.label`
@@ -140,6 +152,9 @@ const Label = styled.label`
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 8px;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
 `;
 
 const Input = styled.input`
@@ -150,6 +165,11 @@ const Input = styled.input`
   border: 1px solid rgba(0, 0, 0, 0.1);
   font-family: Inter, sans-serif;
   font-size: 16px;
+  @media (max-width: 480px){
+    font-size: 14px;
+    height: 44px;
+    padding: 0 10px;
+  }
 `;
 
 const PhoneInput = styled.div`
@@ -165,6 +185,9 @@ const PhoneInput = styled.div`
 const PhoneCode = styled.span`
   font-family: Inter, sans-serif;
   font-size: 16px;
+  @media (max-width: 480px){
+    font-size: 14px;
+  }
 `;
 
 const PhoneDivider = styled.div`
@@ -176,6 +199,9 @@ const PhoneDivider = styled.div`
 const PhoneNumber = styled.span`
   font-family: Inter, sans-serif;
   font-size: 16px;
+  @media (max-width: 480px){
+    font-size: 14px;
+  }
 `;
 
 const SelectWrapper = styled.div`
@@ -189,6 +215,9 @@ const SelectWrapper = styled.div`
   cursor: pointer;
   font-family: Inter, sans-serif;
   font-size: 16px;
+  @media (max-width: 480px){
+    font-size: 14px;
+  }
 `;
 
 const AddressGrid = styled.div`
@@ -197,7 +226,14 @@ const AddressGrid = styled.div`
   gap: 4px;
   margin-bottom: 20px;
   @media (max-width: 640px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto;
+  }
+  #zip{
+    grid-column: span 2;
+  }
+  @media (max-width: 480px){
+    margin-bottom: 5px;
   }
 `;
 
