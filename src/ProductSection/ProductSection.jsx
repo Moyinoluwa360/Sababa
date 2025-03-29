@@ -11,7 +11,7 @@ export const ProductSection = () => {
   
   useEffect(()=>{
     async function getproduct() {
-      const url = `https://real-time-product-search.p.rapidapi.com/search-v2?q=${productName}&limit=16`;
+      const url = `https://real-time-product-search.p.rapidapi.com/search-v2?q=${productName}&limit=18`;
       const options = {
           method: 'GET',
           headers: {
@@ -45,6 +45,7 @@ const MainContent = styled.main`
   flex-direction: column;
   align-items: center;
   padding: 40px 0;
+  background-color: aqua;
 `;
 
 const SectionTitle = styled.h1`
