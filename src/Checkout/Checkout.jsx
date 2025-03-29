@@ -14,7 +14,7 @@ import MobileCheckoutComponent from "./MobileCheckoutComponent";
 
 function CheckoutPage() {
   return (
-    <>
+    <Con>
       <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet"
@@ -35,9 +35,13 @@ function CheckoutPage() {
          <MobileCheckoutComponent/>
       }
       <Footer />
-    </>
+    </Con>
   );
 }
+
+const Con = styled.div`
+  background-color: white;
+`
 
 const MainTitle = styled.h1`
   text-align: center;
@@ -46,6 +50,10 @@ const MainTitle = styled.h1`
   font-size: 32px;
   font-weight: 600;
   margin: 20px 0;
+  @media (max-width: 480px){
+    font-size: 16px;
+    margin: 10px 0;
+  }
 `;
 
 const CheckoutContainer = styled.main`

@@ -9,8 +9,12 @@ const PaymentSection = () => {
         <SectionTitle>Card Information</SectionTitle>
         <CardInput placeholder="Card Number"/>
         <CardRow>
-          <ExpiryInput placeholder="Expiry Date" />
+          <ExpiryContainer>
+            <InputLabel className="inputLabel">Expiry Date</InputLabel>
+            <ExpiryInput placeholder="Expiry Date" />
+          </ExpiryContainer>
           <CvvInputContainer>
+            <InputLabel className="inputLabel">CVV</InputLabel>
             <CvvInput placeholder="CVV Number"/>
             <InfoIconWrapper>
                 <svg
@@ -96,27 +100,72 @@ const CardRow = styled.div`
   display: flex;
   gap: 8px;
   margin-bottom: 20px;
+  .inputLabel{
+    display: none;
+  }
+  @media (max-width: 630px){
+    background-color: aqua;
+    height: 65px;
+  }
 `;
 
+const ExpiryContainer = styled.div`
+  width: 50%;
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  @media (max-width: 630px){
+    .inputLabel{
+      display: block;
+      font-size: 12px;
+      background-color: beige;
+      margin: 0;
+    }
+  }
+`
+
 const ExpiryInput = styled.input`
-  width: 246px;
-  height: 48px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   padding: 0 16px;
+  width: 100%;
+  height: 48px;
+  @media (max-width: 630px){
+    height: 95%;
+  }
 `;
 
 const CvvInputContainer = styled.div`
+  width: 50%;
   position: relative;
-  width: 246px;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 630px){
+    .inputLabel{
+      display: block;
+      font-size: 12px;
+      background-color: beige;
+      margin: 0;
+    }
+  }
 `;
 
 const CvvInput = styled.input`
-  width: 100%;
   height: 48px;
+  width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   padding: 0 16px;
+  @media (max-width: 630px){
+    height: 95%;
+  }
+  @media (max-width: 480px){
+    ::placeholder{
+      display: none;
+      color: aqua;
+    }
+  }
 `;
 
 const InfoIconWrapper = styled.span`
@@ -125,6 +174,9 @@ const InfoIconWrapper = styled.span`
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+  @media (max-width: 630px){
+    top: 65%;
+  }
 `;
 
 const CardholderName = styled.div`
@@ -156,6 +208,9 @@ const PriceSummary = styled.div`
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.15);
   margin-top: 20px;
   background-color: #fff;
+  @media (max-width: 630px){
+    display: none;
+  }
 `;
 
 const SummaryRow = styled.div`

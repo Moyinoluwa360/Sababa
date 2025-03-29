@@ -92,12 +92,12 @@ const ShippingDetails = styled.section`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.15);
-  background-color: #fff;
   @media (max-width: 991px) {
     width: 100%;
   }
   @media (max-width: 480px){
     padding: 0%;
+    box-shadow: none;
   }
 `;
 
@@ -167,7 +167,7 @@ const Input = styled.input`
   font-size: 16px;
   @media (max-width: 480px){
     font-size: 14px;
-    height: 44px;
+    height: 40px;
     padding: 0 10px;
   }
 `;

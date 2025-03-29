@@ -62,24 +62,32 @@ function OrderSummary() {
         </DiscountInput>
       </DiscountCode>
 
-      <OrderTotals>
-        <TotalRow>
-          <TotalLabel>Price:</TotalLabel>
-          <TotalValue>$105.12</TotalValue>
-        </TotalRow>
-        <TotalRow>
-          <TotalLabel>Shipping:</TotalLabel>
-          <TotalValue>$5.12</TotalValue>
-        </TotalRow>
-        <TotalRow>
-          <TotalLabel>Discount:</TotalLabel>
-          <TotalValue>-$0.00</TotalValue>
-        </TotalRow>
-        <FinalTotalRow>
-          <TotalLabel>Total:</TotalLabel>
-          <TotalValue>$110.12</TotalValue>
-        </FinalTotalRow>
-      </OrderTotals>
+      <DeliveryInfo>
+        <AmazonDel>
+          <div>
+              <div className="EtsyLabel">Amazon (2 items) </div>
+              <div className="price">$102.12</div>
+          </div>
+          <div>
+              <div className="dateLabel">Delivery date</div>
+              <div className="date">15th March 2025</div>
+          </div>
+        </AmazonDel>
+        <EtsyDel>
+          <div>
+              <div className="EtsyLabel">Etsy (1 items) </div>
+              <div className="price">$11.15</div>
+          </div>
+          <div>
+              <div className="dateLabel">Delivery date</div>
+              <div className="date">15th March 2025</div>
+          </div>
+        </EtsyDel>
+        <Total>
+          <div className="totaILabel">Total shipping fee</div>
+          <div className="totalPrice">$127.30</div>
+        </Total>
+      </DeliveryInfo>
 
       <TermsCheckbox>
         <Checkbox />
@@ -216,33 +224,58 @@ const ApplyButton = styled.button`
   margin-left: auto;
 `;
 
-const OrderTotals = styled.div`
+const DeliveryInfo = styled.div`
   margin-bottom: 24px;
 `;
 
-const TotalRow = styled.div`
+const AmazonDel = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #d3d3d3;
+  div{
+    display: flex;
+    justify-content: space-between;
+    font-family: Inter;
+    font-size: 16px;
+    :first-child{
+      color: #545454;
+    }
+    @media (max-width: 480px){
+        font-size: 12px;
+    }
+  }
+`
+const EtsyDel = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 0 10px 0;
+  border-bottom: 1px solid #d3d3d3;
+  div{
+    display: flex;
+    justify-content: space-between;
+    font-family: Inter;
+    font-size: 16px;
+    :first-child{
+      color: #545454;
+    }
+    @media (max-width: 480px){
+        font-size: 12px;
+    }
+  }
+`
+const Total = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
-`;
-
-const TotalLabel = styled.span`
-  color: #545454;
-  font-family: Inter, sans-serif;
   font-size: 16px;
-  font-weight: 500;
-`;
-
-const TotalValue = styled.span`
-  color: #545454;
-  font-family: Inter, sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-`;
-
-const FinalTotalRow = styled(TotalRow)`
   font-weight: 600;
-`;
+  margin-top: 10px;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
+`
 
 const TermsCheckbox = styled.label`
   display: flex;
