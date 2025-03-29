@@ -10,9 +10,10 @@ import OutfitsPayment from './OutfitPayment/OutfitPayment'
 import ShoppingBag from './Bag/ShoppingBag'
 import CheckoutPage from './Checkout/Checkout'
 import ContactUs from './ContactUs/ContactUs'
+import AddCard from './Checkout/AddCard'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <CheckoutPage/>
+    <StaticPageDiv/>
   </StrictMode>
 )
