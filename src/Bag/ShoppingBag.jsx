@@ -66,6 +66,7 @@ const MainContent = styled.main`
   padding: 20px 40px;
   display: flex;
   flex-direction: column;
+  background-color: white;
 `;
 
 const PageTitle = styled.h1`
