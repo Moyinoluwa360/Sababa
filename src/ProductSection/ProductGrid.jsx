@@ -4,26 +4,25 @@ import ProductCard from "./ProductCard.jsx";
 
 export default function ProductGrid(props) {
   return (
-    <GridWrapper>
-      <GridContainer>
-        {props.productsDatas.map((product, index) => (
-            <ProductCard product = {product} />
-        ))}
-      </GridContainer>
-    </GridWrapper>
+    <Wrapper>
+      {props.productsDatas.map((product, index) => (
+          <ProductCard product = {product} />
+      ))}
+    </Wrapper>
   );
 }
 
-const GridWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: fit-content;
-`;
-
-const GridContainer = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  width: 95%;
+  width: 100%;
+  justify-content: center;
+  gap: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  @media (max-width: 480px){
+    gap: 12px;
+  }
 `;
+

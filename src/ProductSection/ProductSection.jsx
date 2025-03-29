@@ -45,11 +45,16 @@ const MainContent = styled.main`
   flex-direction: column;
   align-items: center;
   padding: 40px 0;
+  @media (max-width: 480px){
+    padding: 0 0;
+  }
 `;
 
 const SectionTitle = styled.h1`
   text-align: center;
   margin-bottom: 24px;
   font: 600 32px Inter, sans-serif;
-
+  @media (max-width: 480px){
+    font-size: 16px;
+  }
 `;

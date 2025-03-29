@@ -47,8 +47,12 @@ const SearchWrapper = styled.div`
   width: 100%;
   height: 141px;
   display: flex;
-  margin-bottom: 20px;
   flex-direction: column;
+  @media (max-width: 520px){
+    padding-left:16px;
+    padding-right: 16px;
+    height: 100px;
+  }
 `;
 
 const SearchInput = styled.input`
@@ -61,6 +65,14 @@ const SearchInput = styled.input`
   padding: 0 20px;
   font: 500 16px Inter, sans-serif;
   align-self: center;
+  @media (max-width: 520px){
+    width: 100%;
+    font-size: 12px;
+    padding-left:16px;
+    padding-right: 16px;
+    height: 37px;
+    border-radius: 8px;
+  }
 `;
 
 const FilterButtons = styled.div`
@@ -68,6 +80,18 @@ const FilterButtons = styled.div`
   gap: 16px;
   width: 100%;
   justify-content: center;
+  @media (max-width: 430px){
+    justify-content: flex-start;
+    gap: 8px;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+    display: none;
+    }
+    
+  /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+  }
 `;
 
 const FilterButton = styled.button`
@@ -81,5 +105,9 @@ const FilterButton = styled.button`
   font: 600 20px Inter, sans-serif;
   &:hover {
     background-color: #f0f0f0;
+  }
+  @media (max-width: 640px){
+    font-size: 12px;
+    height: 32px;
   }
 `;
