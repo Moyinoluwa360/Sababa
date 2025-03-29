@@ -45,25 +45,29 @@ export const SearchSection = (props) => {
 
 const SearchWrapper = styled.div`
   width: 100%;
-  max-width: 646px;
-  margin-bottom: 77px;
+  height: 141px;
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: column;
 `;
 
 const SearchInput = styled.input`
   border-radius: 16px;
-  height: 64px;
-  width: 100%;
+  height: 52px;
+  width: 488px;
   margin-bottom: 16px;
   background-color: rgba(0, 0, 0, 0.05);
   border: none;
   padding: 0 20px;
   font: 500 16px Inter, sans-serif;
+  align-self: center;
 `;
 
 const FilterButtons = styled.div`
   display: flex;
   gap: 16px;
-  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
 `;
 
 const FilterButton = styled.button`

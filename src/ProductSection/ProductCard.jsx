@@ -7,13 +7,13 @@ export default function ProductCard(props) {
       <ImageContainer>
         <ProductImage loading="lazy" src={props.product?.product_photos?.[0] || "https://via.placeholder.com/300"} alt={props.product.product_title} />
         <WishlistButton>
-          <WishlistIcon loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/670b379f0fa29515974c756c5aa4f1421e137ca32aa6d9a4ba2a024fab47cac8?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&" />
+          <img src="/heart.svg" alt="like button" />
         </WishlistButton>
       </ImageContainer>
       <ProductInfo>
         <ProductName>{props.product.product_title}</ProductName>
         <PriceInfo>
-          <PriceLabel>Price range across stores:</PriceLabel>
+          <PriceLabel>Price from:</PriceLabel>
           <PriceRange>{props.product?.typical_price_range?.[0] - props.product?.typical_price_range?.[1]}</PriceRange>
         </PriceInfo>
       </ProductInfo>
@@ -21,79 +21,67 @@ export default function ProductCard(props) {
   );
 }
 
-const CardWrapper = styled.article`
+const CardWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   flex: 1;
+  flex-direction: column;
+  min-height: 366px;
+  min-width: 218px;
 `;
 
 const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  border-radius: 4px;
-  position: relative;
-  aspect-ratio: 0.81;
-  align-items: end;
-  padding: 321px 62px 16px;
-  @media (max-width: 991px) {
-    margin-top: 16px;
-    padding: 100px 0 0 20px;
-  }
+  height: 304px;
 `;
 
 const ProductImage = styled.img`
-  position: absolute;
-  inset: 0;
-  height: 100%;
+  height: 304px;
   width: 100%;
-  object-fit: cover;
+  border-radius: 5px;
 `;
 
 const WishlistButton = styled.button`
   position: relative;
   border-radius: 24px;
   background-color: rgba(255, 255, 255, 0.5);
-  min-height: 48px;
-  width: 48px;
+  height: 32px;
+  width: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   cursor: pointer;
-  left: 40px;
-`;
-
-const WishlistIcon = styled.img`
-  aspect-ratio: 1.04;
-  object-fit: contain;
-  width: 27px;
+  left: 180px;
+  bottom: 60px;
+  img{
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 const ProductInfo = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 8px;
 `;
 
-const ProductName = styled.h3`
+const ProductName = styled.div`
   color: rgba(0, 0, 0, 1);
-  font: 500 20px Inter, sans-serif;
-  margin: 0;
+  font: 600 16px Inter;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const PriceInfo = styled.div`
-  margin-top: 4px;
-  font-family: Inter, sans-serif;
+  font-family: Inter;
 `;
 
 const PriceLabel = styled.span`
-  font-size: 16px;
+  font-size: 12px;
   color: rgba(114, 114, 114, 1);
 `;
 
 const PriceRange = styled.div`
   font-weight: 600;
-  font-size: 20px;
+  font-size: 16px;
   color: rgba(0, 0, 0, 1);
-  margin-top: 4px;
 `;

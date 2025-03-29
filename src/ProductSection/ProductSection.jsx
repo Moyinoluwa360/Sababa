@@ -45,11 +45,11 @@ const MainContent = styled.main`
   flex-direction: column;
   align-items: center;
   padding: 40px 0;
-  background-color: aqua;
 `;
 
 const SectionTitle = styled.h1`
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   font: 600 32px Inter, sans-serif;
+
 `;
