@@ -69,7 +69,7 @@ const PaymentSectionContainer = styled.section`
     width: 100%;
   }
   @media (max-width: 640px) {
-    padding: 15px;
+    padding: 12px;
   }
 `;
 
@@ -77,7 +77,10 @@ const CardInfoBox = styled.div`
   border-radius: 8px;
   padding: 20px;
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.15);
-  background-color: #fff;
+  @media (max-width: 630px) {
+    box-shadow: none;
+    padding: 0%;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -85,6 +88,11 @@ const SectionTitle = styled.h2`
   font-weight: 600;
   color: #000;
   margin-bottom: 20px;
+  @media (max-width: 480px){
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: #545454;
+  }
 `;
 
 const CardInput = styled.input`
@@ -94,6 +102,15 @@ const CardInput = styled.input`
   border-radius: 4px;
   margin-bottom: 8px;
   padding: 0 16px;
+  @media (max-width: 630px) {
+    padding: 0 4px;
+  }
+  @media (max-width: 480px){
+    &::placeholder{
+      color: transparent;
+    }
+    height: 40px;
+  }
 `;
 
 const CardRow = styled.div`
@@ -104,22 +121,22 @@ const CardRow = styled.div`
     display: none;
   }
   @media (max-width: 630px){
-    background-color: aqua;
     height: 65px;
+  }
+  @media (max-width: 480px){
+    margin-bottom: 5px;
   }
 `;
 
 const ExpiryContainer = styled.div`
   width: 50%;
-  background-color: aquamarine;
   display: flex;
   flex-direction: column;
-  gap: 0px;
+  gap: 5px;
   @media (max-width: 630px){
     .inputLabel{
       display: block;
       font-size: 12px;
-      background-color: beige;
       margin: 0;
     }
   }
@@ -133,6 +150,13 @@ const ExpiryInput = styled.input`
   height: 48px;
   @media (max-width: 630px){
     height: 95%;
+    padding: 0 4px;
+  }
+  @media (max-width: 480px){
+    &::placeholder{
+      color: transparent;
+    }
+    height: 40px;
   }
 `;
 
@@ -141,13 +165,14 @@ const CvvInputContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  gap: 5px;
   @media (max-width: 630px){
     .inputLabel{
       display: block;
       font-size: 12px;
-      background-color: beige;
       margin: 0;
     }
+    padding: 0 4px;
   }
 `;
 
@@ -159,12 +184,13 @@ const CvvInput = styled.input`
   padding: 0 16px;
   @media (max-width: 630px){
     height: 95%;
+    padding: 0 4px;
   }
   @media (max-width: 480px){
-    ::placeholder{
-      display: none;
-      color: aqua;
+    &::placeholder{
+      color: transparent;
     }
+    height: 40px;
   }
 `;
 
@@ -181,6 +207,9 @@ const InfoIconWrapper = styled.span`
 
 const CardholderName = styled.div`
   margin-bottom: 20px;
+  @media (max-width: 480px){
+    margin-bottom: 10px;
+  }
 `;
 
 const InputLabel = styled.label`
@@ -188,6 +217,9 @@ const InputLabel = styled.label`
   color: #545454;
   font-size: 16px;
   margin-bottom: 8px;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
 `;
 
 const InputField = styled.input`
@@ -196,10 +228,24 @@ const InputField = styled.input`
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   font-size: 16px;
+  height: 48px;
+  @media (max-width: 630px){
+    padding: 0 4px;
+
+  }
+  @media (max-width: 480px){
+    &::placeholder{
+      color: transparent;
+    }
+    height: 40px;
+  }
 `;
 
 const DiscountCode = styled.div`
   margin-bottom: 20px;
+  @media (max-width: 630px){
+    margin-bottom: 0%;
+  }
 `;
 
 const PriceSummary = styled.div`
