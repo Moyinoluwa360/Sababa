@@ -5,18 +5,6 @@ import styled from "styled-components";
 export function OutfitDetails() {
   return (
     <DetailsSection>
-      <MainImageColumn>
-        <ImageContainer>
-          <MainImage
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/4eadd821fbca46f1ee8093782c91ab061b8046c73bb458dea6ff63910dbdc06a"
-            alt="Main outfit"
-          />
-          <LikeButton>
-              <LikeIcon src="/heart.svg" alt="" />
-          </LikeButton>
-        </ImageContainer>
-      </MainImageColumn>
       <MainContent>
         <StyleInfo>
           <DetailGroup>
@@ -68,107 +56,13 @@ export function OutfitDetails() {
 const DetailsSection = styled.section`
   display: flex;
   flex-direction: column;
-  width: 30%;
   gap: 20px;
-  height: 402px;
-  background-color: bisque;
-  @media (max-width: 1050px) {
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
-  }
-  @media (max-width: 835px) {
-    height: 300px;
-  }
-  @media (max-width: 600px) {
-    height: 240px;
-  }
-  @media (max-width: 390px) {
-    gap: 5px;
-  }
-  @media (max-width: 375px) {
-    height: 200px;
-  }
-  
-`;
-
-const MainImageColumn = styled.div`
-  height: 100%;
-  width: 288px;
-  @media (max-width: 835px) {
-    width: 200px;
-  }
-  @media (max-width: 600px) {
-    width: 163px;
-  }
-  @media (max-width: 375px) {
-    width: 123px;
-  }
-`;
-
-const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  border-radius: 4px;
-  position: relative;
-  align-items: end;
-  height: 100%;
-  width: 100%;
-`;
-
-const MainImage = styled.img`
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-`;
-
-const LikeButton = styled.button`
-  position: absolute;
-  bottom: 20px;
-  right: 12px;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  border: none;
-  background: none;
-  
-  @media (max-width:480px){
-    width: 24px;
-    height: 24px;
-    bottom: 25px;
-  }
-`;
-
-const LikeIcon = styled.img`
-  width: 100%;
-  height: 100%;
-  margin-top: 2.5px;
-  @media (max-width:480px){
-    width: 13px;
-    height: 12px;
-  }
 `;
 
 const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  background-color: #17cfcf;
-  @media (max-width: 750px) {
-    width: 300px;
-  }
-  @media (max-width: 600px) {
-    width: 163px;
-  }
-  @media (max-width: 375px) {
-    overflow-y: scroll;
-  }
-  @media (max-width: 335px) {
-    width: 120px;
-    word-wrap: break-word;
-  }
 `;
 
 const StyleInfo = styled.div`
@@ -194,23 +88,16 @@ const Label = styled.div`
   margin-bottom: 4px;
   color: #545454;
   font-family: Inter;
-  @media (max-width: 600px) {
+  @media (max-width: 480px) {
     font-size: 10px;
   }
 `;
 
 const Value = styled.p`
   font-size: 16px;
-  white-space: nowrap; /* Prevents text from wrapping */
-  overflow: visible;  
   color: #1C1C1C;
   font-family: Inter;
-  @media (max-width: 750px) {
-    white-space: normal;
-    overflow: auto;
-    font-size: 14px;
-  }
-  @media (max-width: 600px) {
+  @media (max-width: 480px) {
     font-size: 12px;
   }
 `;
@@ -218,9 +105,6 @@ const Value = styled.p`
 const SocialSection = styled.div`
   align-self: stretch;
   width: 100%;
-  @media (max-width: 991px) {
-    max-width: 100%;
-  }
 `;
 
 const SocialIcons = styled.div`
@@ -242,9 +126,8 @@ const Disclaimer = styled.p`
   white-space: nowrap; /* Prevents text from wrapping */
   overflow: visible;  
   color: #545454;
-  @media (max-width: 1050px) {
-    white-space: normal;
-    overflow: auto;
+  @media (max-width: 480px) {
+    display: none;
   }
 `;
 

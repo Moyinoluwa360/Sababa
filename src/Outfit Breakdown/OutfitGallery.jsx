@@ -1,53 +1,71 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-
+import MobileBreakdown from "./MobileMainBreakdown";
 export function OutfitGallery() {
   return (
     <GallerySection>
-      <div id="div">
-        <NextShow id={"toTheLeft"} >
-          <img src="/lessThan.svg" alt="to the left arrow" />
-        </NextShow>
-        <MainBreakdown>
-          <CardContainer>
-            <OutfitImage src={"/dummyImg/shirtDummy.svg"} alt={"dummy for the real"}/>
-            <LikeButton>
+      <MainImageColumn>
+        <ImageContainer>
+          <MainImage
+            loading="lazy"
+            src="https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/4eadd821fbca46f1ee8093782c91ab061b8046c73bb458dea6ff63910dbdc06a"
+            alt="Main outfit"
+          />
+          <LikeButton className="mainLikeButton">
               <LikeIcon src="/heart.svg" alt="" />
-            </LikeButton>
-          </CardContainer>
-          <CardContainer>
-            <OutfitImage src={"/dummyImg/pantsDummy.svg"} alt={"dummy for the real"}/>
-            <LikeButton>
-              <LikeIcon src="/heart.svg" alt="" />
-            </LikeButton>
-          </CardContainer>
-          <CardContainer>
-            <OutfitImage src={"/dummyImg/shoeDummy.svg"} alt={"dummy for the real"}/>
-            <LikeButton>
-              <LikeIcon src="/heart.svg" alt="" />
-            </LikeButton>
-          </CardContainer>
-        </MainBreakdown>
-        <NextShow id={"toTheRight"} >
-          <img src="/greaterThan.svg" alt="to the right arrow" />
-        </NextShow>
-      </div>
-      <ImageNav>
-        <NavDot active />
-        <NavDot />
-      </ImageNav>
+          </LikeButton>
+        </ImageContainer>
+      </MainImageColumn>
+      <MobileBreakdown />
+      <BreakdownSection>
+        <div id="div">
+          <NextShow id={"toTheLeft"} >
+            <img src="/lessThan.svg" alt="to the left arrow" />
+          </NextShow>
+          <MainBreakdown>
+            <CardContainer>
+              <OutfitImage src={"/dummyImg/shirtDummy.svg"} alt={"dummy for the real"}/>
+              <LikeButton>
+                <LikeIcon src="/heart.svg" alt="" />
+              </LikeButton>
+            </CardContainer>
+            <CardContainer>
+              <OutfitImage src={"/dummyImg/pantsDummy.svg"} alt={"dummy for the real"}/>
+              <LikeButton>
+                <LikeIcon src="/heart.svg" alt="" />
+              </LikeButton>
+            </CardContainer>
+            <CardContainer>
+              <OutfitImage src={"/dummyImg/shoeDummy.svg"} alt={"dummy for the real"}/>
+              <LikeButton>
+                <LikeIcon src="/heart.svg" alt="" />
+              </LikeButton>
+            </CardContainer>
+          </MainBreakdown>
+          <NextShow id={"toTheRight"} >
+            <img src="/greaterThan.svg" alt="to the right arrow" />
+          </NextShow>
+        </div>
+        <ImageNav>
+          <NavDot active />
+          <NavDot />
+        </ImageNav>
+      </BreakdownSection>
     </GallerySection>
   );
 }
 
 const GallerySection = styled.section`
-  width: 70%;
+  width: 100%;
   height: 402px;
   display: flex;
-  flex-direction: column;
-  @media (max-width: 1050px) {
-    width: 100%;
+  justify-content: space-between;
+  @media (max-width: 1270px) {
+    flex-direction: column;
+    height: fit-content;
+    gap: 10px;
+    align-items: center;
   }
   #div{
     display: flex;
@@ -55,6 +73,61 @@ const GallerySection = styled.section`
     justify-content: space-between;
   }
 `;
+
+const MainImageColumn = styled.div`
+  height: 402px;
+  width: 288px;
+  @media (max-width: 750px) {
+    height: 300px;
+    width: 220px;
+  }
+  @media (max-width: 300px) {
+    height: 250px;
+    width: 170px;
+  }
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  position: relative;
+  align-items: end;
+  height: 100%;
+  width: 100%;
+  .mainLikeButton{
+    @media (max-width: 300px) {
+      height: 27px;
+      width: 27px;
+    }
+  }
+`;
+
+const MainImage = styled.img`
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+`;
+
+const BreakdownSection = styled.section`
+  display: flex;
+  flex-direction: column; 
+  width: 75%;
+  @media (max-width: 1270px) {
+    width: 100%;
+  }
+  @media (max-width: 1000px) {
+    height: 300px;
+  }
+  @media (max-width: 750px) {
+    height: 200px;
+  }
+  @media (max-width: 520px) {
+    display: none;
+  }
+`
 
 const NextShow = styled.div`
   display: flex;
@@ -65,7 +138,6 @@ const MainBreakdown = styled.div`
   width: 95%;
   display: flex;
   justify-content: space-between;
-  background-color: aquamarine;
   margin: 0 5px 0 5px;
   `
 ;
@@ -78,6 +150,17 @@ const CardContainer = styled.div`
   height: 402px;
   overflow: hidden;
   background-color: aqua;
+  @media (max-width: 1000px) {
+    min-width: 25%;
+    height: 300px;
+  }
+  @media (max-width: 750px) {
+    height: 200px;
+    min-width: 30%;
+  }
+  @media (max-width: 520px) {
+    display: block;
+  }
 `;
 
 const OutfitImage = styled.img`
@@ -93,29 +176,19 @@ const OutfitImage = styled.img`
 
 const LikeButton = styled.button`
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   right: 12px;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   cursor: pointer;
   border: none;
-  background-color: white;
-  
-  @media (max-width:480px){
-    width: 24px;
-    height: 24px;
-    bottom: 25px;
-  }
+  background: none;
 `;
 
 const LikeIcon = styled.img`
   width: 100%;
   height: 100%;
   margin-top: 2.5px;
-  @media (max-width:480px){
-    width: 13px;
-    height: 12px;
-  }
 `;
 
 const ImageNav = styled.div`

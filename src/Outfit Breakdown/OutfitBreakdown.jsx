@@ -6,6 +6,7 @@ import Footer from "../Footer"
 import BreadcrumbNav from "../BreadcrumbNav";
 import { OutfitGallery } from "./OutfitGallery";
 import { OutfitDetails } from "./OutfitDetails";
+import useWindowWidth from "../useWindowWidth";
 
 function OutfitBreakdown() {
   return (
@@ -14,7 +15,9 @@ function OutfitBreakdown() {
       <BreadcrumbNav/>
       <PageTitle>
         <div className="pTitle">
-          Outfit Of The Day 100
+          {
+            useWindowWidth() > 481 ? "Outfit Of The Day 100" : "OOTD 100"
+          }
         </div>
         {
           <div className="buyall">
@@ -23,8 +26,11 @@ function OutfitBreakdown() {
         }
       </PageTitle>
       <MainSection>
-        <OutfitDetails />
         <OutfitGallery />
+        <OutfitDetails />
+        <Buyall>
+          Buy All
+        </Buyall>
       </MainSection>
       <Footer />
     </main>
@@ -42,30 +48,62 @@ const PageTitle = styled.div`
   position: relative;
   height: 40px;
   margin: 21px 0 40px 0;
+  @media (max-width: 480px) {
+    margin-bottom: 0px;
+  }
   .pTitle{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     font-size: 32px;
     font-weight: 600;
+    @media (max-width: 700px) {
+      font-size: 25px;
+    }
+    @media (max-width: 550px) {
+      font-size: 20px;
+    }
+    @media (max-width: 480px) {
+      font-size: 16px;
+    }
   }
   .buyall{
     margin-left: auto;
     font-size: 16px;
     margin-right: 40px;
+    @media (max-width: 480px) {
+      display: none;
+    }
   }
 `
 
 const MainSection = styled.section`
   display: flex;
+  flex-direction: column;
+  gap: 18px;
   padding: 0 40px 0 40px;
   margin-bottom: 40px;
-  @media (max-width: 1050px) {
-    flex-direction: column;
-    gap: 5px;
-  }
-  @media (max-width: 440px) {
+  @media (max-width: 680px) {
     padding: 0 16px 0 16px;
+  }
+  @media (max-width: 360px) {
+    padding: 0 8px 0 8px;
+  }
+`
+const Buyall = styled.button`
+  display: none;
+  @media (max-width: 480px) {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    font-family: Inter;
+    border-radius: 5px;
   }
 `
 
