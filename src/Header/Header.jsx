@@ -1,18 +1,27 @@
 import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Navigation } from './Navigation';
 import Nav2 from './leftsideNav';
 import useWindowWidth from '../useWindowWidth';
 import { deviceSizes } from '../deviceSize';
+import SlideInMenu from './SlideInMenu';
+
 export const Header = () => {
-    useWindowWidth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Function to toggle menu
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
   return (
     <HeaderWrapper>
+      { isMenuOpen && <SlideInMenu open={isMenuOpen} onClose={toggleMenu} /> }
       <HeaderContainer>
         <HeaderContent>
           {
             useWindowWidth() < 1090 ?
-            <div className='hamburgerMenu'>
+            <div className='hamburgerMenu' onClick={toggleMenu}>
               <img src="/hamburgerMenu.svg" alt="menu bar" />
             </div>
             : null
