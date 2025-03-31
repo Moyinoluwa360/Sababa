@@ -19,8 +19,7 @@ const Wrapper = styled.div`
   justify-content: center;
   gap: 12px;
   padding-left: 5px;
-  padding-right: 5px;
-
+  padding-right: 5px;  
   @media (max-width: 480px){
     gap: 12px;
   }
