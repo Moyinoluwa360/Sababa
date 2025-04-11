@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import NavigationMenu from './AllOutfits/NavigationMenu';
+import { NavLink } from 'react-router-dom';
 
 export const Navigation = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -15,7 +16,7 @@ export const Navigation = () => {
         <NavItem tabIndex="0">All Features <img src="dropdown.svg" alt="all feature drop down" /> </NavItem>
         {isHovered && <NavigationMenu />}
       </HoverWrapper>
-      <NavItem tabIndex="0">Contact Us</NavItem>
+      <NavItem tabIndex="0"> <NavLink to={"contact"}> Contact</NavLink> </NavItem>
     </Nav>
   );
 };
@@ -43,6 +44,10 @@ const NavItem = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  a{
+    text-decoration: none;
+    color: inherit;
+  }
 
   &:hover {
     color: #545454;
