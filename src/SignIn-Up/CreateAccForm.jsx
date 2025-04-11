@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-export function LogInForm(props) {
+export default function CreateAccForm(props){
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     password: '',
+    confirmPassword: ''
   });
 
   const handleChange = (e) => {
@@ -19,10 +21,10 @@ export function LogInForm(props) {
   };
 
   return (
-    <LogInFormDiv>
+    <CreateAccFormDiv>
       <div className="main-sec-head">
-        <div>Log in to your account</div>
-        <div>or <u onClick={()=>{props.setCurrentForm("create account")}}>create a new account</u></div>
+        <div>Create your account</div>
+        <div>or <u onClick={()=>{props.setCurrentForm("log in")}} >sign in to your existing account</u></div>
       </div>
       <div className="main-sec-body">
         <div className="input-section">
@@ -47,16 +49,22 @@ export function LogInForm(props) {
                 onChange={handleChange}
               />
             </div>
-            <div className="forgot-password-remember-me">
-              <div>
-                <input type="radio" id="remember-me" />
-                <label htmlFor="remember-me">Remember me</label>
-              </div>
-              <div><u>Forgot password?</u></div>
+            <div className="input-group">
+              <div className="label">Confirm password</div>
+              <input
+                type="password"
+                name="confirmPassword"
+                className="input"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
             </div>
-            <div className="logIn">
+            <div className="terms">
+              By creating an account, you agree to our<pre> </pre><b><u>Terms Of Use</u></b>
+            </div>
+            <div className="createAccBtn">
               <button type="submit" className="submit-button">
-                Log in
+                Sign Up
               </button>
             </div>
           </form>
@@ -80,38 +88,50 @@ export function LogInForm(props) {
           </div>
         </div>
       </div>
-    </LogInFormDiv>
+    </CreateAccFormDiv>
   );
 }
 
-const LogInFormDiv = styled.div`
+const CreateAccFormDiv = styled.div`
     width: 514px;
-    height: 595px;
+    height: 680px;
     align-self: center;
-    margin-top: 132px;
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: 24px;
+    @media (max-width: 500px){
+        width: 100%;
+        margin-top: 10px;
+    }
     .main-sec-head{
       display: flex;
       flex-direction: column;
       align-items: center;
       font-weight:bold;
       gap: 4px;
+      @media (max-width: 500px){
+        display: none;
+      }
       :first-child{
-        font-size: 26px;
+        font-size: 28px;
       }
       :last-child{
         font-size: 16px;
       }
     }
     .main-sec-body{
-      padding: 48px 32px 48px 32px;
+      padding: 16px 32px 48px 32px;
       display: flex;
       flex-direction: column;
       gap: 24px;
-      height: 595px;
-      border: 1px solid #d3d3d3;
+      height: 684px;
+      @media (max-width: 500px){
+        padding: 16px;
+      }
+      @media (max-width: 280px){
+        padding: 8px;
+      }
       .join-signIn {
       width: 100%;
       height: 46px;
@@ -119,16 +139,6 @@ const LogInFormDiv = styled.div`
       justify-content: center;
       align-items: center;
       margin-bottom: 32px;
-
-      div {
-        width: 49%;
-        height: inherit;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 18px;
-        border-bottom: 1px solid #c5c5c5;
-      }
     }
 
     .input-section {
@@ -140,13 +150,19 @@ const LogInFormDiv = styled.div`
         display: flex;
         flex-direction: column;
         gap: 16px;
+        @media (max-width: 500px){
+          gap: 12px;
+        }
 
         .input-group {
           font-size: 14px;
           display: flex;
           flex-direction: column;
           gap: 10px;
-
+          @media (max-width: 500px){
+            gap: 3px;
+            font-size: 12px;
+          }
           input {
             width: 100%;
             height: 48px;
@@ -154,27 +170,27 @@ const LogInFormDiv = styled.div`
             border: 1px solid grey;
             padding-left: 20px;
             font-size: 20px;
-          }
-        }
-        .forgot-password-remember-me{
-            display: flex;
-            font-size: 14px;
-            align-items: center;
-            justify-content: space-between;
-            :first-child{
-              input{
-                background-color: #D9D9D9;
-                height: 16px;
-                width: 16px;
-                appearance: none;
-                margin-right: 8px;
-                border-radius: 2px;
-              }
-              display: flex;
-              align-items: center;
+            @media (max-width: 500px){
+              height: 44px;
+              font-size: 14px;
+              padding-left: 10px;
             }
           }
-        .logIn {
+        }
+        .terms{
+            display: flex;
+            font-size: 14px;
+            justify-content: center;
+            color: #727272;
+            @media (max-width: 500px){
+              display: none;
+            }
+            }
+            u{
+              color: black;
+            }
+          }
+        .createAccBtn {
           width: 100%;
           height: 49px;
           button {
@@ -197,6 +213,10 @@ const LogInFormDiv = styled.div`
       display: flex;
       flex-direction: column;
       gap: 16px;
+      margin-top: 70px;
+      @media (max-width: 500px){
+        margin-top: 0px;
+      }
       img {
         width: 20px;
         height: 20px;
@@ -217,6 +237,9 @@ const LogInFormDiv = styled.div`
           white-space: nowrap;
           font-size: 14px;
           color: #727272;
+          @media (max-width: 500px){
+            font-size: 12px;
+          }
         }
       }
 
@@ -235,6 +258,5 @@ const LogInFormDiv = styled.div`
           border-radius: 6px;
         }
       }
-    }
     }
 `

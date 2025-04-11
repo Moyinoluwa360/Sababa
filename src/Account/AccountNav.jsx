@@ -13,7 +13,7 @@ function NavigationItem({ icon, label }) {
   );
 }
 
-export function Sidebar() {
+export function NavigationItems() {
   const navigationItems = [
     {
       icon: '<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="20" fill="#F4F4F4" fill-opacity="0.5"></rect><path fill-rule="evenodd" clip-rule="evenodd" d="M22.907 17.8183C22.907 18.5898 22.6006 19.3297 22.055 19.8753C21.5094 20.4209 20.7695 20.7274 19.998 20.7274C19.2264 20.7274 18.4865 20.4209 17.9409 19.8753C17.3954 19.3297 17.0889 18.5898 17.0889 17.8183C17.0889 17.0467 17.3954 16.3068 17.9409 15.7612C18.4865 15.2157 19.2264 14.9092 19.998 14.9092C20.7695 14.9092 21.5094 15.2157 22.055 15.7612C22.6006 16.3068 22.907 17.0467 22.907 17.8183ZM21.4525 17.8183C21.4525 18.204 21.2993 18.574 21.0265 18.8468C20.7537 19.1196 20.3837 19.2728 19.998 19.2728C19.6122 19.2728 19.2422 19.1196 18.9694 18.8468C18.6967 18.574 18.5434 18.204 18.5434 17.8183C18.5434 17.4325 18.6967 17.0625 18.9694 16.7898C19.2422 16.517 19.6122 16.3637 19.998 16.3637C20.3837 16.3637 20.7537 16.517 21.0265 16.7898C21.2993 17.0625 21.4525 17.4325 21.4525 17.8183Z" fill="#1C1C1C"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M20 12C15.5818 12 12 15.5818 12 20C12 24.4182 15.5818 28 20 28C24.4182 28 28 24.4182 28 20C28 15.5818 24.4182 12 20 12ZM13.4545 20C13.4545 21.52 13.9731 22.9193 14.8422 24.0305C15.4527 23.2292 16.2401 22.5797 17.143 22.1329C18.0459 21.686 19.0399 21.4539 20.0473 21.4545C21.0417 21.4534 22.0233 21.6793 22.9172 22.1152C23.811 22.551 24.5936 23.1852 25.2051 23.9695C25.8352 23.143 26.2595 22.1783 26.4428 21.1553C26.6261 20.1323 26.5632 19.0804 26.2593 18.0865C25.9553 17.0927 25.4191 16.1855 24.6949 15.44C23.9707 14.6946 23.0795 14.1323 22.0948 13.7996C21.1102 13.467 20.0605 13.3737 19.0326 13.5273C18.0047 13.6809 17.0282 14.077 16.1838 14.6829C15.3395 15.2889 14.6515 16.0872 14.1769 17.0118C13.7023 17.9364 13.4547 18.9607 13.4545 20ZM20 26.5455C18.4974 26.5479 17.0401 26.031 15.8749 25.0822C16.3439 24.4106 16.9681 23.8623 17.6946 23.484C18.4211 23.1056 19.2282 22.9084 20.0473 22.9091C20.8561 22.9084 21.6535 23.1007 22.3731 23.47C23.0927 23.8394 23.7138 24.3751 24.1847 25.0327C23.0105 26.0124 21.5292 26.5478 20 26.5455Z" fill="#1C1C1C"></path></svg>',
@@ -57,19 +57,13 @@ export function Sidebar() {
 const SidebarContainer = styled.aside`
   width: 375px;
   height: 543px;
-  position: absolute;
-  left: 168px;
-  top: 174px;
   border-radius: 8px;
   box-shadow: 1px 1px 15px 0px rgba(0, 0, 0, 0.15);
   background-color: #fff;
-
-  @media (max-width: 991px) {
-    position: relative;
-    left: 0;
-    top: 0;
+  @media (max-width: 730px) {
     width: 100%;
-    margin-bottom: 40px;
+    height: auto;
+    box-shadow: none;
   }
 `;
 
@@ -83,12 +77,23 @@ const ProfileHeader = styled.div`
   font-weight: 600;
   padding: 55px 16px 16px;
   background-color: #727272;
+  @media (max-width: 730px) {
+    border-radius: 0;
+    height: 60px;
+    padding: 16px;
+  }
+  @media (max-width: 480px) {
+    height: 50px;
+    padding: 16px;
+    font-size: 16px;
+  }
 `;
 
 const NavContainer = styled.nav`
   padding: 12px 0;
-  @media (max-width: 640px) {
-    overflow-y: auto;
+  @media (max-width: 730px) {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 `;
 
@@ -102,6 +107,10 @@ const NavItemContainer = styled.button`
   border: none;
   width: 100%;
   text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  @media (max-width: 480px) {
+    padding: 6px 4px;
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -120,4 +129,7 @@ const Label = styled.span`
   font-family: Inter, sans-serif;
   font-size: 14px;
   font-weight: 500;
+  @media (max-width: 240px) {
+    font-size: 12px;
+  }
 `;

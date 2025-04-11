@@ -68,7 +68,7 @@ const Input = styled.input`
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0 12px;
 
-  @media (max-width: 640px) {
+  @media (max-width: 780px) {
     width: 100%;
   }
 `;
@@ -77,7 +77,7 @@ const PasswordInputWrapper = styled.div`
   position: relative;
   width: 370px;
 
-  @media (max-width: 640px) {
+  @media (max-width: 780px) {
     width: 100%;
   }
 `;
@@ -105,7 +105,10 @@ const SubmitButton = styled.button`
   border: none;
   cursor: pointer;
 
-  @media (max-width: 640px) {
+  @media (max-width: 780px) {
     width: 100%;
+  }
+  @media (max-width: 480px){
+    font-size: 14px;
   }
 `;

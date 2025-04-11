@@ -31,11 +31,26 @@ const Header = styled.header`
 const LogoContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  img{
+    @media (max-width: 480px) {
+      height: 30px;
+      width: 100px;
+    }
+    @media (max-width: 480px) {
+      height: 25px;
+      width: 80px;
+    }
+  }
 `;
 
 const PageTitle = styled.h2`
   color: #1c1c1c;
   font-weight: 600;
   font-size: 20px;
+  @media (max-width: 480px) {
+      font-size: 14px;
+    }
+  @media (max-width: 240px) {
+    font-size: 12px;
+  }
 `;

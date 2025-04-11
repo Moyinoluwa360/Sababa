@@ -72,10 +72,11 @@ const FormColumn = styled.div`
   flex-direction: column;
   align-items: stretch;
   line-height: normal;
-  width: 66%;
+  width: 713px;
   margin-left: 20px;
   @media (max-width: 991px) {
     width: 100%;
+    margin-left: 0%;
   }
 `;
 
@@ -95,6 +96,9 @@ const FormWrapper = styled.form`
     margin-top: 17px;
     padding: 20px;
   }
+  @media (max-width: 480px){
+    padding: 8px;
+  }
 `;
 
 const FormDescription = styled.p`
@@ -111,6 +115,9 @@ const FormDescription = styled.p`
   @media (max-width: 991px) {
     max-width: 100%;
   }
+  @media (max-width: 480px){
+    font-size: 10px;
+  }
 `;
 
 const EmailBox = styled.div`
@@ -121,6 +128,13 @@ const EmailBox = styled.div`
   padding: 8px;
   align-items: center;
   gap: 4px;
+  width: 280px;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
+  @media (max-width: 330px){
+    width: 100%;
+  }
 `;
 
 const EmailIcon = styled.div`
@@ -132,6 +146,10 @@ const EmailIcon = styled.div`
   width: 32px;
   height: 32px;
   padding: 8px;
+  @media (max-width: 400px){
+    width: 25px;
+    height: 25px;
+  }
 `;
 
 const EmailText = styled.p`
@@ -146,6 +164,15 @@ const EmailText = styled.p`
   font-weight: 500;
   line-height: 18px;
   margin: 0;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
+  @media (max-width: 310px){
+    font-size: 10px;
+  }
+  @media (max-width: 240px){
+    font-size: 8px;
+  }
 `;
 
 const FormFields = styled.div`
@@ -161,6 +188,9 @@ const FormFields = styled.div`
   font-size: 14px;
   color: rgba(84, 84, 84, 1);
   font-weight: 500;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
 `;
 
 const FormField = styled.div`
@@ -191,6 +221,9 @@ const PrivacySection = styled.div`
   margin-top: 28px;
   align-items: end;
   gap: 4px;
+  @media (max-width: 480px){
+    width: 100%;
+  }
 `;
 
 const CheckboxWrapper = styled.div`
@@ -215,12 +248,15 @@ const PrivacyText = styled.p`
     sans-serif;
   font-weight: 500;
   width: 361px;
-  margin: 0;
+  @media (max-width: 280px){
+    font-size: 10px;
+  }
 `;
 
 const SubmitButton = styled.button`
   align-self: stretch;
   border-radius: 4px;
+  width: 370px;
   background-color: rgba(28, 28, 28, 1);
   margin-top: 12px;
   min-height: 48px;
@@ -240,5 +276,9 @@ const SubmitButton = styled.button`
 
   @media (max-width: 991px) {
     padding: 15px 20px;
+  }
+  @media (max-width: 480px){
+    font-size: 12px;
+    width: 100%;
   }
 `;

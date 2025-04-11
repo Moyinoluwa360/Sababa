@@ -127,12 +127,17 @@ const FormContainer = styled.div`
   display: flex;
   margin-top: 16px;
   width: 580px;
-  max-width: 100%;
   padding: 24px 40px 40px;
   flex-direction: column;
-  align-items: stretch;
-  @media (max-width: 991px) {
-    padding: 24px 20px 40px;
+  @media (max-width: 650px){
+    width: 100%;
+  }
+  @media (max-width: 480px){
+    padding: 16px;
+    box-shadow: none;
+  }
+  @media (max-width: 280px){
+    padding: 8px;
   }
 `;
 
@@ -145,6 +150,13 @@ const EmailInfoBox = styled.div`
   align-items: center;
   gap: 4px;
   justify-content: start;
+  @media (max-width: 300px){
+    width: 100%;
+  }
+  @media (max-width: 26px){
+    justify-content: center;
+    gap: 1px;
+  }
 `;
 
 const EmailIconWrapper = styled.div`
@@ -168,6 +180,9 @@ const EmailIcon = styled.img`
   object-fit: contain;
   object-position: center;
   width: 16px;
+  @media (max-width: 480px){
+    width: 14px;
+  }
 `;
 
 const EmailText = styled.p`
@@ -183,6 +198,17 @@ const EmailText = styled.p`
   line-height: 18px;
   align-self: stretch;
   margin: 0;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
+  @media (max-width: 300px){
+    font-size: 10px;
+  }
+  @media (max-width: 262px){
+    word-break: break-all;
+    font-size: 8px;
+    line-height: 14px;
+  }
 `;
 
 const EmailAddress = styled.span`
@@ -212,24 +238,30 @@ const FormFields = styled.div`
   @media (max-width: 991px) {
     max-width: 100%;
   }
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
 `;
 
 const FormGroup = styled.div`
   width: 100%;
-  margin-top: ${(props) => props.marginTop || "0"};
-  &:not(:first-child) {
-    margin-top: 20px;
+  margin-top: 24px;
+  &:first-child{
+    margin-top: 12px;
   }
-  @media (max-width: 991px) {
-    max-width: 100%;
+  @media (max-width: 480px){
+    margin-top: 8px;
+    &:first-child{
+    margin-top: 0px;
+  }
   }
 `;
 
 const FormLabel = styled.label`
   display: block;
   margin-bottom: 8px;
-  @media (max-width: 991px) {
-    max-width: 100%;
+  @media (max-width: 480px){
+    margin-bottom: 4px;
   }
 `;
 
@@ -247,8 +279,9 @@ const FormInput = styled.input`
     Helvetica,
     sans-serif;
   font-size: 16px;
-  @media (max-width: 991px) {
-    max-width: 100%;
+  @media (max-width: 480px){
+    font-size: 12px;
+    min-height: 44px;
   }
 `;
 
@@ -267,8 +300,8 @@ const FormTextarea = styled.textarea`
     sans-serif;
   font-size: 16px;
   resize: vertical;
-  @media (max-width: 991px) {
-    max-width: 100%;
+  @media (max-width: 480px){
+    font-size: 12px;
   }
 `;
 
@@ -279,9 +312,6 @@ const FormActions = styled.div`
   flex-direction: column;
   align-items: stretch;
   justify-content: start;
-  @media (max-width: 991px) {
-    max-width: 100%;
-  }
 `;
 
 const PrivacyContainer = styled.div`
@@ -290,9 +320,6 @@ const PrivacyContainer = styled.div`
   align-items: end;
   gap: 4px;
   justify-content: start;
-  @media (max-width: 991px) {
-    max-width: 100%;
-  }
 `;
 
 const CheckboxContainer = styled.div`
@@ -337,18 +364,30 @@ const PrivacyText = styled.p`
     sans-serif;
   font-weight: 500;
   margin: 0;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
+  @media (max-width: 300px){
+    font-size: 10px;
+  }
 `;
 
 const PrivacyLink = styled.a`
   color: rgba(0, 0, 0, 1);
   text-decoration: underline;
   cursor: pointer;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
+  @media (max-width: 300px){
+    font-size: 10px;
+  }
 `;
 
 const SubmitButton = styled.button`
   align-self: stretch;
   border-radius: 4px;
-  background-color: rgba(76, 175, 80, 1);
+  background-color: #000000;
   margin-top: 12px;
   min-height: 48px;
   width: 100%;
@@ -367,12 +406,14 @@ const SubmitButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(69, 160, 73, 1);
+    background-color: #2c2c2c;
   }
 
   @media (max-width: 991px) {
-    max-width: 100%;
     padding: 15px 20px;
+  }
+  @media (max-width: 480px){
+    font-size: 12px;
   }
 `;
 

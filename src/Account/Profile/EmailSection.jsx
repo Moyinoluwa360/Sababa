@@ -50,6 +50,7 @@ const Section = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  font-size: 12px;
 `;
 
 const ChangeEmailSection = styled.div`
@@ -63,6 +64,9 @@ const ChangeEmailSection = styled.div`
 const SectionTitle = styled.h3`
   color: #545454;
   font-size: 16px;
+  @media (max-width: 480px){
+    font-size: 14px;
+  }
 `;
 
 const EmailInfo = styled.div`
@@ -80,12 +84,18 @@ const StatusInfo = styled.div`
 const Label = styled.label`
   color: #545454;
   font-size: 14px;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
 `;
 
 const Value = styled.p`
   color: #1c1c1c;
   font-size: 16px;
   margin: 0;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
 `;
 
 const Form = styled.form`
@@ -107,7 +117,7 @@ const Input = styled.input`
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0 12px;
 
-  @media (max-width: 640px) {
+  @media (max-width: 780px) {
     width: 100%;
   }
 `;
@@ -116,7 +126,7 @@ const PasswordInputWrapper = styled.div`
   position: relative;
   width: 370px;
 
-  @media (max-width: 640px) {
+  @media (max-width: 780px) {
     width: 100%;
   }
 `;
@@ -144,8 +154,11 @@ const ResendButton = styled.button`
   background: none;
   cursor: pointer;
 
-  @media (max-width: 640px) {
+  @media (max-width: 780px) {
     width: 100%;
+  }
+  @media (max-width: 480px){
+    font-size: 12px;
   }
 `;
 
@@ -155,12 +168,15 @@ const SubmitButton = styled.button`
   background-color: #1c1c1c;
   color: #fff;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
   border: none;
   cursor: pointer;
 
-  @media (max-width: 640px) {
+  @media (max-width: 780px) {
     width: 100%;
+  }
+  @media (max-width: 480px){
+    font-size: 14px;
   }
 `;
 
@@ -168,4 +184,7 @@ const HelpText = styled.p`
   color: #545454;
   font-size: 12px;
   margin: 0;
+  @media (max-width: 480px){
+    font-size: 10px;
+  }
 `;

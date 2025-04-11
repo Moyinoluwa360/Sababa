@@ -38,12 +38,21 @@ const EmptyStateImage = styled.img`
 const TextContent = styled.div`
   margin-top: 24px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Heading = styled.h2`
   color: rgba(28, 28, 28, 1);
   font-size: 20px;
   margin: 0;
+  @media (max-width: 480px){
+    font-size: 14px;
+  }
+  @media (max-width: 230px){
+    font-size: 12px;
+  }
 `;
 
 const Description = styled.p`
@@ -51,4 +60,10 @@ const Description = styled.p`
   font-size: 16px;
   text-align: center;
   margin: 8px 0 0 0;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
+  @media (max-width: 230px){
+    font-size: 10px;
+  }
 `;

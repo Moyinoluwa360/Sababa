@@ -2,26 +2,11 @@
 import React from "react";
 import styled from "styled-components";
 
-export function MainContent() {
+export function PaymentMethod() {
   return (
     <ContentContainer>
       <AddPaymentButton>
-        <svg
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect width="40" height="40" rx="8" fill="#1C1C1C" />
-          <path
-            d="M84.8462 15.5H73.1538C71.9643 15.5 71 16.5186 71 17.775V26.225C71 27.4814 71.9643 28.5 73.1538 28.5H84.8462C86.0357 28.5 87 27.4814 87 26.225V17.775C87 16.5186 86.0357 15.5 84.8462 15.5Z"
-            stroke="white"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <img src="/cardIcon.svg" alt="" />
         Add new payment method
       </AddPaymentButton>
 
@@ -34,7 +19,7 @@ export function MainContent() {
           <CardInfo>Eminokanju Vwegba</CardInfo>
           <DefaultText>This is your default payment method</DefaultText>
         </CardDetails>
-        <DeleteButton>Delete</DeleteButton>
+        <DeleteButton><div className="deleteText">Delete</div><img src="/trash.svg" alt="" /></DeleteButton>
       </PaymentCardContainer>
     </ContentContainer>
   );
@@ -43,9 +28,6 @@ export function MainContent() {
 const ContentContainer = styled.section`
   width: 713px;
   height: 317px;
-  position: absolute;
-  left: 559px;
-  top: 174px;
   border-radius: 8px;
   box-shadow: 1px 1px 15px 0px rgba(0, 0, 0, 0.15);
   padding: 40px;
@@ -58,15 +40,19 @@ const ContentContainer = styled.section`
     width: 100%;
     margin-bottom: 40px;
   }
-
+  @media (max-width: 730px){
+    width: 100%;
+  }
   @media (max-width: 640px) {
     padding: 20px;
   }
 `;
 
 const AddPaymentButton = styled.button`
-  width: 100%;
+  width: 370px;
   height: 44px;
+  display: flex;
+  justify-content: center;
   border-radius: 8px;
   background-color: #1c1c1c;
   border: none;
@@ -79,6 +65,13 @@ const AddPaymentButton = styled.button`
   align-items: center;
   gap: 8px;
   padding: 0 16px;
+  img {
+    filter: brightness(0) invert(1);
+  }
+  @media (max-width: 480px){
+    width: 100%;
+    font-size: 12px;
+  }
 `;
 
 const Divider = styled.hr`
@@ -107,6 +100,9 @@ const CardInfo = styled.p`
   font-size: 16px;
   font-weight: 500;
   margin: 0;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
 `;
 
 const DefaultText = styled.p`
@@ -115,6 +111,9 @@ const DefaultText = styled.p`
   font-size: 14px;
   font-weight: 500;
   margin-top: 24px;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
 `;
 
 const DeleteButton = styled.button`
@@ -126,4 +125,15 @@ const DeleteButton = styled.button`
   background: none;
   border: none;
   padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  .deleteText{
+    @media (max-width: 480px){
+    display: none;
+  }
+  }
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
 `;

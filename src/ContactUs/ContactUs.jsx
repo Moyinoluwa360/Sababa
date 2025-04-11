@@ -28,23 +28,26 @@ function ContactUs() {
 
 const ContactPageWrapper = styled.main`
   background-color: rgba(252, 252, 252, 1);
-  overflow: hidden;
 `;
 
 const MainContent = styled.section`
   display: flex;
-  margin-top: 24px;
-  margin-left: 40px;
   width: 95%;
   flex-direction: column;
-  align-items: end;
+  align-self: center;
+  @media (max-width: 650px){
+    width: 100%;
+  }
 `;
 
 const ContactSection = styled.section`
-  
   align-self: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  @media (max-width: 650px){
+    width: 100%;
+  }
 `;
 
 const ContactTitle = styled.h1`
@@ -59,10 +62,11 @@ const ContactTitle = styled.h1`
   font-weight: 600;
   align-self: center;
   width: 100%;
-  @media (max-width: 991px) {
-    margin-right: 10px;
-  }
+  text-align: center;
   justify-self: center;
+  @media (max-width: 480px){
+    font-size: 16px;
+  }
 `;
 
 const ContactDescription = styled.p`
@@ -80,7 +84,16 @@ const ContactDescription = styled.p`
   width: 580px;
   @media (max-width: 991px) {
     max-width: 100%;
-    margin-right: 3px;
+  }
+  @media (max-width: 480px){
+    font-size: 12px;
+    margin-top: 6px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  @media (max-width: 280px){
+    padding-left: 8px;
+    padding-right: 8px;
   }
 `;
 

@@ -2,17 +2,26 @@
 import React from "react";
 import styled from "styled-components";
 import {AccountHeader} from "./AccountHeader";
-import { AccountNav } from "./AccountNav";
+import { NavigationItems } from "./AccountNav";
 import { ProfileContent } from "./Profile/ProfileContent";
+import {Contact} from "./Contact/Contact"
+import { Settings } from "./Settings/Settings";
+import { PaymentMethod } from "./PaymentMethod/PaymentMethod";
+import {YourOrder} from "./YourOrder/YourOrder"
 import { AccountFooter } from "./AccountFooter";
+import useWindowWidth from "../useWindowWidth";
 
 export function AccountPage() {
   return (
     <PageContainer>
       <AccountHeader />
       <MainContent>
-        <AccountNav />
-        <ProfileContent />
+        <NavigationItems />
+        {
+          useWindowWidth() > 720 ? (
+            <YourOrder/>
+          ) : null
+        }
       </MainContent>
       <AccountFooter />
     </PageContainer>
@@ -30,15 +39,9 @@ const MainContent = styled.main`
   gap: 16px;
   padding-left: 40px;
   padding-right: 40px;
+  justify-content: center;
 
-  @media (max-width: 991px) {
-    padding-left: 20px;
-    padding-right: 20px;
-    flex-direction: column;
-  }
-
-  @media (max-width: 640px) {
-    padding-left: 16px;
-    padding-right: 16px;
+  @media (max-width: 600px) {
+    padding: 0%;
   }
 `;

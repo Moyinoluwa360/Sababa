@@ -53,12 +53,22 @@ const FormContainer = styled.section`
   @media (max-width: 640px) {
     padding: 20px;
   }
+  @media (max-width: 730px){
+    width: 100%;
+  }
+  @media (max-width: 480px){
+    padding:16px;
+  }
 `;
 
 const FormContent = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 370px;
+  @media (max-width: 430px){
+    width: 100%;
+  }
 `;
 
 const FormGroup = styled.div`
@@ -70,6 +80,9 @@ const FormGroup = styled.div`
 const Label = styled.label`
   color: #545454;
   font-size: 14px;
+  @media (max-width: 480px){
+    font-size: 12px;
+  }
 `;
 
 const SelectWrapper = styled.div`
@@ -94,6 +107,9 @@ const Select = styled.select`
     outline: none;
     border-color: #1c1c1c;
   }
+  @media (max-width: 480px){
+    font-size: 14px;
+  }
 `;
 
 const SaveButton = styled.button`
@@ -109,5 +125,8 @@ const SaveButton = styled.button`
 
   &:hover {
     opacity: 0.9;
+  }
+  @media (max-width: 480px){
+    font-size: 14px;
   }
 `;

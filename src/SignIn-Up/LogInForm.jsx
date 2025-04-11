@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-export default function CreateAccForm(props){
+export function LogInForm(props) {
   const [formData, setFormData] = useState({
-    username: '',
     email: '',
     password: '',
-    confirmPassword: ''
   });
 
   const handleChange = (e) => {
@@ -21,24 +19,14 @@ export default function CreateAccForm(props){
   };
 
   return (
-    <CreateAccFormDiv>
+    <LogInFormDiv>
       <div className="main-sec-head">
-        <div>Create your account</div>
-        <div>or <u onClick={()=>{props.setCurrentForm("log in")}} >sign in to your existing account</u></div>
+        <div>Sign in to your account</div>
+        <div>or <u onClick={()=>{props.setCurrentForm("create account")}}>create a new account</u></div>
       </div>
       <div className="main-sec-body">
         <div className="input-section">
           <form onSubmit={handleSubmit} className="form-container">
-          <div className="input-group">
-              <div className="label">Username</div>
-              <input
-                type="name"
-                name="usernmae"
-                className="input"
-                value={formData.username}
-                onChange={handleChange}
-              />
-            </div>
             <div className="input-group">
               <div className="label">Email address</div>
               <input
@@ -59,22 +47,16 @@ export default function CreateAccForm(props){
                 onChange={handleChange}
               />
             </div>
-            <div className="input-group">
-              <div className="label">Confirm password</div>
-              <input
-                type="password"
-                name="confirmPassword"
-                className="input"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-              />
+            <div className="forgot-password-remember-me">
+              <div className='remember-me'>
+                <input type="radio" id="remember-me" />
+                <label htmlFor="remember-me">Remember me</label>
+              </div>
+              <div><u>Forgot password?</u></div>
             </div>
-            <div className="terms">
-              By creating an account, you agree to our<pre> </pre><b><u>Terms Of Use</u></b>
-            </div>
-            <div className="createAccBtn">
+            <div className="logIn">
               <button type="submit" className="submit-button">
-                Create account
+                Log in
               </button>
             </div>
           </form>
@@ -98,72 +80,87 @@ export default function CreateAccForm(props){
           </div>
         </div>
       </div>
-    </CreateAccFormDiv>
+    </LogInFormDiv>
   );
 }
 
-const CreateAccFormDiv = styled.div`
+const LogInFormDiv = styled.div`
     width: 514px;
-    height: auto;
+    height: 595px;
     align-self: center;
-    margin-top: 132px;
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
     gap: 48px;
+    @media (max-width: 500px){
+      width: 100%;
+      gap: 16px;
+      margin-top: 10px;
+    }
     .main-sec-head{
       display: flex;
       flex-direction: column;
       align-items: center;
       font-weight:bold;
       gap: 4px;
+      @media (max-width: 500px){
+        display: none;
+      }
       :first-child{
-        font-size: 28px;
+        font-size: 26px;
       }
       :last-child{
         font-size: 16px;
       }
     }
     .main-sec-body{
-      padding: 48px 32px 48px 32px;
+      padding: 16px 32px 48px 32px;
       display: flex;
       flex-direction: column;
       gap: 24px;
-      height: 684px;
-      border: 1px solid #d3d3d3;
+      height: 595px;
+      @media (max-width: 500px){
+        padding: 16px;
+      }
+      @media (max-width: 280px){
+        padding: 8px;
+      }
+
       .join-signIn {
       width: 100%;
       height: 46px;
+      background-color: #727272;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 32px;
-
-      div {
-        width: 49%;
-        height: inherit;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 18px;
-        border-bottom: 1px solid #c5c5c5;
-      }
+      margin-bottom: 32px; 
     }
 
     .input-section {
       height: 250px;
-
+      width: 100%;
+      @media (max-width: 500px){
+        height: fit-content;
+      }
       form {
         width: inherit;
         height: inherit;
         display: flex;
         flex-direction: column;
         gap: 16px;
+        @media (max-width: 500px){
+          gap: 12px;
+        }
 
         .input-group {
           font-size: 14px;
           display: flex;
           flex-direction: column;
           gap: 10px;
+          @media (max-width: 500px){
+            gap: 3px;
+            font-size: 12px;
+          }
 
           input {
             width: 100%;
@@ -172,24 +169,53 @@ const CreateAccFormDiv = styled.div`
             border: 1px solid grey;
             padding-left: 20px;
             font-size: 20px;
+            @media (max-width: 500px){
+              height: 44px;
+              padding-left: 10px;
+              font-size: 14px;
+            }
           }
         }
-        .terms{
+        .forgot-password-remember-me{
             display: flex;
             font-size: 14px;
-            justify-content: center;
-            color: #727272;
+            align-items: center;
+            justify-content: space-between;
+            @media (max-width: 500px){
+              font-size: 12px;
+              justify-content: end;
             }
-            u{
-              color: black;
+            :first-child{
+              input{
+                background-color: #D9D9D9;
+                height: 16px;
+                width: 16px;
+                appearance: none;
+                margin-right: 8px;
+                border-radius: 2px;
+                @media (max-width: 500px){
+                  height: 12px;
+                  width: 12px;
+                }
+              }
+              display: flex;
+              align-items: center;
+            }
+            .remember-me{
+              @media (max-width: 500px){
+                display: none;
+              }
             }
           }
-        .createAccBtn {
+        .logIn {
           width: 100%;
           height: 49px;
+          @media (max-width: 500px){
+            height: 44px;
+          }
           button {
             width: inherit;
-            height: 49px;
+            height: inherit;
             background-color: black;
             display: flex;
             align-items: center;
@@ -207,7 +233,9 @@ const CreateAccFormDiv = styled.div`
       display: flex;
       flex-direction: column;
       gap: 16px;
-      margin-top: auto;
+      @media (max-width: 500px){
+        gap: 0px;
+      }
       img {
         width: 20px;
         height: 20px;
@@ -228,6 +256,9 @@ const CreateAccFormDiv = styled.div`
           white-space: nowrap;
           font-size: 14px;
           color: #727272;
+          @media (max-width: 500px){
+            font-size: 12px;
+          }
         }
       }
 
@@ -246,5 +277,6 @@ const CreateAccFormDiv = styled.div`
           border-radius: 6px;
         }
       }
+    }
     }
 `

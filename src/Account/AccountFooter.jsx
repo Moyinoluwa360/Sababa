@@ -36,7 +36,7 @@ const FooterContent = styled.div`
     padding: 0 20px;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 600px) {
     padding: 0 16px;
     flex-direction: column;
     gap: 16px;
@@ -48,7 +48,7 @@ const FooterLinks = styled.nav`
   align-items: center;
   gap: 20px;
 
-  @media (max-width: 640px) {
+  @media (max-width: 600px) {
     flex-direction: column;
   }
 `;
@@ -59,6 +59,9 @@ const FooterLink = styled.a`
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
 `;
 
 const Copyright = styled.p`
@@ -66,4 +69,7 @@ const Copyright = styled.p`
   font-size: 16px;
   font-weight: 600;
   margin: 0;
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
 `;
