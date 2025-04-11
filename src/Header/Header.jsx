@@ -6,6 +6,7 @@ import Nav2 from './leftsideNav';
 import useWindowWidth from '../useWindowWidth';
 import { deviceSizes } from '../deviceSize';
 import SlideInMenu from './SlideInMenu';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,7 +28,7 @@ export const Header = () => {
             : null
           }
           <div className="logo">
-            <img src="fullSababaLogo.svg" alt="sababa"/>
+            <Link to={"/"} ><img src="fullSababaLogo.svg" alt="sababa"/></Link>
           </div>
           {
             useWindowWidth() > 1090 ?
