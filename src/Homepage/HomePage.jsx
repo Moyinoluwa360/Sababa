@@ -1,15 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Header} from '../Header/Header';
 import { StyleCategories } from './StyleCategories';
 import { OutfitGallery } from './OutfitsYouMayLike/OutfitGallery';
 import { ProductGallery } from './ProductYouMayLike/ProductGallery';
-import Footer from '../Footer';
 
 export default function HomePage() {
   return (
     <HomeContainer>
-      <Header/>
       <HeroBanner>
         <div className="segregatedImages">
           <div className="sec a">
@@ -28,7 +25,6 @@ export default function HomePage() {
       <StyleCategories />
       <OutfitGallery title="Outfits you may like" />
       <ProductGallery title="Products you may like" />
-      <Footer/>
     </HomeContainer>
   );
 }

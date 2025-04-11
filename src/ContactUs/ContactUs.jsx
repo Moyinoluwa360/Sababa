@@ -1,15 +1,12 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-import { Header } from "../Header/Header";
 import BreadcrumbNav from "../BreadcrumbNav";
 import ContactForm from "./ContactForm";
-import Footer from "../Footer";
 
 function ContactUs() {
   return (
     <ContactPageWrapper>
-      <Header />
       <MainContent>
         <BreadcrumbNav />
         <ContactSection>
@@ -21,7 +18,6 @@ function ContactUs() {
           <ContactForm />
         </ContactSection>
       </MainContent>
-      <Footer />
     </ContactPageWrapper>
   );
 }
