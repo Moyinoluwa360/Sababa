@@ -5,7 +5,9 @@ import {
   Route,
   Routes,
   NavLink,
-  Link
+  Link,
+  createRoutesFromElements,
+  RouterProvider
  } from 'react-router-dom'
 // pages imports
 import StaticPageDiv from './staticPage'
@@ -22,10 +24,20 @@ import MobileAccountMenu from './Account/MobileAccountMenu'
 import SavedItems from './SavedItems/SavedItems'
 import { ForgotPassword } from './SignIn-Up/ForgotPassword/ForgotPassword'
 import SignUp from './SignIn-Up/signup'
-function App() {
+import GeneralLayout from './Layouts/GeneralLayout'
 
+
+function App() {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element={<GeneralLayout/>} >
+        <Route index element={<HomePage/>} /> 
+        <Route path="contact" element={<ContactUs/>} /> 
+      </Route>
+    )
+  )
   return(
-    <HomePage/>
+    <RouterProvider router = {router}/>
   ) 
 }
 
