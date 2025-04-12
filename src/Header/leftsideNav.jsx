@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import useWindowWidth from '../useWindowWidth';
 import { deviceSizes } from '../deviceSize';
+import { Link } from 'react-router-dom';
 
 const icons = [
   { id: 1, icon: 'account.svg', label: 'Login' },
@@ -12,17 +13,41 @@ const icons = [
 export default function Nav2 () {
   return (
     <IconButtonsWrapper>
-      {icons.map(item => (
-        <IconButton key={item.id} tabIndex="0" aria-label={item.icon}>
-          <img src={item.icon} alt=""  />
+      <Link to={"account"}>
+        <IconButton  tabIndex="0">
+          <img src="/account.svg" alt="account icon"  />
           {
             useWindowWidth() > 600 ?
-            <div className="iconLabel">{item.label}</div>
+            <div className="iconLabel">Login</div>
             :
             null
           }
         </IconButton>
-      ))}
+      </Link>
+
+      <Link to={"saveditems"}>
+        <IconButton  tabIndex="0">
+          <img src="/liked-heart.svg" alt="liked icon"  />
+          {
+            useWindowWidth() > 600 ?
+            <div className="iconLabel">Saved Items</div>
+            :
+            null
+          }
+        </IconButton>
+      </Link>
+
+      <Link to={"bag"}>
+        <IconButton  tabIndex="0">
+          <img src="/shopping-cart.svg" alt="cart icon"  />
+          {
+            useWindowWidth() > 600 ?
+            <div className="iconLabel">Bag(0)</div>
+            :
+            null
+          }
+        </IconButton>
+      </Link>
       
     </IconButtonsWrapper>
   );
@@ -39,6 +64,9 @@ const IconButtonsWrapper = styled.div`
       width: 91px;
       gap: 16px;
     }
+  a{
+    text-decoration: none;
+  }
 `;
 
 const IconButton = styled.button`

@@ -8,7 +8,7 @@ export const Navigation = () => {
 
   return (
     <Nav>
-      <NavItem tabIndex="0">Shop</NavItem>
+      <NavItem tabIndex="0"> <NavLink to={"alloutfits"} >Shop</NavLink> </NavItem>
       <HoverWrapper
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
