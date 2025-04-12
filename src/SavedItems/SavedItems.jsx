@@ -32,12 +32,10 @@ function SavedItems() {
     },[productName])
   return (
     <>
-        <Header/>
         <PageTitle>
             Saved items
         </PageTitle>
         <ProductGrid productsDatas = {productsDatas} />
-        <Footer/>
     </>
   )
 }

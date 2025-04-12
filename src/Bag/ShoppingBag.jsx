@@ -13,7 +13,6 @@ const ShoppingBag = () => {
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Figma+Hand:wght@700&display=swap"
         rel="stylesheet"
       />
-      <Header />
       <BreadcrumbNav/>
       <MainContent>
         <PageTitle>Your Bag</PageTitle>
@@ -55,7 +54,6 @@ const ShoppingBag = () => {
           <OrderSummary />
         </CartContainer>
       </MainContent>
-      <Footer />
     </>
   );
 };

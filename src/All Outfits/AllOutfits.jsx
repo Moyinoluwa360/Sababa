@@ -1,8 +1,6 @@
 "use client";
 import React from 'react';
 import styled from 'styled-components';
-import {Header} from "../Header/Header"
-import Footer from "../Footer"
 import OutfitCard from '../OutfitCard';
 import BreadcrumbNav from '../BreadcrumbNav';
 
@@ -16,7 +14,6 @@ const AllOutfits = () => {
 
   return (
     <PageWrapper>
-      <Header />
       <BreadcrumbNav/>
       <PageTitle>All Outfits</PageTitle>
         <OutfitContainer>
@@ -35,8 +32,6 @@ const AllOutfits = () => {
           </PageNumber>
         ))}
       </Pagination>
-
-      <Footer />
     </PageWrapper>
   );
 };
