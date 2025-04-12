@@ -33,6 +33,11 @@ function App() {
       <Route path='/' element={<GeneralLayout/>} >
         <Route index element={<HomePage/>} /> 
         <Route path="contact" element={<ContactUs/>} /> 
+        <Route path="alloutfits" element={<AllOutfits/>} />
+        <Route path='saveditems' element={<SavedItems/>} />
+        <Route path='bag' element={<ShoppingBag/>} />
+        <Route path='account' element={<AccountPage/>} />
+        <Route path='Outfit of the day blah' element={<OutfitBreakdown/>} />
       </Route>
     )
   )
