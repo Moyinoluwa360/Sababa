@@ -149,7 +149,6 @@ const CardContainer = styled.div`
   min-width: 30%;
   height: 402px;
   overflow: hidden;
-  background-color: aqua;
   @media (max-width: 1000px) {
     min-width: 25%;
     height: 300px;
