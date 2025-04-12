@@ -1,3 +1,4 @@
+// this component is temporarily not used in the app may even be removed
 import React from 'react';
 import styled from 'styled-components';
 
