@@ -6,6 +6,7 @@ import {
   Routes,
   NavLink,
   Link,
+  Navigate,
   createRoutesFromElements,
   RouterProvider
  } from 'react-router-dom'
@@ -25,20 +26,34 @@ import SavedItems from './SavedItems/SavedItems'
 import { ForgotPassword } from './SignIn-Up/ForgotPassword/ForgotPassword'
 import SignUp from './SignIn-Up/signup'
 import GeneralLayout from './Layouts/GeneralLayout'
-
+import { ProfileContent } from './Account/Profile/ProfileContent'
+import { Contact } from './Account/Contact/Contact'
+import { PaymentMethod } from './Account/PaymentMethod/PaymentMethod'
+import { Settings } from './Account/Settings/Settings'
+import { YourOrder } from './Account/YourOrder/YourOrder'
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path='/' element={<GeneralLayout/>} >
-        <Route index element={<HomePage/>} /> 
-        <Route path="contact" element={<ContactUs/>} /> 
-        <Route path="alloutfits" element={<AllOutfits/>} />
-        <Route path='saveditems' element={<SavedItems/>} />
-        <Route path='bag' element={<ShoppingBag/>} />
-        <Route path='account' element={<AccountPage/>} />
-        <Route path='Outfit of the day blah' element={<OutfitBreakdown/>} />
-      </Route>
+      <>
+        <Route path='/' element={<GeneralLayout/>} >
+          <Route index element={<HomePage/>} /> 
+          <Route path="contact" element={<ContactUs/>} /> 
+          <Route path="alloutfits" element={<AllOutfits/>} />
+          <Route path='saveditems' element={<SavedItems/>} />
+          <Route path='bag' element={<ShoppingBag/>} />
+          <Route path='Outfit of the day blah' element={<OutfitBreakdown/>} />
+        </Route>
+        <Route path='account' element={<AccountPage/>}>
+          <Route index element={<Navigate to="profile" replace />} />
+          <Route path='profile' element={<ProfileContent/>} />
+          <Route path='contact' element={<Contact/>} />
+          <Route path='settings' element={<Settings/>} />
+          <Route path='payment method' element={<PaymentMethod/>} />
+          <Route path='your order' element={<YourOrder/>} />
+        </Route>
+        <Route path='accounts/:menuLabel' element={<MobileAccountMenu/>} />
+      </>
     )
   )
   return(
