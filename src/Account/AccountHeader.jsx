@@ -1,13 +1,16 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export function AccountHeader() {
   return (
     <Header>
-      <LogoContainer>
-        <img src="/fullSababaLogo.svg" alt="Logo" />
-      </LogoContainer>
+      <Link to={"/"}>
+        <LogoContainer>
+          <img src="/fullSababaLogo.svg" alt="Logo" />
+        </LogoContainer>
+      </Link>
       <PageTitle>Your Profile</PageTitle>
     </Header>
   );
