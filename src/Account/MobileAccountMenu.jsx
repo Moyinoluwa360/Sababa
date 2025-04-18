@@ -8,13 +8,38 @@ import { Settings } from "./Settings/Settings";
 import { PaymentMethod } from "./PaymentMethod/PaymentMethod";
 import {YourOrder} from "./YourOrder/YourOrder"
 import { AccountFooter } from "./AccountFooter";
+import { useParams, Link } from 'react-router-dom';
+
+function getComponent(menuLabel) {
+  switch (menuLabel) {
+    case 'profile':
+      return <ProfileContent />;
+    case 'contact':
+      return <Contact />;
+    case 'settings':
+      return <Settings />;
+    case 'payment method':
+      return <PaymentMethod />;
+    case 'your order':
+      return <YourOrder />;
+    default:
+      return null;
+  }
+}
+
 
 function MobileAccountMenu() {
+  const { menuLabel } = useParams();
   return (
     <>
         <AccountHeader/>
-        <ProfileHeader>Hello, Eminokanju</ProfileHeader>
-        <PaymentMethod/>
+        <ProfileHeader>
+          <Link to={"/account"} style={{ textDecoration: 'none'}}>
+            <div className='backMenu'> <img src="/lessThan.svg" alt="back icon" /> Back </div>
+          </Link>
+          Hello, Eminokanju
+        </ProfileHeader>
+        {getComponent(menuLabel)}
         <AccountFooter/>
     </>
   )
@@ -30,10 +55,28 @@ const ProfileHeader = styled.div`
   font-weight: 600;
   padding: 55px 16px 16px;
   background-color: #727272;
+  display: flex;
+  gap: 14px;
+  div{
+    display: none;
+  }
   @media (max-width: 730px) {
     border-radius: 0;
     height: 60px;
     padding: 16px;
+    div{
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 14px;
+      color: #fff;
+      font-weight: normal;
+      img{
+        height: 10px;
+        width: 6px;
+        filter: brightness(0) invert(1);
+      }
+    }
   }
   @media (max-width: 480px) {
     height: 50px;
