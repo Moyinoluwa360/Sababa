@@ -10,6 +10,7 @@ import { PaymentMethod } from "./PaymentMethod/PaymentMethod";
 import {YourOrder} from "./YourOrder/YourOrder"
 import { AccountFooter } from "./AccountFooter";
 import useWindowWidth from "../useWindowWidth";
+import { Outlet } from "react-router-dom";
 
 export function AccountPage() {
   return (
@@ -19,7 +20,7 @@ export function AccountPage() {
         <NavigationItems />
         {
           useWindowWidth() > 720 ? (
-            <YourOrder/>
+            <Outlet/>
           ) : null
         }
       </MainContent>
