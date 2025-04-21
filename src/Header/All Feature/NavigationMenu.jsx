@@ -34,12 +34,12 @@ const storesData = [
   { title: "more..." }
 ];
 
-function NavigationMenu() {
+function NavigationMenu({setIsHovered}) {
   return (
     <NavigationContainer>
       <MenuWrapper>
         <MenuContent>
-          <MenuSection title="Outfits" items={outfitsData} />
+          <MenuSection title="Outfits" items={outfitsData} setIsHovered={setIsHovered} />
           <MenuSection title="Outfits by Style" items={outfitStylesData} />
           <MenuSection title="Products by Categories" items={categoriesData} />
           <MenuSection title="Products by Stores" items={storesData} />

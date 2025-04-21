@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { MenuLink } from "./MenuLink";
 
-export function MenuSection({ title, items }) {
+export function MenuSection({ title, items, setIsHovered }) {
   return (
     <SectionContainer>
       <SectionHeader>
@@ -11,7 +11,7 @@ export function MenuSection({ title, items }) {
       </SectionHeader>
       <LinksList>
         {items.map((item, index) => (
-          <MenuLink key={index} title={item.title} />
+          <MenuLink key={index} title={item.title} setIsHovered={setIsHovered} />
         ))}
       </LinksList>
     </SectionContainer>
