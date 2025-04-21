@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FiX, FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const MenuContainer = styled.div`
   position: fixed;
@@ -18,6 +19,9 @@ const MenuContainer = styled.div`
   padding-top: 80px;
   @media (max-width: 480px) {
     padding-top: 60px;
+  }
+  a{
+    text-decoration: none;
   }
 `;
 
@@ -74,10 +78,9 @@ const DropdownItem = styled.div`
   }
 `;
 
-const IconPlaceholder = styled.div`
+const Icon = styled.img`
   width: 24px;
   height: 24px;
-  background: lightgray;
   margin-right: 10px;
 `;
 
@@ -88,19 +91,95 @@ const SlideInMenu = ({ open, onClose }) => {
     setOpenDropdown(openDropdown === menu ? null : menu);
   };
 
+const dropdownDivs = {
+  outfits: [
+    {
+      type : "Casual Outfits",
+      img : "/hamburger imgs/styles/casual.svg"
+    },
+    {
+      type : "Work Outfits",
+      img : "/hamburger imgs/styles/work.svg"
+    },
+    {
+      type : "Street Outfits",
+      img : "/hamburger imgs/styles/street.svg"
+    },
+    {
+      type : "Occasion Outfits",
+      img : "/hamburger imgs/styles/occasion.svg"
+    },
+    {
+      type : "Corporate Outfit",
+      img : "/hamburger imgs/styles/corporate.svg"
+    },
+  ],
+ categories: [
+  {
+    type : "Hats",
+    img : "/hamburger imgs/products/hats.svg"
+  },
+  {
+    type : "Jewelries",
+    img : "/hamburger imgs/products/jewellries.svg"
+  },
+  {
+    type : "Bags",
+    img : "/hamburger imgs/products/bags.svg"
+  },
+  {
+    type : "Belts",
+    img : "/hamburger imgs/products/belts.svg"
+  },
+  {
+    type : "Pants & Shorts",
+    img : "/hamburger imgs/products/pants.svg"
+  },
+  {
+    type : "Shirts",
+    img : "/hamburger imgs/products/shirts.svg"
+  },
+  {
+    type : "Hoodies",
+    img : "/hamburger imgs/products/hoodies.svg"
+  },
+  {
+    type : "Shoes",
+    img : "/hamburger imgs/products/shoes.svg"
+  }
+ ],
+ stores : [
+  {
+    type : "Amazon",
+    img : "/hamburger imgs/stores/amazon.svg"
+  },
+  {
+    type : "Etsy",
+    img : "/hamburger imgs/stores/etsy.svg"
+  },
+  {
+    type : "Shein",
+    img : "/hamburger imgs/stores/shein.svg"
+  },
+  {
+    type : "Uniqlo",
+    img : "/hamburger imgs/stores/uniqlo.svg"
+  }
+ ]
+}
   return (
     <MenuContainer open={open}>
       <CloseButton onClick={onClose} />
-      <MenuItem>Home</MenuItem>
-      <MenuItem>All Outfits</MenuItem>
+      <Link to={"/"} onClick={onClose} ><MenuItem>Home</MenuItem></Link>
+      <Link to={"alloutfits"} onClick={onClose}  ><MenuItem>All Outfits</MenuItem></Link>
       <MenuItem onClick={() => toggleDropdown("outfits")}> 
         Outfits by Style {openDropdown === "outfits" ? <FiChevronUp /> : <FiChevronDown />}
       </MenuItem>
       <DropdownContainer open={openDropdown === "outfits"}>
-        {["Casual Outfits", "Work Outfits", "Street Outfits", "Occasion Outfits", "Corporate Outfit"].map((item) => (
-          <DropdownItem key={item}>
-            <IconPlaceholder />
-            {item}
+        {dropdownDivs.outfits.map((item) => (
+          <DropdownItem key={item.type}>
+            <Icon src={item.img} />
+            {item.type}
           </DropdownItem>
         ))}
       </DropdownContainer>
@@ -109,10 +188,10 @@ const SlideInMenu = ({ open, onClose }) => {
         Products by Categories {openDropdown === "categories" ? <FiChevronUp /> : <FiChevronDown />}
       </MenuItem>
       <DropdownContainer open={openDropdown === "categories"}>
-        {["Hats", "Jewelries", "Bags", "Belts", "Pants & Shorts", "Shirts", "Hoodies", "Shoes"].map((item) => (
-          <DropdownItem key={item}>
-            <IconPlaceholder />
-            {item}
+        {dropdownDivs.categories.map((item) => (
+          <DropdownItem key={item.type}>
+            <Icon src={item.img} />
+            {item.type}
           </DropdownItem>
         ))}
       </DropdownContainer>
@@ -121,16 +200,16 @@ const SlideInMenu = ({ open, onClose }) => {
         Products by Stores {openDropdown === "stores" ? <FiChevronUp /> : <FiChevronDown />}
       </MenuItem>
       <DropdownContainer open={openDropdown === "stores"}>
-        {["Amazon", "Etsy", "Shein", "Uniqlo"].map((item) => (
-          <DropdownItem key={item}>
-            <IconPlaceholder />
-            {item}
+        {dropdownDivs.stores.map((item) => (
+          <DropdownItem key={item.type}>
+            <Icon src={item.img} />
+            {item.type}
           </DropdownItem>
         ))}
       </DropdownContainer>
       
       <MenuItem>FAQs</MenuItem>
-      <MenuItem>Contact us</MenuItem>
+      <Link to={"contact"} onClick={onClose}  ><MenuItem>Contact us</MenuItem></Link>
     </MenuContainer>
   );
 };
