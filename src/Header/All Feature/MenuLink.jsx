@@ -1,11 +1,18 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export function MenuLink({ title }) {
+export function MenuLink({ title, setIsHovered }) {
   return (
     <LinkContainer>
       <LinkIndicator />
-      <LinkText>{title}</LinkText>
+      {
+        title === "All Outfits" ? (
+          <Link to={"alloutfits"} style={{ textDecoration: "none", color: "#545454" }}>
+            <LinkText onClick={()=>{setIsHovered(false)}}>{title}</LinkText>
+          </Link>
+        ) : (<LinkText>{title}</LinkText>)
+      }
     </LinkContainer>
   );
 }
