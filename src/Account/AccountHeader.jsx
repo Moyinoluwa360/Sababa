@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export function AccountHeader() {
+export function AccountHeader({currentNav}) {
   return (
     <Header>
       <Link to={"/"}>
@@ -11,7 +11,7 @@ export function AccountHeader() {
           <img src="/fullSababaLogo.svg" alt="Logo" />
         </LogoContainer>
       </Link>
-      <PageTitle>Your Profile</PageTitle>
+      <PageTitle>{currentNav}</PageTitle>
     </Header>
   );
 }

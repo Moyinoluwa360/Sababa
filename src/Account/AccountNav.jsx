@@ -21,8 +21,7 @@ function NavigationItem({ icon, label, setCurrentNav, currentNav }) {
   );
 }
 
-export function NavigationItems() {
-  const [currentNav, setCurrentNav] = useState("Profile")
+export function NavigationItems(props) {
   const windowWidth = useWindowWidth();
   const navigationItems = [
     {
@@ -66,7 +65,7 @@ export function NavigationItems() {
             to={windowWidth > 720 ? `/account/${item.path}` : `/accounts/${item.path}`}
             style={{ textDecoration: 'none' }} 
             key={index}> 
-            <NavigationItem key={index} icon={item.icon} label={item.label} setCurrentNav ={setCurrentNav} currentNav = {currentNav} />
+            <NavigationItem key={index} icon={item.icon} label={item.label} setCurrentNav ={props.setCurrentNav} currentNav = {props.currentNav} />
           </NavLink>
         ))}
       </NavContainer>

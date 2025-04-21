@@ -11,13 +11,15 @@ import {YourOrder} from "./YourOrder/YourOrder"
 import { AccountFooter } from "./AccountFooter";
 import useWindowWidth from "../useWindowWidth";
 import { Outlet } from "react-router-dom";
+import { useState } from "react";
 
 export function AccountPage() {
+  const [currentNav, setCurrentNav] = useState("Profile")
   return (
     <PageContainer>
-      <AccountHeader />
+      <AccountHeader currentNav ={currentNav} />
       <MainContent>
-        <NavigationItems />
+        <NavigationItems currentNav ={currentNav} setCurrentNav ={setCurrentNav} />
         {
           useWindowWidth() > 720 ? (
             <Outlet/>
