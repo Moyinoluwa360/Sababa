@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import NavigationMenu from './AllOutfits/NavigationMenu';
+import NavigationMenu from './All Feature/NavigationMenu';
 import { NavLink } from 'react-router-dom';
 
 export const Navigation = () => {
