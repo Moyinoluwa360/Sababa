@@ -32,13 +32,16 @@ import { PaymentMethod } from './Account/PaymentMethod/PaymentMethod'
 import { Settings } from './Account/Settings/Settings'
 import { YourOrder } from './Account/YourOrder/YourOrder'
 
+// actions and loaders
+import { contactAction } from './formActions'
+
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
         <Route path='/' element={<GeneralLayout/>} >
           <Route index element={<HomePage/>} /> 
-          <Route path="contact" element={<ContactUs/>} /> 
+          <Route path="contact" element={<ContactUs/>} action={contactAction} /> 
           <Route path="alloutfits" element={<AllOutfits/>} />
           <Route path='saveditems' element={<SavedItems/>} />
           <Route path='bag' element={<ShoppingBag/>} />
