@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { Form } from "react-router-dom";
 import styled from "styled-components";
 
 function ContactForm() {
@@ -41,81 +42,73 @@ function ContactForm() {
         </EmailText>
       </EmailInfoBox>
 
-      <StyledForm onSubmit={handleSubmit}>
-        <FormFields>
-          <FormGroup>
-            <FormLabel htmlFor="name">Name</FormLabel>
-            <FormInput
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <FormLabel htmlFor="email">Email</FormLabel>
-            <FormInput
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <FormLabel htmlFor="subject">Subject</FormLabel>
-            <FormInput
-              type="text"
-              id="subject"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <FormLabel htmlFor="message">Message</FormLabel>
-            <FormTextarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
-        </FormFields>
-
-        <FormActions>
-          <PrivacyContainer>
-            <CheckboxContainer>
-              <Checkbox
-                type="checkbox"
-                id="privacy"
-                name="privacyAccepted"
-                checked={formData.privacyAccepted}
-                onChange={handleChange}
+      <Form method="post" action="/contact" >
+        <StyledForm onSubmit={handleSubmit}>
+          <FormFields>
+            <FormGroup>
+              <FormLabel htmlFor="name">Name</FormLabel>
+              <FormInput
+                type="text"
+                id="name"
+                name="name"
                 required
               />
-              <CheckboxIcon
-                src="https://cdn.builder.io/api/v1/image/assets/08bf16d58b0d4aa28fefd3a671be5059/0e18d44f55ed96ae37f0649893cd9c49f49dc1295f315ad53ec4c871825c9986?placeholderIfAbsent=true"
-                alt="Checkbox"
-              />
-            </CheckboxContainer>
-            <PrivacyText>
-              <span>To submit this form you have to accept our </span>
-              <PrivacyLink href="/privacy">Privacy Statement</PrivacyLink>
-            </PrivacyText>
-          </PrivacyContainer>
+            </FormGroup>
 
-          <SubmitButton type="submit">Send</SubmitButton>
-        </FormActions>
-      </StyledForm>
+            <FormGroup>
+              <FormLabel htmlFor="email">Email</FormLabel>
+              <FormInput
+                type="email"
+                id="email"
+                name="email"
+                required
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <FormLabel htmlFor="subject">Subject</FormLabel>
+              <FormInput
+                type="text"
+                id="subject"
+                name="subject"
+                required
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <FormLabel htmlFor="message">Message</FormLabel>
+              <FormTextarea
+                id="message"
+                name="message"
+                required
+              />
+            </FormGroup>
+          </FormFields>
+
+          <FormActions>
+            <PrivacyContainer>
+              <CheckboxContainer>
+                <Checkbox
+                  type="checkbox"
+                  id="privacy"
+                  name="privacyAccepted"
+                  required
+                />
+                <CheckboxIcon
+                  src="https://cdn.builder.io/api/v1/image/assets/08bf16d58b0d4aa28fefd3a671be5059/0e18d44f55ed96ae37f0649893cd9c49f49dc1295f315ad53ec4c871825c9986?placeholderIfAbsent=true"
+                  alt="Checkbox"
+                />
+              </CheckboxContainer>
+              <PrivacyText>
+                <span>To submit this form you have to accept our </span>
+                <PrivacyLink href="/privacy">Privacy Statement</PrivacyLink>
+              </PrivacyText>
+            </PrivacyContainer>
+
+            <SubmitButton type="submit">Send</SubmitButton>
+          </FormActions>
+        </StyledForm>
+      </Form>
     </FormContainer>
   );
 }
@@ -216,7 +209,7 @@ const EmailAddress = styled.span`
   font-weight: 500;
 `;
 
-const StyledForm = styled.form`
+const StyledForm = styled.div`
   margin-top: 24px;
   width: 100%;
   @media (max-width: 991px) {
