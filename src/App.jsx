@@ -3,9 +3,6 @@ import './index.css'
 import { 
   createBrowserRouter,
   Route,
-  Routes,
-  NavLink,
-  Link,
   Navigate,
   createRoutesFromElements,
   RouterProvider
