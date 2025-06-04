@@ -1,14 +1,11 @@
 "use client";
-import React from "react";
 import styled from "styled-components";
 import { Header } from "../pages/Header/Header";
-import BreadcrumbNav from "../../components/BreadcrumbNav.jsx";
+import BreadcrumbNav from "../../components/BreadcrumnNav.jsx";
 import CheckoutSteps from "./CheckoutSteps";
 import ShippingForm from "./ShippingForm";
 import OrderSummary from "./OrderSummary";
 import Footer from "../../components/Footer/";
-import PaymentSection from "./PaymentSection";
-import PaymentDetailsSummary from "./PaymentsDetailsSummary";
 import useWindowWidth from "../../components/useWindowWidth";
 import MobileCheckoutComponent from "./MobileCheckoutComponent";
 
