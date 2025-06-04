@@ -27,17 +27,17 @@ export const Contact = () => {
         <FormFields>
           <FormField mt="0">
             <label>Name</label>
-            <Input type="text" />
+            <Input type="text" name="name" />
           </FormField>
 
           <FormField>
             <label>Email</label>
-            <Input type="email" />
+            <Input type="email" name="email" />
           </FormField>
 
           <FormField>
             <label>Subject</label>
-            <Input type="text" />
+            <Input type="text" name="subject" />
           </FormField>
 
           <FormField>

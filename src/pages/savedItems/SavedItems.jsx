@@ -3,7 +3,7 @@ import { Header } from '../Header/Header'
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import ProductGrid from './ProductGrid';
-import Footer from '../Footer';
+import Footer from '../../components/Footer';
 
 function SavedItems() {
   const [productName, setProductName] = useState("shoe")

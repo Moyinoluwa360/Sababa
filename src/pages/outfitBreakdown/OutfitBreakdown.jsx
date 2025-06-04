@@ -1,12 +1,12 @@
 "use client";
 import * as React from "react";
 import styled from "styled-components";
-import {Header} from "../Header/Header"
-import Footer from "../Footer"
-import BreadcrumbNav from "../BreadcrumbNav";
+import {Header} from '../Header/Header'
+import Footer from "../../components/Footer"
+import BreadcrumbNav from "../../components/BreadcrumbNav";
 import { OutfitGallery } from "./OutfitGallery";
 import { OutfitDetails } from "./OutfitDetails";
-import useWindowWidth from "../useWindowWidth";
+import useWindowWidth from "../../components/useWindowWidth";
 
 function OutfitBreakdown() {
   return (

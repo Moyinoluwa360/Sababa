@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import OutfitCard from '../../OutfitCard';
+import OutfitCard from '../../../components/OutfitCard'; 
 
 const outfits = [
   { id: 100, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0ad9921a249113d36e4ed0c2e167f5741aac6a62e0e36c79996f99a1ccbd8153?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 245 },

@@ -1,8 +1,8 @@
 "use client";
 import React from 'react';
 import styled from 'styled-components';
-import OutfitCard from '../OutfitCard';
-import BreadcrumbNav from '../BreadcrumbNav';
+import OutfitCard from '../../components/OutfitCard';
+import BreadcrumbNav from '../../components/BreadcrumbNav'
 
 const AllOutfits = () => {
   const outfitImages = [

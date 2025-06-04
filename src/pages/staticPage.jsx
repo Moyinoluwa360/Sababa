@@ -1,7 +1,7 @@
 import React from 'react'
 import { Header } from './Header/Header'
-import { ProductSection } from './ProductSection/ProductSection'
-import Footer from './Footer'
+import { ProductSection } from './productSection/ProductSection'
+import Footer from '../components/Footer'
 import styled from 'styled-components'
 function StaticPageDiv() {
   return (

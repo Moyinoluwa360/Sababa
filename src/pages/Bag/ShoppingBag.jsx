@@ -3,9 +3,9 @@ import React from "react";
 import styled from "styled-components";
 import CartItem from "./CartItem";
 import OrderSummary from "./OrderSummary";
-import Footer from "../Footer"
+import Footer from "../../components/Footer"
 import {Header}from "../Header/Header"
-import BreadcrumbNav from "../BreadcrumbNav";
+import BreadcrumbNav from "../../components/BreadcrumbNav";
 const ShoppingBag = () => {
   return (
     <>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import useWindowWidth from '../useWindowWidth';
-import { deviceSizes } from '../deviceSize';
+import useWindowWidth from '../../components/useWindowWidth';
+import { deviceSizes } from '../../components/deviceSize';
 import { Link } from 'react-router-dom';
 
 const icons = [
@@ -27,7 +27,7 @@ export default function Nav2 () {
 
       <Link to={"saveditems"}>
         <IconButton  tabIndex="0">
-          <img src="/liked-heart.svg" alt="liked icon"  />
+          <img src="/liked-heart.svg" alt="liked icon"/>
           {
             useWindowWidth() > 600 ?
             <div className="iconLabel">Saved Items</div>

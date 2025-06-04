@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-import BreadcrumbNav from "../BreadcrumbNav";
+import BreadcrumbNav from "../../components/BreadcrumbNav";
 import ContactForm from "./ContactForm";
 
 function ContactUs() {

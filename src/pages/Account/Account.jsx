@@ -1,15 +1,9 @@
 "use client";
-import React from "react";
 import styled from "styled-components";
 import {AccountHeader} from "./AccountHeader";
 import { NavigationItems } from "./AccountNav";
-import { ProfileContent } from "./Profile/ProfileContent";
-import {Contact} from "./Contact/Contact"
-import { Settings } from "./Settings/Settings";
-import { PaymentMethod } from "./PaymentMethod/PaymentMethod";
-import {YourOrder} from "./YourOrder/YourOrder"
 import { AccountFooter } from "./AccountFooter";
-import useWindowWidth from "../useWindowWidth";
+import useWindowWidth from "../../components/useWindowWidth";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 

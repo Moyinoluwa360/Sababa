@@ -2,9 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Navigation } from './Navigation';
-import Nav2 from './leftsideNav';
-import useWindowWidth from '../useWindowWidth';
-import { deviceSizes } from '../deviceSize';
+import Nav2 from './RightSideNav';
+import useWindowWidth from '../../components/useWindowWidth';
+import { deviceSizes } from '../../components/deviceSize';
 import SlideInMenu from './SlideInMenu';
 import { Link } from 'react-router-dom';
 
