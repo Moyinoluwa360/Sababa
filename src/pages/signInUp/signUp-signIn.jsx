@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import {LogInForm} from "./LogInForm";
-import Footer from "../Footer";
+import Footer from "../../components/Footer";
 import CreateAccForm from "./CreateAccForm";
 import { useState } from "react";
-import useWindowWidth from "../useWindowWidth";
+import useWindowWidth from "../../components/useWindowWidth";
 
-export default function SignUp(){
+export default function SignUpSignInPage(){
     const [currentForm, setCurrentForm] = useState("log in")
     return(
         <SignUpDiv currentForm = {currentForm}>

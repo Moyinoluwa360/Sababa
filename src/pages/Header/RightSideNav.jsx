@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import useWindowWidth from '../../components/useWindowWidth';
 import { deviceSizes } from '../../components/deviceSize';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const icons = [
   { id: 1, icon: 'account.svg', label: 'Login' },
@@ -11,14 +12,15 @@ const icons = [
 ];
 
 export default function Nav2 () {
+  const user = useSelector((state) => state.auth.user);
   return (
     <IconButtonsWrapper>
-      <Link to={"account"}>
+      <Link to={"/account"}>
         <IconButton  tabIndex="0">
           <img src="/account.svg" alt="account icon"  />
           {
             useWindowWidth() > 600 ?
-            <div className="iconLabel">Login</div>
+            <div className="iconLabel">Hello, {user.displayName?.split(' ')[0] || 'User'}</div>
             :
             null
           }

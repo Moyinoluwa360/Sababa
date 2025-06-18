@@ -1,23 +1,34 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../firebase/auth';
+import { useAuth } from '../../contexts/authContext/authContext';
 
 export function LogInForm(props) {
+  const userLoggedIn = useAuth()
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  
+  const [isSigningIn, setIsSigningIn] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Form submitted successfully!');
-    console.log('Form Data:', formData);
+    if (!isSigningIn){
+      setIsSigningIn(true);
+      await doSignInWithEmailAndPassword(formData.email, formData.password)
+    }
   };
 
+  
+  
   return (
     <LogInFormDiv>
       <div className="main-sec-head">
