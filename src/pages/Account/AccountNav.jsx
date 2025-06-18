@@ -32,7 +32,7 @@ export function NavigationItems(props) {
   const handleSignOut = async () => {
     try {
       await doSignOut();
-      navigate("/signin", { replace: true }); // Redirect to sign-in page after sign out
+      navigate("/", { replace: true }); // Redirect to sign-in page after sign out
       // Optionally show a success message or handle additional cleanup
       console.log("User signed out successfully");
     } catch (error) {
