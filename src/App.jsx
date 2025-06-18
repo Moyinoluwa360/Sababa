@@ -38,7 +38,7 @@ import { initAuthListener } from './firebase/auth'
 // Route guard for protected routes
 function RequireAuth({ children }) {
   const { user } = useSelector((state) => state.auth);
-  if (!user) return <Navigate to="/signin" replace />;
+  if (!user) return <Navigate to="/" replace />;
   return children;
 }
 
@@ -65,7 +65,7 @@ function App() {
         <>
           {/* Public route: Sign in */}
           <Route
-            path="/signin"
+            path="/"
             element={user ? <Navigate to="/home" replace /> : <SignInPage />}
           />
 
