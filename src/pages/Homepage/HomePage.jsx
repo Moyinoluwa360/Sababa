@@ -4,6 +4,7 @@ import { StyleCategories } from './StyleCategories';
 import { OutfitGallery } from './OutfitsYouMayLike/OutfitGallery';
 import { ProductGallery } from './ProductYouMayLike/ProductGallery';
 
+
 export default function HomePage() {
   return (
     <HomeContainer>
