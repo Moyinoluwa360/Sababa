@@ -26,3 +26,5 @@ src/firebase/serviceAccountKey.json
 *.njsproj
 *.sln
 *.sw?
+
+dist
