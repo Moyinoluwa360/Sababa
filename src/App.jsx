@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom'
 
 // pages imports
-import HomePage from './pages/HomePage/HomePage'
+import HomePage from './pages/HomePage/HomePage';
 import AllOutfits from './pages/allOutfits/AllOutfits'
 import OutfitBreakdown from './pages/outfitBreakdown/OutfitBreakdown'
 import ShoppingBag from './pages/Bag/ShoppingBag'
