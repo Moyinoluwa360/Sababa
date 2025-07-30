@@ -6,7 +6,7 @@ export default function ProductGrid(props) {
   return (
     <Wrapper>
       {props.productsDatas.map((product, index) => (
-          <ProductCard product = {product} />
+          <ProductCard key={product.id || index} product={product} />
       ))}
     </Wrapper>
   );

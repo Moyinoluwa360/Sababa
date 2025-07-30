@@ -2,7 +2,7 @@ import { auth, db, googleAuthProvider } from "./firebase";
 import { signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { store } from "../redux/store";
-import { setUser, clearUser, setError, setLoading } from "../redux/slices/authSlice";
+import { setUserAndLoadWishlist, clearUser, setError, setLoading } from "../redux/slices/authSlice";
 
 // Auth state listener
 export const initAuthListener = () => {
@@ -14,7 +14,7 @@ export const initAuthListener = () => {
         displayName: user.displayName,
         photoURL: user.photoURL,
       };
-      store.dispatch(setUser(userData));
+      store.dispatch(setUserAndLoadWishlist(userData));
     } else {
       console.log("User is signed out", store.getState().auth.user);
       store.dispatch(clearUser());
@@ -44,7 +44,7 @@ export const signInWithGoogle = async () => {
       photoURL: user.photoURL,
     };
 
-    store.dispatch(setUser(userData));
+    store.dispatch(setUserAndLoadWishlist(userData));
     store.dispatch(setLoading(false));
   } catch (error) {
     store.dispatch(setError(error.message || "Google sign-in failed"));

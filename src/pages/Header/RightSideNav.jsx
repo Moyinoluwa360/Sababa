@@ -27,12 +27,12 @@ export default function Nav2 () {
         </IconButton>
       </Link>
 
-      <Link to={"saveditems"}>
+      <Link to={"wishlist"}>
         <IconButton  tabIndex="0">
           <img src="/liked-heart.svg" alt="liked icon"/>
           {
             useWindowWidth() > 600 ?
-            <div className="iconLabel">Saved Items</div>
+            <div className="iconLabel">Wish List</div>
             :
             null
           }

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-import MobileBreakdown from "./MobileMainBreakdown";
+import MobileBreakdown from "./MobileDetails";
 export function OutfitGallery() {
   return (
     <GallerySection>

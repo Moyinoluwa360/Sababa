@@ -4,10 +4,10 @@ import {Header} from '../Header/Header'
 import Footer from "../../components/Footer"
 import BreadcrumbNav from "../../components/BreadcrumbNav";
 import { OutfitGallery } from "./OutfitGallery";
-import { OutfitDetails } from "./OutfitDetails";
+import {Details } from "./Details";
 import useWindowWidth from "../../components/useWindowWidth";
 
-function OutfitBreakdown() {
+function OutfitsDetails() {
   return (
     <main className="ootd-container">
       <Header />
@@ -26,7 +26,7 @@ function OutfitBreakdown() {
       </PageTitle>
       <MainSection>
         <OutfitGallery />
-        <OutfitDetails />
+        <Details />
         <Buyall>
           Buy All
         </Buyall>
@@ -106,4 +106,4 @@ const Buyall = styled.button`
   }
 `
 
-export default OutfitBreakdown;
+export default OutfitsDetails;

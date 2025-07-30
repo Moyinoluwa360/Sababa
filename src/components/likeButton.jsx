@@ -1,19 +1,31 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-export function likeBtn() {
-  return (
-      <LikeButton aria-label={`Like outfit ${id}`}>
-        <LikeIcon src="https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c44b90513fc161d45e980628189af31a658fae5fc05b1e5e4b6050dd361f8626?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&" alt="" />
-      </LikeButton>
-  );
-}
+const LikeButton = ({ liked, onClick, ariaLabel, isLoggedIn = false, top, bottom, right, left }) => (
+  <StyledButton 
+    onClick={isLoggedIn ? onClick : () => alert("Please log in to add items to your wishlist")} 
+    aria-label={ariaLabel} 
+    type="button"
+    disabled={!isLoggedIn}
+    title={!isLoggedIn ? "Log in to add to wishlist" : ""}
+    $bottom={bottom}
+    $right={right}
+    $top={top}
+    $left={left}
+  >
+    <LikeIcon
+      src={liked ? "/heart/liked-heart.svg" : "/heart/unliked-heart.svg"}
+      alt={liked ? "Black heart (wishlisted)" : "Red heart (wishlisted)"}
+    />
+  </StyledButton>
+);
 
-
-const LikeButton = styled.button`
+const StyledButton = styled.button`
   position: absolute;
-  bottom: 40px;
-  right: 12px;
+  ${({ $bottom }) => $bottom !== undefined && `bottom: ${$bottom};`}
+  ${({ $right }) => $right !== undefined && `right: ${$right};`}
+  ${({ $top }) => $top !== undefined && `top: ${$top};`}
+  ${({ $left }) => $left !== undefined && `left: ${$left};`}
   border-radius: 25px;
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
@@ -34,19 +46,26 @@ const LikeButton = styled.button`
     outline: 2px solid #000;
     outline-offset: 2px;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
   @media (max-width:480px){
     width: 24px;
     height: 24px;
-    bottom: 25px;
   }
 `;
 
 const LikeIcon = styled.img`
-  width: 22px;
-  height: 22px;
+  width: 25px;
+  height: 25px;
   margin-top: 2.5px;
   @media (max-width:480px){
-    width: 13px;
-    height: 12px;
+    width: 15px;
+    height: 15px;
   }
 `;
+
+export default LikeButton;

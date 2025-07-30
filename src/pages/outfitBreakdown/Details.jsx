@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export function OutfitDetails() {
+export function Details() {
   return (
     <DetailsSection>
       <MainContent>

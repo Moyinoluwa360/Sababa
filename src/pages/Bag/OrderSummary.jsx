@@ -1,20 +1,35 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { selectCartTotal, selectCartItemCount } from "../../redux/slices/cartSlice";
 
 const OrderSummary = () => {
+  const total = useSelector(selectCartTotal);
+  const itemCount = useSelector(selectCartItemCount);
+  const deliveryPrice = useSelector(state => state.cart.deliveryPrice);
+  const orderTotal = useSelector(state => state.cart.orderTotal);
+
+  // Format price in Nigerian Naira (or USD if you prefer)
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('en-NG', {
+      style: 'currency',
+      currency: 'NGN',
+      minimumFractionDigits: 2
+    }).format(price);
+  };
+
   return (
     <OrderSummaryContainer>
       <SummaryRow>
         <span>Sub Total:</span>
-        <Amount>$104.99</Amount>
+        <Amount>{formatPrice(total)}</Amount>
       </SummaryRow>
       <SummaryRow>
         <span>Delivery:</span>
-        <div>null</div>
+        <div>{formatPrice(deliveryPrice)}</div>
       </SummaryRow>
-      <hr />
-      <CheckoutBtn>Proceed to checkout (3 items)</CheckoutBtn>
+      <CheckoutBtn>Proceed to checkout ({itemCount} {itemCount === 1 ? 'item' : 'items'})</CheckoutBtn>
       <PaymentInfo>
         <PaymentLabel>We Accept:</PaymentLabel>
         <PaymentMethods>
