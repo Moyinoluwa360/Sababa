@@ -17,10 +17,10 @@ export default function Nav2 () {
     <IconButtonsWrapper>
       <Link to={"/account"}>
         <IconButton  tabIndex="0">
-          <img src="/account.svg" alt="account icon"  />
+          <img src={user?.photoURL || "/account.svg"} alt="account icon" className='userImg'  />
           {
             useWindowWidth() > 600 ?
-            <div className="iconLabel">Hello, {user.displayName?.split(' ')[0] || 'User'}</div>
+            <div className="iconLabel">Hello, {user?.displayName?.split(' ')[0] || 'User'}</div>
             :
             null
           }
@@ -82,6 +82,11 @@ const IconButton = styled.button`
   img{
     width: 25px;
     height: 25px;
+  }
+  .userImg{
+    width: 30px;
+    height: 30px;
+    border-radius:50%;
   }
   transition: opacity 0.2s;
   &:hover {

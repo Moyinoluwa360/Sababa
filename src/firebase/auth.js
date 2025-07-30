@@ -35,6 +35,7 @@ export const signInWithGoogle = async () => {
       email: user.email || "",
       displayName: user.displayName || "Anonymous",
       createdAt: new Date(),
+      photoURL: user.photoURL
     }, { merge: true });
 
     const userData = {
