@@ -8,6 +8,7 @@ import {
   Navigate,
   createRoutesFromElements,
   RouterProvider,
+  useLocation,
 } from 'react-router-dom'
 
 // pages imports
@@ -38,10 +39,34 @@ import { useSelector } from 'react-redux'
 import { auth } from './firebase/firebase'
 import { initAuthListener } from './firebase/auth'
 
+// Component to handle post-login redirects
+function PostLoginRedirect() {
+  const location = useLocation();
+  const { user } = useSelector((state) => state.auth);
+  
+  // If user is authenticated and we have a redirect path, navigate to it
+  if (user && location.state?.from) {
+    return <Navigate to={location.state.from} replace />;
+  }
+  
+  // Default redirect to home if no specific destination
+  if (user) {
+    return <Navigate to="/home" replace />;
+  }
+  
+  // If not authenticated, show the signin page
+  return <SignInPage />;
+}
+
 // Route guard for protected routes
 function RequireAuth({ children }) {
   const { user } = useSelector((state) => state.auth);
-  if (!user) return <Navigate to="/" replace />;
+  const location = useLocation();
+  
+  if (!user) {
+    // Store the intended destination in location state
+    return <Navigate to="/signin" state={{ from: location.pathname }} replace />;
+  }
   return children;
 }
 
@@ -68,29 +93,36 @@ function App() {
         <>
           {/* Public route: Sign in */}
           <Route
+            path="/signin"
+            element={<PostLoginRedirect />}
+          />
+
+          {/* Public route: Home */}
+          <Route
             path="/"
-            element={user ? <Navigate to="/home" replace /> : <SignInPage />}
+            element={<Navigate to="/home" replace />}
           />
 
           {/* Protected routes */}
           <Route
             path="/home"
             element={
-              <RequireAuth>
-                <GeneralLayout />
-              </RequireAuth>
+              <GeneralLayout />
             }
           >
             <Route index element={<HomePage />} />
             <Route path="contact" element={<ContactUs />} action={contactAction} />
             <Route path="alloutfits" element={<AllOutfits />} />
-            <Route path="wishlist" element={<Wishlist />} />
+            <Route path="wishlist" element={
+              <RequireAuth>
+                <Wishlist />
+              </RequireAuth>
+            } />
             <Route path="bag" element={<ShoppingBag />} />
             <Route path="outfit-of-the-day" element={<OutfitBreakdown />} />
             <Route path="products" element={<ProductList />} />
             <Route path="product-section" element={<ProductSection />} />
             <Route path="product/:productId" element={<ProductDetails />} />
-            <Route path="test-product" element={<div>Test Product Page - Routing is working!</div>} />
           </Route>
 
           <Route
