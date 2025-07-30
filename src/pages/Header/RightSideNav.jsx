@@ -5,11 +5,6 @@ import { deviceSizes } from '../../components/deviceSize';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const icons = [
-  { id: 1, icon: 'account.svg', label: 'Login' },
-  { id: 2, icon: 'liked-heart.svg' , label: 'Liked items' },
-  { id: 3, icon: 'shopping-cart.svg', label: 'Bag(0)' }
-];
 
 export default function Nav2 () {
   const user = useSelector((state) => state.auth.user);
@@ -39,7 +34,8 @@ export default function Nav2 () {
         </IconButton>
       </Link>
 
-      <Link to={"bag"}>
+      {/* not yet available for mvp and use */}
+      {/* <Link to={"bag"}>
         <IconButton  tabIndex="0">
           <img src="/shopping-cart.svg" alt="cart icon"  />
           {
@@ -49,7 +45,7 @@ export default function Nav2 () {
             null
           }
         </IconButton>
-      </Link>
+      </Link> */}
       
     </IconButtonsWrapper>
   );
@@ -61,6 +57,7 @@ const IconButtonsWrapper = styled.div`
   align-items: center;
   gap: 24px;
   margin-left: auto;
+  margin-right:5px;
   @media (max-width: ${deviceSizes.mobile}) {
       height: 20px;
       width: 91px;
