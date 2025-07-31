@@ -1,13 +1,44 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { updateWishlistInFirestore } from "../redux/slices/wishlistSlice";
+import { toggleWishlist } from '../redux/slices/wishlistSlice';
 
-const LikeButton = ({ liked, onClick, ariaLabel, isLoggedIn = false, top, bottom, right, left }) => (
+const LikeButton = ({ariaLabel, outfit, top, bottom, right, left }) => {
+  const dispatch = useDispatch();
+  const wishlist = useSelector(state => state.wishlist.items);
+  const wishLoading = useSelector(state => state.wishlist.wishLoading);
+  const user = useSelector(state => state.auth.user);
+  const liked = wishlist.some(item => item.id === outfit.id);
+  const prevWishlistRef = useRef(wishlist);
+
+  // Save to Firestore when wishlist changes
+  useEffect(() => {
+    if (user && user.uid && prevWishlistRef.current !== wishlist) {
+      dispatch(updateWishlistInFirestore({ userId: user.uid, wishlist }));
+      prevWishlistRef.current = wishlist;
+    }
+  }, [wishlist, user, dispatch]);
+
+  const handleLike = () => {
+    dispatch(toggleWishlist(outfit));
+  };
+  
+  
+  
+  return (
   <StyledButton 
-    onClick={isLoggedIn ? onClick : () => alert("Please log in to add items to your wishlist")} 
+    onClick={user 
+      ? 
+      (e) => {
+        e.stopPropagation(); // Prevent card click when like button is clicked
+        handleLike();
+      }
+      : () => alert("Please log in to add items to your wishlist")} 
     aria-label={ariaLabel} 
     type="button"
-    disabled={!isLoggedIn}
-    title={!isLoggedIn ? "Log in to add to wishlist" : ""}
+    disabled={!user || wishLoading}
+    title={!user ? "Log in to add to wishlist" : wishLoading ? "Updating wishlist..." : ""}
     $bottom={bottom}
     $right={right}
     $top={top}
@@ -18,7 +49,7 @@ const LikeButton = ({ liked, onClick, ariaLabel, isLoggedIn = false, top, bottom
       alt={liked ? "Black heart (wishlisted)" : "Red heart (wishlisted)"}
     />
   </StyledButton>
-);
+)};
 
 const StyledButton = styled.button`
   position: absolute;
