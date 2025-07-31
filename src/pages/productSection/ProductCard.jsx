@@ -8,6 +8,120 @@ import { updateWishlistInFirestore } from "../../redux/slices/wishlistSlice";
 import { addToCart } from "../../redux/slices/cartSlice";
 import { updateCartInFirestore } from "../../redux/slices/cartSlice";
 
+
+export default function ProductCard({ product }) {
+  const navigate = useNavigate();
+  
+  // Data extraction (keep logic as before)
+  const productTitle = product?.title || product?.product_title || "Product Title";
+  const productImage = product?.images?.[0] || product?.product_photos?.[0] || "/dummyImg/shirtDummy.svg";
+  const productPrice = product?.finalPrice || product?.originalPrice || 0;
+  const originalPrice = product?.originalPrice || product?.typical_price_range?.[0] || 0;
+  const brand = product?.brand || product?.store || "";
+  const rating = product?.rating || null;
+  const reviewCount = product?.reviewCount || null;
+
+  const dispatch = useDispatch();
+  const wishlist = useSelector(state => state.wishlist.items);
+  const user = useSelector(state => state.auth.user);
+  const liked = wishlist.some(item => item.id === product.id);
+  const cart = useSelector(state => state.cart.items);
+
+  const handleLike = () => {
+    dispatch(toggleWishlist(product));
+    if (user && user.uid) {
+      setTimeout(() => {
+        const updatedWishlist = liked
+          ? wishlist.filter(item => item.id !== product.id)
+          : [...wishlist, product];
+        dispatch(updateWishlistInFirestore({ userId: user.uid, wishlist: updatedWishlist }));
+      }, 0);
+    }
+  };
+
+  const handleCardClick = () => {
+    navigate(`/home/product/${product.id}`);
+  };
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation(); // Prevent card click when button is clicked
+    dispatch(addToCart({ product }));
+    if (user && user.uid) {
+      setTimeout(() => {
+        // Find updated cart (simulate what Redux will have after add)
+        const existingItem = cart.find(item => item.id === product.id);
+        let updatedCart;
+        if (existingItem) {
+          updatedCart = cart.map(item =>
+            item.id === product.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+        } else {
+          const finalPrice = product.originalPrice * 1.15;
+          updatedCart = [
+            ...cart,
+            { ...product, quantity: 1, finalPrice: Math.round(finalPrice * 100) / 100 }
+          ];
+        }
+        dispatch(updateCartInFirestore({ userId: user.uid, cart: updatedCart }));
+      }, 0);
+    }
+  };
+
+  // Format price in Nigerian Naira
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('en-NG', {
+      style: 'currency',
+      currency: 'NGN'
+    }).format(price);
+  };
+
+  return (
+    <CardContainer onClick={handleCardClick}>
+      <ImageContainer>
+        <ProductImage src={productImage} alt={productTitle} loading="lazy" />
+        <LikeButton
+          liked={liked}
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent card click when like button is clicked
+            handleLike();
+          }}
+          ariaLabel={`Like ${productTitle}`}
+          isLoggedIn={user}
+          bottom="12px"
+          right="12px"
+        />
+      </ImageContainer>
+      <DetailsContainer>
+        <ProductTitle>{productTitle}</ProductTitle>
+        <PriceContainer>
+          <CurrentPrice>{formatPrice(productPrice)}</CurrentPrice>
+          {originalPrice !== productPrice && (
+            <OriginalPrice>{formatPrice(originalPrice)}</OriginalPrice>
+          )}
+        </PriceContainer>
+        <BrandRatingContainer>
+          <Brand>{brand}</Brand>
+          <RatingContainer>
+            {rating && (
+              <>
+                <RatingText>{rating}</RatingText>
+                {/* Star icon placeholder */}
+                <span role="img" aria-label="star">⭐</span>
+                {reviewCount && <ReviewText>({reviewCount})</ReviewText>}
+              </>
+            )}
+          </RatingContainer>
+        </BrandRatingContainer>
+        <AddToCartButton onClick={handleAddToCart}>Add to Cart</AddToCartButton>
+      </DetailsContainer>
+    </CardContainer>
+  );
+}
+
+
+
 const CardContainer = styled.div`
   display: flex;
   width: 100%;
@@ -192,114 +306,3 @@ const AddToCartButton = styled.button`
     border-color: #1c1c1c;
   }
 `;
-
-export default function ProductCard({ product }) {
-  const navigate = useNavigate();
-  
-  // Data extraction (keep logic as before)
-  const productTitle = product?.title || product?.product_title || "Product Title";
-  const productImage = product?.images?.[0] || product?.product_photos?.[0] || "/dummyImg/shirtDummy.svg";
-  const productPrice = product?.finalPrice || product?.originalPrice || 0;
-  const originalPrice = product?.originalPrice || product?.typical_price_range?.[0] || 0;
-  const brand = product?.brand || product?.store || "";
-  const rating = product?.rating || null;
-  const reviewCount = product?.reviewCount || null;
-
-  const dispatch = useDispatch();
-  const wishlist = useSelector(state => state.wishlist.items);
-  const user = useSelector(state => state.auth.user);
-  const liked = wishlist.some(item => item.id === product.id);
-  const cart = useSelector(state => state.cart.items);
-
-  const handleLike = () => {
-    dispatch(toggleWishlist(product));
-    if (user && user.uid) {
-      setTimeout(() => {
-        const updatedWishlist = liked
-          ? wishlist.filter(item => item.id !== product.id)
-          : [...wishlist, product];
-        dispatch(updateWishlistInFirestore({ userId: user.uid, wishlist: updatedWishlist }));
-      }, 0);
-    }
-  };
-
-  const handleCardClick = () => {
-    navigate(`/home/product/${product.id}`);
-  };
-
-  const handleAddToCart = (e) => {
-    e.stopPropagation(); // Prevent card click when button is clicked
-    dispatch(addToCart({ product }));
-    if (user && user.uid) {
-      setTimeout(() => {
-        // Find updated cart (simulate what Redux will have after add)
-        const existingItem = cart.find(item => item.id === product.id);
-        let updatedCart;
-        if (existingItem) {
-          updatedCart = cart.map(item =>
-            item.id === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          );
-        } else {
-          const finalPrice = product.originalPrice * 1.15;
-          updatedCart = [
-            ...cart,
-            { ...product, quantity: 1, finalPrice: Math.round(finalPrice * 100) / 100 }
-          ];
-        }
-        dispatch(updateCartInFirestore({ userId: user.uid, cart: updatedCart }));
-      }, 0);
-    }
-  };
-
-  // Format price in Nigerian Naira
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-NG', {
-      style: 'currency',
-      currency: 'NGN'
-    }).format(price);
-  };
-
-  return (
-    <CardContainer onClick={handleCardClick}>
-      <ImageContainer>
-        <ProductImage src={productImage} alt={productTitle} loading="lazy" />
-        <LikeButton
-          liked={liked}
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent card click when like button is clicked
-            handleLike();
-          }}
-          ariaLabel={`Like ${productTitle}`}
-          isLoggedIn={!!user}
-          bottom="12px"
-          right="12px"
-        />
-      </ImageContainer>
-      <DetailsContainer>
-        <ProductTitle>{productTitle}</ProductTitle>
-        <PriceContainer>
-          <CurrentPrice>{formatPrice(productPrice)}</CurrentPrice>
-          {originalPrice !== productPrice && (
-            <OriginalPrice>{formatPrice(originalPrice)}</OriginalPrice>
-          )}
-        </PriceContainer>
-        <BrandRatingContainer>
-          <Brand>{brand}</Brand>
-          <RatingContainer>
-            {rating && (
-              <>
-                <RatingText>{rating}</RatingText>
-                {/* Star icon placeholder */}
-                <span role="img" aria-label="star">⭐</span>
-                {reviewCount && <ReviewText>({reviewCount})</ReviewText>}
-              </>
-            )}
-          </RatingContainer>
-        </BrandRatingContainer>
-        <AddToCartButton onClick={handleAddToCart}>Add to Cart</AddToCartButton>
-      </DetailsContainer>
-    </CardContainer>
-  );
-}
