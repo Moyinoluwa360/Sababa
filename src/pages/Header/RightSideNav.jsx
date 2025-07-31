@@ -58,6 +58,7 @@ export default function Nav2 () {
 const IconButtonsWrapper = styled.div`
   align-self: center;
   display: flex;
+  color: black;
   align-items: center;
   gap: 24px;
   margin-left: auto;
