@@ -10,9 +10,9 @@ export default function Footer(){
             QUICK LINK
           </div>
           <div className="ourSocialPages">
-            <img src="instagramLogo.svg" alt="instagram logo" />
-            <img src="pinterestLogo.svg" alt="pinterest logo" />
-            <img src="tiktokLogo.svg" alt="tiktok logo" />
+            <img src="/instagramLogo.svg" alt="instagram logo" />
+            <img src="/pinterestLogo.svg" alt="pinterest logo" />
+            <img src="/tiktokLogo.svg" alt="tiktok logo" />
           </div>
           <div className="outfitCache">
             Outfit Cache
@@ -39,7 +39,7 @@ export default function Footer(){
               thesababacommunity@gmail.com
             </div>
             <div className="whatsappNo">
-              <img src="whatsappLogo.svg" alt="whatsapp Logo" />
+              <img src="/whatsappLogo.svg" alt="whatsapp Logo" />
               +2347042265102
             </div>
           </div>
