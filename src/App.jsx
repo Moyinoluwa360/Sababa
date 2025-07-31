@@ -28,8 +28,6 @@ import { Settings } from './pages/Account/Settings/Settings'
 import { YourOrder } from './pages/Account/YourOrder/YourOrder'
 import SignInPage from './pages/signInUp/SignIn'
 import ProductList from './pages/Products/ProductList'
-import {ProductSection} from './pages/productSection/ProductSection'
-import ProductDetails from './pages/ProductDetails/ProductDetails'
 
 // actions and loaders
 import { contactAction } from './formActions'
@@ -121,8 +119,6 @@ function App() {
             <Route path="bag" element={<ShoppingBag />} />
             <Route path="outfit-of-the-day" element={<OutfitBreakdown />} />
             <Route path="products" element={<ProductList />} />
-            <Route path="product-section" element={<ProductSection />} />
-            <Route path="product/:productId" element={<ProductDetails />} />
           </Route>
 
           <Route
