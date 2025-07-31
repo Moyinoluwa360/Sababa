@@ -13,7 +13,7 @@ export const Navigation = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <NavItem tabIndex="0">All Features <img src="dropdown.svg" alt="all feature drop down" /> </NavItem>
+        <NavItem tabIndex="0">All Features <img src="/dropdown.svg" alt="all feature drop down" /> </NavItem>
         {isHovered && <NavigationMenu setIsHovered={setIsHovered} />}
       </HoverWrapper>
       <NavItem tabIndex="0"> <NavLink to={"contact"}> Contact Us</NavLink> </NavItem>
