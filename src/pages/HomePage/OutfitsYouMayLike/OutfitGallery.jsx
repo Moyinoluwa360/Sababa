@@ -25,8 +25,7 @@ export function OutfitGallery({ title }) {
         {outfits.map((outfit) => (
           <OutfitCard 
             key={outfit.id}
-            imageUrl={outfit.image}
-            outfitNumber={outfit.id}
+            outfit={outfit}
           />
         ))}
       </OutfitsRow>
