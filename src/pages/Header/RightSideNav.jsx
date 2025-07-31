@@ -13,12 +13,15 @@ export default function Nav2 () {
       <Link to={"/account"}>
         <IconButton  tabIndex="0">
           <img src={user?.photoURL || "/account.svg"} alt="account icon" className='userImg'  />
-          {
-            useWindowWidth() > 600 ?
-            <div className="iconLabel">Hello, {user?.displayName?.split(' ')[0] || 'User'}</div>
-            :
-            null
-          }
+          <div className="iconLabel">
+            Hello
+            {
+              useWindowWidth() < 400 ?
+              '!'
+              :
+              (`,${user?.displayName?.split(' ')[0]}`|| 'User')
+            }
+          </div>
         </IconButton>
       </Link>
 
@@ -57,10 +60,11 @@ const IconButtonsWrapper = styled.div`
   align-items: center;
   gap: 24px;
   margin-left: auto;
-  margin-right:5px;
+  @media (min-width: ${deviceSizes.desktop}) {
+      margin-right:5px;
+    }
   @media (max-width: ${deviceSizes.mobile}) {
       height: 20px;
-      width: 91px;
       gap: 16px;
     }
   a{
@@ -81,8 +85,8 @@ const IconButton = styled.button`
     height: 25px;
   }
   .userImg{
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border-radius:50%;
   }
   transition: opacity 0.2s;
