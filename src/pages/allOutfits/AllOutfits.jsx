@@ -4,24 +4,83 @@ import OutfitCard from '../../components/OutfitCard';
 import BreadcrumbNav from '../../components/BreadcrumbNav'
 
 const AllOutfits = () => {
-  const outfitImages = [
-    "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/748e2942dbf4ccb799ea21987b2b1c6523a1bb43d2bfb26c0433a6aaaf33397a?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/0c0a883a3aee0c98bd11a11bb7f0379df77ed6ab8e1a8b3870c45c7c6657bcf0?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/0466c359a9969012d8f6311c355f2272855b69fbfdb18243927c71aefb3f2a76?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/dbf348af0ff29496d9cf53011de25c26ee65a3d594829958e740e53c1b76dc82?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/3863e1258a97cea31670fd0723cb2b845890d0194bd93e5f266ebdf86a191887?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/c2f6cfd9fe8d35879670f6056411db9e3f9fc33ef72ccede1a0fb4b0596b3c64?placeholderIfAbsent=true",
-    "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/42ad899e6680dc04792dd4dc222044eb813a92a02b2292d711ea165e66f63881?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/0725e9b2edefcd0bc177f9a4a6ac6caf39c560495026ea11eb62ed0ba3762ec5?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/66df12fd8142f0440c3e0065e0f454ad55e371a92a38710b93540d575c826803?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/cf68c2cd54ec9adf9757137fc4b1dc9894757abeadfcda382a40e99d2e469d70?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/8b85f12972713e7b6b7408e8deb64cac24e38389dfa3a07409de24aec5acb1ab?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/3c9d7d8301a5c3e9c178bb044ddd44ee5f839880d868a27d3e580d055686fb12?placeholderIfAbsent=true",
-    "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/4d996bce72b6749820a2b0787403ad51869af4d6d7e0d1b360f420861877f331?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/d28049f68635cabdf124d1cc616e39403926efb6aa5ca09a9cd5d762151ae7e8?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/2063174ccb05bf547c478a3ca5f2b952f999a35a449fc951955472f493dccfd8?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/81087352b2cbf12468d3081191090363661fc5e3b2816ef31914da6a366ad6b4?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/3c80866c6c058d74e6f1debd49d6fb817ef421fbeecc605ff1abf3c043f2cb37?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/1be25115947b48572506ef88da4fbfd2d9e0e5f3de1c0ce5925ec4eaf1a21289?placeholderIfAbsent=true",
-    "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/1bc8616eb685ec377dde61bc51a9adb8f9b3124dcd5e53acdd1f257af6d6556a?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/817370132fab95a30440cf6c0ca40a60bb822a0c8f168d53565e59f3856abf02?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/fcb4cadca04eba91f1024518db1793a8c659b6251314b582b553b2b92ae6063d?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/c4725841c437f71683319c2c94972429e0af3888694179a8da75a4c6f2a904a6?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/da9b7c979f9a0f2c0c1efa983cd23f80e163d8250087af474dc6173b766e2910?placeholderIfAbsent=true", "https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/12b9a14ba69cfbf64078f3d32f5b027856df372edca4b04f074d6fc910047985?placeholderIfAbsent=true",
-  ];
-
+  const outfits = [
+    { id: 1, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0ad9921a249113d36e4ed0c2e167f5741aac6a62e0e36c79996f99a1ccbd8153?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 245 },
+    { id: 2, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0c0a883a3aee0c98bd11a11bb7f0379df77ed6ab8e1a8b3870c45c7c6657bcf0?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 189 },
+    { id: 3, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0466c359a9969012d8f6311c355f2272855b69fbfdb18243927c71aefb3f2a76?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 167 },
+    { id: 4, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/dbf348af0ff29496d9cf53011de25c26ee65a3d594829958e740e53c1b76dc82?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 203 },
+    { id: 5, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/3863e1258a97cea31670fd0723cb2b845890d0194bd93e5f266ebdf86a191887?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 178 },
+    { id: 6, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c2f6cfd9fe8d35879670f6056411db9e3f9fc33ef72ccede1a0fb4b0596b3c64?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 156 },
+    { id: 7, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0ad9921a249113d36e4ed0c2e167f5741aac6a62e0e36c79996f99a1ccbd8153?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 234 },
+    { id: 8, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0c0a883a3aee0c98bd11a11bb7f0379df77ed6ab8e1a8b3870c45c7c6657bcf0?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 198 },
+    { id: 9, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0466c359a9969012d8f6311c355f2272855b69fbfdb18243927c71aefb3f2a76?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 142 },
+    { id: 10, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/dbf348af0ff29496d9cf53011de25c26ee65a3d594829958e740e53c1b76dc82?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 211 },
+    { id: 11, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/3863e1258a97cea31670fd0723cb2b845890d0194bd93e5f266ebdf86a191887?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 185 },
+    { id: 12, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c2f6cfd9fe8d35879670f6056411db9e3f9fc33ef72ccede1a0fb4b0596b3c64?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 163 },
+    { id: 13, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0ad9921a249113d36e4ed0c2e167f5741aac6a62e0e36c79996f99a1ccbd8153?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 256 },
+    { id: 14, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0c0a883a3aee0c98bd11a11bb7f0379df77ed6ab8e1a8b3870c45c7c6657bcf0?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 172 },
+    { id: 15, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0466c359a9969012d8f6311c355f2272855b69fbfdb18243927c71aefb3f2a76?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 191 },
+    { id: 16, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/dbf348af0ff29496d9cf53011de25c26ee65a3d594829958e740e53c1b76dc82?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 148 },
+    { id: 17, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/3863e1258a97cea31670fd0723cb2b845890d0194bd93e5f266ebdf86a191887?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 207 },
+    { id: 18, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c2f6cfd9fe8d35879670f6056411db9e3f9fc33ef72ccede1a0fb4b0596b3c64?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 129 },
+    { id: 19, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0ad9921a249113d36e4ed0c2e167f5741aac6a62e0e36c79996f99a1ccbd8153?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 268 },
+    { id: 20, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0c0a883a3aee0c98bd11a11bb7f0379df77ed6ab8e1a8b3870c45c7c6657bcf0?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 154 },
+    { id: 21, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0466c359a9969012d8f6311c355f2272855b69fbfdb18243927c71aefb3f2a76?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 176 },
+    { id: 22, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/dbf348af0ff29496d9cf53011de25c26ee65a3d594829958e740e53c1b76dc82?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 223 },
+    { id: 23, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/3863e1258a97cea31670fd0723cb2b845890d0194bd93e5f266ebdf86a191887?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 194 },
+    { id: 24, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c2f6cfd9fe8d35879670f6056411db9e3f9fc33ef72ccede1a0fb4b0596b3c64?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 141 },
+    { id: 25, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0ad9921a249113d36e4ed0c2e167f5741aac6a62e0e36c79996f99a1ccbd8153?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 252 },
+    { id: 26, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0c0a883a3aee0c98bd11a11bb7f0379df77ed6ab8e1a8b3870c45c7c6657bcf0?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 167 },
+    { id: 27, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0466c359a9969012d8f6311c355f2272855b69fbfdb18243927c71aefb3f2a76?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 188 },
+    { id: 28, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/dbf348af0ff29496d9cf53011de25c26ee65a3d594829958e740e53c1b76dc82?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 215 },
+    { id: 29, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/3863e1258a97cea31670fd0723cb2b845890d0194bd93e5f266ebdf86a191887?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 133 },
+    { id: 30, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c2f6cfd9fe8d35879670f6056411db9e3f9fc33ef72ccede1a0fb4b0596b3c64?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 179 },
+    { id: 31, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0ad9921a249113d36e4ed0c2e167f5741aac6a62e0e36c79996f99a1ccbd8153?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 261 },
+    { id: 32, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0c0a883a3aee0c98bd11a11bb7f0379df77ed6ab8e1a8b3870c45c7c6657bcf0?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 145 },
+    { id: 33, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0466c359a9969012d8f6311c355f2272855b69fbfdb18243927c71aefb3f2a76?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 202 },
+    { id: 34, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/dbf348af0ff29496d9cf53011de25c26ee65a3d594829958e740e53c1b76dc82?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 158 },
+    { id: 35, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/3863e1258a97cea31670fd0723cb2b845890d0194bd93e5f266ebdf86a191887?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 186 },
+    { id: 36, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c2f6cfd9fe8d35879670f6056411db9e3f9fc33ef72ccede1a0fb4b0596b3c64?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 127 },
+    { id: 37, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0ad9921a249113d36e4ed0c2e167f5741aac6a62e0e36c79996f99a1ccbd8153?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 274 },
+    { id: 38, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0c0a883a3aee0c98bd11a11bb7f0379df77ed6ab8e1a8b3870c45c7c6657bcf0?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 139 },
+    { id: 39, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0466c359a9969012d8f6311c355f2272855b69fbfdb18243927c71aefb3f2a76?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 195 },
+    { id: 40, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/dbf348af0ff29496d9cf53011de25c26ee65a3d594829958e740e53c1b76dc82?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 228 },
+    { id: 41, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/3863e1258a97cea31670fd0723cb2b845890d0194bd93e5f266ebdf86a191887?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 151 },
+    { id: 42, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c2f6cfd9fe8d35879670f6056411db9e3f9fc33ef72ccede1a0fb4b0596b3c64?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 164 },
+    { id: 43, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0ad9921a249113d36e4ed0c2e167f5741aac6a62e0e36c79996f99a1ccbd8153?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 287 },
+    { id: 44, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0c0a883a3aee0c98bd11a11bb7f0379df77ed6ab8e1a8b3870c45c7c6657bcf0?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 173 },
+    { id: 45, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0466c359a9969012d8f6311c355f2272855b69fbfdb18243927c71aefb3f2a76?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 146 },
+    { id: 46, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/dbf348af0ff29496d9cf53011de25c26ee65a3d594829958e740e53c1b76dc82?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 219 },
+    { id: 47, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/3863e1258a97cea31670fd0723cb2b845890d0194bd93e5f266ebdf86a191887?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 192 },
+    { id: 48, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c2f6cfd9fe8d35879670f6056411db9e3f9fc33ef72ccede1a0fb4b0596b3c64?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 135 },
+    { id: 49, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0ad9921a249113d36e4ed0c2e167f5741aac6a62e0e36c79996f99a1ccbd8153?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 259 },
+    { id: 50, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0c0a883a3aee0c98bd11a11bb7f0379df77ed6ab8e1a8b3870c45c7c6657bcf0?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 168 },
+    { id: 51, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0466c359a9969012d8f6311c355f2272855b69fbfdb18243927c71aefb3f2a76?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 183 },
+    { id: 52, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/dbf348af0ff29496d9cf53011de25c26ee65a3d594829958e740e53c1b76dc82?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 204 },
+    { id: 53, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/3863e1258a97cea31670fd0723cb2b845890d0194bd93e5f266ebdf86a191887?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 157 },
+    { id: 54, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c2f6cfd9fe8d35879670f6056411db9e3f9fc33ef72ccede1a0fb4b0596b3c64?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 171 },
+    { id: 55, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0ad9921a249113d36e4ed0c2e167f5741aac6a62e0e36c79996f99a1ccbd8153?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 243 },
+    { id: 56, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0c0a883a3aee0c98bd11a11bb7f0379df77ed6ab8e1a8b3870c45c7c6657bcf0?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 132 },
+    { id: 57, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0466c359a9969012d8f6311c355f2272855b69fbfdb18243927c71aefb3f2a76?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 197 },
+    { id: 58, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/dbf348af0ff29496d9cf53011de25c26ee65a3d594829958e740e53c1b76dc82?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 236 },
+    { id: 59, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/3863e1258a97cea31670fd0723cb2b845890d0194bd93e5f266ebdf86a191887?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 149 },
+    { id: 60, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c2f6cfd9fe8d35879670f6056411db9e3f9fc33ef72ccede1a0fb4b0596b3c64?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 162 },
+    { id: 61, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0ad9921a249113d36e4ed0c2e167f5741aac6a62e0e36c79996f99a1ccbd8153?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 281 },
+    { id: 62, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0c0a883a3aee0c98bd11a11bb7f0379df77ed6ab8e1a8b3870c45c7c6657bcf0?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 175 },
+    { id: 63, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/0466c359a9969012d8f6311c355f2272855b69fbfdb18243927c71aefb3f2a76?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 153 },
+    { id: 64, image: 'https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/dbf348af0ff29496d9cf53011de25c26ee65a3d594829958e740e53c1b76dc82?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&', likes: 208 },
+  ]
   return (
     <PageWrapper>
       <BreadcrumbNav/>
       <PageTitle>All Outfits</PageTitle>
         <OutfitContainer>
-          {outfitImages.map((imageUrl) => (
-            <OutfitCard 
-              imageUrl={imageUrl}
-              outfitNumber={100}
-            />
-          ))}
+        {outfits.map((outfit) => (
+          <OutfitCard 
+            key={outfit.id}
+            outfit = {outfit}
+          />
+        ))}
         </OutfitContainer>
 
       <Pagination>
