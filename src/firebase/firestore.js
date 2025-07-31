@@ -10,8 +10,6 @@ import { db } from './firebase';
 
 // Collections
 export const COLLECTIONS = {
-  PRODUCTS: 'products',
-  ORDERS: 'orders',
   USERS: 'users'
 };
 
