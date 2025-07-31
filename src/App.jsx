@@ -14,8 +14,6 @@ import {
 // pages imports
 import HomePage from './pages/HomePage/HomePage';
 import AllOutfits from './pages/allOutfits/AllOutfits'
-import OutfitBreakdown from './pages/OutfitBreakdown/OutfitsDetails'
-import ShoppingBag from './pages/Bag/ShoppingBag'
 import ContactUs from './pages/ContactUs/ContactUs'
 import { AccountPage } from './pages/Account/Account'
 import MobileAccountMenu from './pages/Account/MobileAccountMenu'
