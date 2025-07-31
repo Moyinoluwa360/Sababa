@@ -22,16 +22,18 @@ export const updateWishlistInFirestore = createAsyncThunk(
 const wishlistSlice = createSlice({
   name: 'wishlist',
   initialState: {
+    wishLoading : false,
     items: [], // array of product objects
   },
   reducers: {
     toggleWishlist: (state, action) => {
-      const product = action.payload;
-      const exists = state.items.some(item => item.id === product.id);
+      const outfit = action.payload;
+      console.log(outfit)
+      const exists = state.items.some(item => item.id === outfit.id);
       if (exists) {
-        state.items = state.items.filter(item => item.id !== product.id);
+        state.items = state.items.filter(item => item.id !== outfit.id);
       } else {
-        state.items.push(product);
+        state.items.push(outfit);
       }
     },
     setWishlist: (state, action) => {
@@ -43,8 +45,24 @@ const wishlistSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchWishlistFromFirestore.pending, (state) => {
+        state.wishLoading = true;
+      })
       .addCase(fetchWishlistFromFirestore.fulfilled, (state, action) => {
         state.items = action.payload;
+        state.wishLoading = false;
+      })
+      .addCase(fetchWishlistFromFirestore.rejected, (state) => {
+        state.wishLoading = false;
+      })
+      .addCase(updateWishlistInFirestore.pending, (state) => {
+        state.wishLoading = true;
+      })
+      .addCase(updateWishlistInFirestore.fulfilled, (state) => {
+        state.wishLoading = false;
+      })
+      .addCase(updateWishlistInFirestore.rejected, (state) => {
+        state.wishLoading = false;
       });
   }
 });
