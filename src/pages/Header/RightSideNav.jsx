@@ -99,6 +99,7 @@ const IconButton = styled.button`
     font-size:17.5px;
     margin-left: 3px;
     font-weight: 600;
+    color : black;
   }
   @media (max-width: ${deviceSizes.mobile}) {
     img{
