@@ -28,7 +28,7 @@ export const Header = () => {
             : null
           }
           <div className="logo">
-            <Link to={"/"} ><img src="fullSababaLogo.svg" alt="sababa"/></Link>
+            <Link to={"/"} ><img src="/fullSababaLogo.svg" alt="sababa"/></Link>
           </div>
           {
             useWindowWidth() > 1090 ?
