@@ -116,8 +116,6 @@ function App() {
                 <Wishlist />
               </RequireAuth>
             } />
-            <Route path="bag" element={<ShoppingBag />} />
-            <Route path="outfit-of-the-day" element={<OutfitBreakdown />} />
             <Route path="products" element={<ProductList />} />
           </Route>
 
