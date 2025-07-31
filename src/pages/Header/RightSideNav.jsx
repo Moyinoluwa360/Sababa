@@ -14,12 +14,13 @@ export default function Nav2 () {
         <IconButton  tabIndex="0">
           <img src={user?.photoURL || "/account.svg"} alt="account icon" className='userImg'  />
           <div className="iconLabel">
-            Hello
             {
-              useWindowWidth() < 400 ?
-              '!'
-              :
-              (`,${user?.displayName?.split(' ')[0]}`|| 'User')
+              user?
+              useWindowWidth() < 600
+               ?
+              'Hello!'
+              : `Hello! ${user?.displayName?.split(' ')[0]}` 
+              : "Sign In" 
             }
           </div>
         </IconButton>
