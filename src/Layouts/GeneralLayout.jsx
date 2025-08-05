@@ -7,7 +7,9 @@ function GeneralLayout() {
   return (
     <>
         <Header/>
-        <Outlet/>
+        <div className='generalLayout'>
+          <Outlet />
+        </div>
         <Footer/>
     </>
   )
