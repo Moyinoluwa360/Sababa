@@ -2,27 +2,57 @@
 import React from "react";
 import styled from "styled-components";
 
-export function Details() {
+export function Details({outfit}) {
+  const fits = outfit.pieces.filter(piece => piece.category == "Fit")
+  const accessoriess = outfit.pieces.filter(piece => piece.category == "Accessories")
+  const footwear = outfit.pieces.filter(piece => piece.category == "Footwear")
+
   return (
     <DetailsSection>
       <MainContent>
         <StyleInfo>
           <DetailGroup>
             <Label>Style</Label>
-            <Value>Casual Wears</Value>
+            <Value>{outfit.category}</Value>
           </DetailGroup>
-          <DetailGroup>
-            <Label>Fit</Label>
-            <Value>White top, white denim pant</Value>
-          </DetailGroup>
-          <DetailGroup>
-            <Label>Accessories</Label>
-            <Value>Diesel belt, 2 silver rings, sunglasses, keyholder</Value>
-          </DetailGroup>
-          <DetailGroup>
-            <Label>Footwear</Label>
-            <Value>Brown Penny Loafers</Value>
-          </DetailGroup>
+          {/* for fits  */}
+          {
+            fits?
+            <DetailGroup>
+              <Label>Fit</Label>
+              {
+                fits.map(fit => (
+                  <Value key={fit.description}>{fit.description}.</Value>
+                ))
+              }
+            </DetailGroup>
+            : ""
+          }
+          {/* for accessoriess */}
+          {
+            accessoriess?
+            <DetailGroup>
+              <Label>Accesories</Label>
+              {
+                accessoriess.map(accessories => (
+                  <Value key={accessories.description}>{accessories.description}.</Value>
+                ))
+              }
+            </DetailGroup>
+            : ""
+          }
+          {
+            footwear?
+            <DetailGroup>
+              <Label>Footwear</Label>
+              {
+                footwear.map(footwear => (
+                  <Value key={footwear.description}>{footwear.description}</Value>
+                ))
+              }
+            </DetailGroup>
+            : ""
+          }
           <SocialSection>
             <Label>Creator's Socials</Label>
             <SocialIcons>
@@ -57,6 +87,7 @@ const DetailsSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top:auto;
 `;
 
 const MainContent = styled.div`
@@ -86,19 +117,20 @@ const DetailGroup = styled.div`
 const Label = styled.div`
   font-size: 14px;
   margin-bottom: 4px;
-  color: #545454;
+  color:rgb(0, 0, 0);
   font-family: Inter;
+  font-weight:bold;
   @media (max-width: 480px) {
-    font-size: 10px;
+    font-size: 12px;
   }
 `;
 
 const Value = styled.p`
-  font-size: 16px;
-  color: #1C1C1C;
+  font-size: 13px;
+  color:rgb(74, 74, 74);
   font-family: Inter;
   @media (max-width: 480px) {
-    font-size: 12px;
+    font-size: 11px;
   }
 `;
 
