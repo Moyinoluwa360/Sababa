@@ -18,6 +18,7 @@ export function StyleCategories() {
           <CategoryCard key={category.title}>
             <CategoryImage src={category.image} alt={category.title} />
             <CategoryTitle>{category.title}</CategoryTitle>
+            <div className="cs">Coming soon</div>
           </CategoryCard>
         ))}
       </CategoriesGrid>
@@ -28,7 +29,7 @@ export function StyleCategories() {
 const Container = styled.section`
   width: 100%;
   max-width: 95%;
-  margin-top: 39px;
+  margin-top: 30px;
 `;
 
 const Title = styled.h2`
@@ -56,42 +57,55 @@ const CategoriesGrid = styled.div`
   scrollbar-width: none;  /* Firefox */
 
   @media (max-width: 991px) {
-    max-width: 100%;
+    width: 100%;
   }
 `;
 
 const CategoryCard = styled.div`
   position: relative;
   border-radius: 4px;
-  min-height: 340px;
+  min-height: 450px;
   min-width: 268px;
   overflow: hidden;
   cursor: pointer;
-  height: 450px;
   flex: 1;
-  flex-shrink: 0;
   &:hover {
     opacity: 0.9;
   }
+  .cs{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+    color: #ffffff;
+    opacity: 0.5;
+    font: 20px Inter, sans-serif;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
+    @media (max-width: 480px) {
+    font-size: 13px;
+    }
+  }
   @media (max-width: 480px) {
-    max-height: 196px;
-    max-width: 119px;
-    flex: 0;
+    min-height: 200px;
+    min-width: 150px;
+    flex: 1;
   }
 `;
 
 const CategoryImage = styled.img`
-  width: 100%;
   height: 100%;
-  object-fit: cover;
+  width: 100%;
 `;
 
 const CategoryTitle = styled.span`
   position: absolute;
   bottom: 16px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%);
   color: white;
   font: 600 20px Inter, sans-serif;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
+  @media (max-width: 480px) {
+    font-size: 13px;
+  }
 `;
