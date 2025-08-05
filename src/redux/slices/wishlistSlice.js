@@ -28,7 +28,6 @@ const wishlistSlice = createSlice({
   reducers: {
     toggleWishlist: (state, action) => {
       const outfit = action.payload;
-      console.log(outfit)
       const exists = state.items.some(item => item.id === outfit.id);
       if (exists) {
         state.items = state.items.filter(item => item.id !== outfit.id);
