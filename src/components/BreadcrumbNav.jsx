@@ -1,39 +1,38 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation, Link } from "react-router-dom";
 
 const BreadcrumbNav = () => {
+  const location = useLocation();
+  let currentLink = ""
+  const crumb = location.pathname.split("/").filter(crumb => crumb !== "")
+  const splicedCrumb = crumb.toSpliced(-1)
+        .map(crumb => {
+          currentLink += `/${crumb}`
+          return (
+            <NavLink key={crumb}>
+              <Link style={{color:"black", paddingRight:"5px"}} to={currentLink}>{crumb.charAt(0).toUpperCase() + crumb.slice(1)}</Link>
+              <Separator
+                src="https://cdn.builder.io/api/v1/image/assets/08bf16d58b0d4aa28fefd3a671be5059/0c050b4fac73f3abab8e7ab7fabe9a73a8a3555807e34010ed93561d489ffcb3?placeholderIfAbsent=true"
+                alt="Separator"
+              />
+            </NavLink>
+          )
+        })
+
   return (
     <NavContainer>
       <NavigationSection>
-        {/* <NavLink>Home</NavLink>
-        <Separator
-          src="https://cdn.builder.io/api/v1/image/assets/08bf16d58b0d4aa28fefd3a671be5059/0c050b4fac73f3abab8e7ab7fabe9a73a8a3555807e34010ed93561d489ffcb3?placeholderIfAbsent=true"
-          alt="Separator"
-        />
-        <NavLink>All Outfits</NavLink>
-        <Separator
-          src="https://cdn.builder.io/api/v1/image/assets/08bf16d58b0d4aa28fefd3a671be5059/0c050b4fac73f3abab8e7ab7fabe9a73a8a3555807e34010ed93561d489ffcb3?placeholderIfAbsent=true"
-          alt="Separator"
-        />
-        <NavLink>Outfit Of The Day 100</NavLink>
-        <Separator
-          src="https://cdn.builder.io/api/v1/image/assets/08bf16d58b0d4aa28fefd3a671be5059/0c050b4fac73f3abab8e7ab7fabe9a73a8a3555807e34010ed93561d489ffcb3?placeholderIfAbsent=true"
-          alt="Separator"
-        />
-        <CurrentPage>Outfits Breakdown</CurrentPage> */}
-        Nothing here for now
+        {splicedCrumb}
       </NavigationSection>
-      
     </NavContainer>
   );
 };
 
 const NavContainer = styled.section`
   display: flex;
-  margin-top: 24px;
-  margin-left: 40px;
-  width: 824px;
-  max-width: 100%;
+  padding: 0 0 0 40px;
+  width: 100%;
   flex-direction: column;
   font-family:
     Inter,
@@ -41,6 +40,9 @@ const NavContainer = styled.section`
     Roboto,
     Helvetica,
     sans-serif;
+  @media (max-width:400px){
+    padding:0 0 0 14px;
+  }
 `;
 
 const NavigationSection = styled.nav`
@@ -55,7 +57,7 @@ const NavigationSection = styled.nav`
   flex-wrap: wrap;
 `;
 
-/* const NavLink = styled.a`
+const NavLink = styled.div`
   align-self: stretch;
   margin-top: auto;
   margin-bottom: auto;
@@ -73,11 +75,5 @@ const Separator = styled.img`
   flex-shrink: 0;
 `;
 
-const CurrentPage = styled.span`
-  color: rgba(0, 0, 0, 1);
-  align-self: stretch;
-  margin-top: auto;
-  margin-bottom: auto;
-`; */
 
 export default BreadcrumbNav;
