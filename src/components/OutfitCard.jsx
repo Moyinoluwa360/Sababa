@@ -2,21 +2,31 @@ import React from 'react';
 import styled from 'styled-components';
 // like buttton imports
 import LikeButton from './likeButton';
+import { Link } from 'react-router-dom';
 
-const OutfitCard = ({outfit}) => {
+
+const OutfitCard = ({outfit, OOTDNUM}) => {
   return (
-    <CardWrapper>
-      <CardImageContainer>
-        <CardImage loading="lazy" src={outfit.image} alt={`OOTD ${outfit.id}`} />
-        <LikeButton
-          outfit = {outfit}
-          ariaLabel={`Like ${outfit.id}`}
-          bottom="12px"
-          right="12px"
-        />
-      </CardImageContainer>
-      <OutfitTitle>OOTD {outfit.id}</OutfitTitle>
-    </CardWrapper>
+    <Link 
+      to={`/home/alloutfits/${outfit.id}`}
+      key={outfit.id}
+      state={{outfitNumber: OOTDNUM}}
+      style={{textDecoration:"none"}}
+      >
+      <CardWrapper>
+        <CardImageContainer>
+          <CardImage loading="lazy" src={outfit.outfitImage} alt={`OOTD ${outfit.id}`} />
+          <LikeButton
+            outfit = {outfit}
+            OOTDNUM = {OOTDNUM}
+            ariaLabel={`Like ${outfit.id}`}
+            bottom="12px"
+            right="12px"
+          />
+        </CardImageContainer>
+        {<OutfitTitle>OOTD {OOTDNUM}</OutfitTitle>}
+      </CardWrapper>
+    </Link>
   );
 };
 
@@ -37,7 +47,7 @@ const CardWrapper = styled.article`
     height: 210px;
     width: 135px;
   }
-  @media (max-width: 305px){
+  @media (max-width: 307px){
     height: 190px;
     width: 120px;
   }
