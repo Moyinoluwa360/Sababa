@@ -1,56 +1,61 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-import MobileBreakdown from "./MobileDetails";
-export function OutfitGallery() {
+import PieceCard from "./PieceCard";
+import LikeButton from "../../components/likeButton";
+// slider package react slick
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation, A11y } from 'swiper/modules';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'swiper/css';
+import useWindowWidth from "../../components/useWindowWidth";
+
+export function OutfitGallery({outfit}) {
+  let width = useWindowWidth()
   return (
     <GallerySection>
       <MainImageColumn>
         <ImageContainer>
           <MainImage
             loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/4d257a64c4fd431196f0bd5355e29fdb/4eadd821fbca46f1ee8093782c91ab061b8046c73bb458dea6ff63910dbdc06a"
+            src={outfit.outfitImage}
             alt="Main outfit"
           />
-          <LikeButton className="mainLikeButton">
-              <LikeIcon src="/heart.svg" alt="" />
-          </LikeButton>
+          <LikeButton
+            outfit = {outfit}
+            ariaLabel={`Like ${outfit.id}`}
+            bottom="12px"
+            right="12px"
+          />
         </ImageContainer>
       </MainImageColumn>
-      <MobileBreakdown />
       <BreakdownSection>
-        <div id="div">
-          <NextShow id={"toTheLeft"} >
-            <img src="/lessThan.svg" alt="to the left arrow" />
-          </NextShow>
-          <MainBreakdown>
-            <CardContainer>
-              <OutfitImage src={"/dummyImg/shirtDummy.svg"} alt={"dummy for the real"}/>
-              <LikeButton>
-                <LikeIcon src="/heart.svg" alt="" />
-              </LikeButton>
-            </CardContainer>
-            <CardContainer>
-              <OutfitImage src={"/dummyImg/pantsDummy.svg"} alt={"dummy for the real"}/>
-              <LikeButton>
-                <LikeIcon src="/heart.svg" alt="" />
-              </LikeButton>
-            </CardContainer>
-            <CardContainer>
-              <OutfitImage src={"/dummyImg/shoeDummy.svg"} alt={"dummy for the real"}/>
-              <LikeButton>
-                <LikeIcon src="/heart.svg" alt="" />
-              </LikeButton>
-            </CardContainer>
-          </MainBreakdown>
-          <NextShow id={"toTheRight"} >
-            <img src="/greaterThan.svg" alt="to the right arrow" />
-          </NextShow>
+        <div className="mobileHeader">
+          <h2>Piece</h2>
         </div>
-        <ImageNav>
-          <NavDot active />
-          <NavDot />
-        </ImageNav>
+        <Swiper
+        // install Swiper modules
+        modules={[Navigation, Pagination, A11y]}
+        spaceBetween={20}
+        slidesPerView={Math.min(outfit.pieces.length, width < 610 ? (width < 420 ? 1 : 2) : 3)}
+        navigation
+        pagination={{ clickable: true }}
+        scrollbar={{ draggable: true }}
+        className="swiper"
+        >
+              {
+                outfit.pieces.map((piece, index) => (
+                  <SwiperSlide key={piece.id || index}>
+                    <PieceCard
+                      key={piece.id}
+                      piece = {piece}
+                    />   
+                  </SwiperSlide>          
+                ))
+              }
+          </Swiper>
       </BreakdownSection>
     </GallerySection>
   );
@@ -58,29 +63,28 @@ export function OutfitGallery() {
 
 const GallerySection = styled.section`
   width: 100%;
-  height: 402px;
+  height: auto;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  
   @media (max-width: 1270px) {
     flex-direction: column;
-    height: fit-content;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
+    margin-bottom: 25px;
   }
-  #div{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-`;
-
+`
 const MainImageColumn = styled.div`
   height: 402px;
   width: 288px;
+  flex-shrink: 0;
+  
   @media (max-width: 750px) {
     height: 300px;
     width: 220px;
   }
+  
   @media (max-width: 300px) {
     height: 250px;
     width: 170px;
@@ -92,10 +96,12 @@ const ImageContainer = styled.div`
   flex-direction: column;
   border-radius: 4px;
   position: relative;
-  align-items: end;
+  align-items: flex-end;
   height: 100%;
   width: 100%;
-  .mainLikeButton{
+  overflow: hidden;
+  
+  .mainLikeButton {
     @media (max-width: 300px) {
       height: 27px;
       width: 27px;
@@ -109,98 +115,77 @@ const MainImage = styled.img`
   height: 100%;
   width: 100%;
   object-fit: cover;
+  border-radius: 4px;
 `;
 
-const BreakdownSection = styled.section`
-  display: flex;
-  flex-direction: column; 
+const BreakdownSection = styled.section` 
   width: 75%;
+  height: 460px;
+  .mobileHeader{
+    text-align: center;
+    display: none;
+    @media (max-width: 1270px) {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
   @media (max-width: 1270px) {
     width: 100%;
+    height: 430px;
+    margin-left: 0;
   }
-  @media (max-width: 1000px) {
-    height: 300px;
-  }
-  @media (max-width: 750px) {
-    height: 200px;
-  }
-  @media (max-width: 520px) {
-    display: none;
-  }
-`
-
-const NextShow = styled.div`
-  display: flex;
-  align-items: center;
-`
-
-const MainBreakdown = styled.div`
-  width: 95%;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 5px 0 5px;
-  `
-;
   
-
-const CardContainer = styled.div`
-  position: relative;
-  border-radius: 4px;
-  min-width: 30%;
-  height: 402px;
-  overflow: hidden;
   @media (max-width: 1000px) {
-    min-width: 25%;
-    height: 300px;
+    height: 330px;
   }
-  @media (max-width: 750px) {
-    height: 200px;
-    min-width: 30%;
+  .swiper{
+    height:100%;
+    .swiper-pagination {
+    bottom: 1px !important; /* Reset top position */
+    left: 50% !important; /* Horizontal center */
+    transform: translateX(-50%) !important; /* Perfect centering */
+    .swiper-pagination-bullet {
+      background: #000000 !important;
+      width: 8px !important;
+      height: 8px !important;
+      margin: 0 4px !important;
+      opacity: 0.4 !important;
+      
+      &.swiper-pagination-bullet-active {
+        opacity: 1 !important;
+        transform: scale(1.2);
+        transition: all 0.3s ease;
+      }
+    }
   }
-  @media (max-width: 520px) {
-    display: block;
+    .swiper-button-next,
+    .swiper-button-prev {
+      top: 50% !important; /* Vertical center */
+      margin-top: -22px !important; /* Half of button height */
+      color: #000000 !important;
+      background: rgba(255, 255, 255, 0.9) !important;
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 50% !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+      transition: all 0.3s ease !important;
+      
+      &:after {
+        font-size: 20px !important;
+        font-weight: bold !important;
+      }
+      &:hover {
+        background: rgba(255, 255, 255, 1) !important;
+        transform: scale(1.1);
+      }
+      }
+
+    .swiper-button-next {
+      right: 1px !important; /* Distance from right edge */
+    }
+
+    .swiper-button-prev {
+      left: 1px !important; /* Distance from left edge */
+    }
   }
-`;
-
-const OutfitImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-  
-  @media (max-width: 480px) {
-    height: 196px;
-  }
-`;
-
-const LikeButton = styled.button`
-  position: absolute;
-  bottom: 10px;
-  right: 12px;
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
-  border: none;
-  background: none;
-`;
-
-const LikeIcon = styled.img`
-  width: 100%;
-  height: 100%;
-  margin-top: 2.5px;
-`;
-
-const ImageNav = styled.div`
-  display: flex;
-  margin-top: 7px;
-  justify-content: center;
-  gap: 8px;
-`;
-
-const NavDot = styled.div`
-  background-color: ${(props) =>
-    props.active ? "rgba(0, 0, 0, 1)" : "rgba(217, 217, 217, 1)"};
-  border-radius: 50%;
-  width: 8px;
-  height: 8px;
 `;

@@ -5,10 +5,11 @@ import OutfitCard from "../../components/OutfitCard"
 export default function WhislistGrid({wish}) {
   return (
     <Wrapper>
-      {wish.map((outfit) => (
+      {wish.slice().reverse().map((outfit) => (
           <OutfitCard 
           key={outfit.id}
           outfit = {outfit}
+          OOTDNUM={outfit.OOTDNUM}
         />
       ))}
     </Wrapper>
@@ -22,7 +23,7 @@ const Wrapper = styled.div`
   justify-content: center;
   gap: 12px;
   padding-left: 5px;
-  padding-right: 5px;  
+  padding-right: 5px; 
   @media (max-width: 480px){
     gap: 12px;
   }

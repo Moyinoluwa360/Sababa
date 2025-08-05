@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import WhislistGrid from './WishlistGrid';
@@ -8,9 +7,7 @@ function Wishlist() {
   const wishLoading = useSelector(state => state.wishlist.wishLoading);
 
   // Filter products to only those in the wishlist
-  const wishlistProducts = wishlist;
-  console.log(wishlistProducts)
-
+  const wishlistOutfit = wishlist;
   return (
     <>
       <PageTitle>
@@ -18,8 +15,8 @@ function Wishlist() {
       </PageTitle>
       {wishLoading ? (
         <LoadingMessage>Loading wish list...</LoadingMessage>
-      ) : wishlistProducts.length > 0 ? (
-        <WhislistGrid wish={wishlistProducts} />
+      ) : wishlistOutfit.length > 0 ? (
+        <WhislistGrid wish={wishlistOutfit} />
       ) : (
         <NoWishlist>
           <NoWishlistIcon>💖</NoWishlistIcon>
