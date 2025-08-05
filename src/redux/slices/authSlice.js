@@ -1,7 +1,7 @@
 // src/redux/slices/authSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchWishlistFromFirestore } from "./wishlistSlice";
-import { fetchCartFromFirestore } from "./cartSlice";
+import { fetchOutfits } from "./outfitsSlice";
 
 const initialState = {
   user: null,
@@ -32,11 +32,11 @@ const authSlice = createSlice({
 });
 
 // Thunk to set user and load wishlist and cart
-export const setUserAndLoadWishlist = (user) => async (dispatch) => {
+export const setPostAuthData = (user) => async (dispatch) => {
   dispatch(authSlice.actions.setUser(user));
   if (user && user.uid) {
     await dispatch(fetchWishlistFromFirestore(user.uid));
-    await dispatch(fetchCartFromFirestore(user.uid));
+    await dispatch(fetchOutfits());
   }
 };
 
