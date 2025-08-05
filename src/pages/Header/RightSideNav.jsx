@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import useWindowWidth from '../../components/useWindowWidth';
 import { deviceSizes } from '../../components/deviceSize';
@@ -20,7 +19,9 @@ export default function Nav2 () {
                ?
               'Hello!'
               : `Hello! ${user?.displayName?.split(' ')[0]}` 
-              : "Sign In" 
+              : (
+                    <div className="signIn">Sign In</div>                  
+              )
             }
           </div>
         </IconButton>
@@ -100,6 +101,30 @@ const IconButton = styled.button`
     margin-left: 3px;
     font-weight: 600;
     color : black;
+  }
+  .signIn{
+    height: 30px;
+    cursor: pointer;
+    width: fit-content;
+    color: white;
+    background-color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px 0 15px;
+    border-radius: 5px;
+    margin-left: 5px;
+    &:hover{
+      background-color: #8d8d8d;
+    }
+    @media (max-width: 480px){
+      height: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 0 10px 0 10px;
+    }
   }
   @media (max-width: ${deviceSizes.mobile}) {
     img{
