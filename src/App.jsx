@@ -25,7 +25,7 @@ import { PaymentMethod } from './pages/Account/PaymentMethod/PaymentMethod'
 import { Settings } from './pages/Account/Settings/Settings'
 import { YourOrder } from './pages/Account/YourOrder/YourOrder'
 import SignInPage from './pages/signInUp/SignIn'
-import {OutfitDetails} from './pages/OutfitBreakdown/OutfitsDetails'
+import {OutfitDetails} from './pages/OOTDBreakdown/OutfitDetails'
 
 
 // actions and loaders
