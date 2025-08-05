@@ -4,7 +4,10 @@ import {
   getDoc, 
   updateDoc, 
   doc, 
-  serverTimestamp 
+  serverTimestamp,
+  getDocs,
+  query,
+  orderBy
 } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -32,6 +35,19 @@ export const getUser = async (userId) => {
     throw error;
   }
 };
+
+export const getAllOutfits = async () => {
+  try {
+    const querySnapshot = await getDocs(query(
+      collection(db, "outfits"),
+      orderBy("createdAt", "desc")));
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() , createdAt: doc.data().createdAt.toMillis(),  // number
+      updatedAt: doc.data().updatedAt.toMillis(),}));
+  } catch (error) {
+    console.error('Error getting all outfits:', error);
+    throw error;
+  }
+}
 
 export const updateUser = async (userId, updates) => {
   try {
