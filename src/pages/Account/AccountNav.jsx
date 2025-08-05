@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import useWindowWidth from "../../components/useWindowWidth";
 import { doSignOut } from "../../firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function NavigationItem({ icon, label, setCurrentNav, currentNav, onClick }) {
   return (
@@ -28,11 +29,12 @@ function NavigationItem({ icon, label, setCurrentNav, currentNav, onClick }) {
 export function NavigationItems(props) {
   const windowWidth = useWindowWidth();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
 
   const handleSignOut = async () => {
     try {
       await doSignOut();
-      navigate("/", { replace: true }); // Redirect to sign-in page after sign out
+      navigate("/signin", { replace: true }); // Redirect to sign-in page after sign out
       // Optionally show a success message or handle additional cleanup
       console.log("User signed out successfully");
     } catch (error) {
@@ -76,7 +78,7 @@ export function NavigationItems(props) {
 
   return (
     <SidebarContainer>
-      <ProfileHeader>Hello, Eminokanju</ProfileHeader>
+      <ProfileHeader>{user ? `Hello! ${user?.displayName?.split(' ')[0]}` : "Hello User"}</ProfileHeader>
       <NavContainer>
         {navigationItems.map((item, index) => {
           // Handle Sign out differently - no NavLink wrapper
