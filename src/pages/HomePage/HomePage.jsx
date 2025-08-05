@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { StyleCategories } from './StyleCategories';
-import { OutfitGallery } from './OutfitsYouMayLike/OutfitGallery';
 import { ProductGallery } from './ProductYouMayLike/ProductGallery';
+import { Link } from 'react-router-dom';
 
 
 export default function HomePage() {
@@ -20,11 +20,36 @@ export default function HomePage() {
           </div>
         </div>
         <div className="heroBannerTitle">
-          Shop Outfit Easily Accross Different Stores
+          Discover Outfits, Click to Buy
         </div>
       </HeroBanner>
+      <GenderSection>
+        <Link 
+          to={`/home/alloutfits/`}
+          state={{gender:"male"}}
+          style={{textDecoration:"none", color:"black", width:"50%", height:"100%"}}
+        >
+          <div id="maleSec">
+            <img src="/hmp1.svg" alt="male section Image"/>
+            <span className="title">
+              Men
+            </span>
+          </div>
+        </Link>
+        <Link 
+          to={`/home/alloutfits`}
+          state={{gender:"female"}}
+          style={{textDecoration:"none", color:"black", width:"50%", height:"100%"}}
+        >
+          <div id="femaleSec">
+            <img src="/hmp3.svg" alt="female section Image"/>
+            <span className="title">
+              Women
+            </span>
+          </div>
+        </Link>
+      </GenderSection>
       <StyleCategories />
-      <OutfitGallery title="Outfits you may like" />
       <ProductGallery title="Products you may like" />
     </HomeContainer>
   );
@@ -36,7 +61,57 @@ const HomeContainer = styled.div`
   flex-direction: column;
   overflow: hidden;
   align-items: center;
+  font-style: Inter;
 `;
+
+const GenderSection = styled.div`
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 1);
+  display: flex;
+  margin-top: 7px;
+  width: 95%;
+  height: 383px;
+  gap: 5px;
+  div{
+    height: inherit;
+    width: 100%;
+    border: 4px solid rgba(0, 0, 0, 1);
+    display: flex;
+    flex-direction: column;
+    &:hover{
+      opacity: 0.9;
+    }
+    img{
+      width: 335px;
+      height: 90%;
+      margin: auto;
+      align-items: center;
+    }
+    .title{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 20px;
+      height: 10%;
+    }
+    @media (max-width: 710px) {
+      padding: 0 5px 0 5px;
+      img{
+        width: 100%;
+      }
+      .title{
+        font-weight: 600;
+        font-size: 14px;
+      }
+    }
+  }
+  @media (max-width: 500px) {
+    height: 200px;
+  }
+  @media (max-width: 310px) {
+  }
+`
 
 const HeroBanner = styled.div`
   border-radius: 8px;
@@ -120,7 +195,7 @@ const HeroBanner = styled.div`
     }
    }
    .heroBannerTitle{
-    font-size: 12px;
+    font-size: 15px;
     text-align: center;
    }
   }
