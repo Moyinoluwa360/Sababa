@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateWishlistInFirestore } from "../redux/slices/wishlistSlice";
 import { toggleWishlist } from '../redux/slices/wishlistSlice';
 
-const LikeButton = ({ariaLabel, outfit, top, bottom, right, left }) => {
+const LikeButton = ({ariaLabel, outfit, top, OOTDNUM, bottom, right, left }) => {
   const dispatch = useDispatch();
   const wishlist = useSelector(state => state.wishlist.items);
   const wishLoading = useSelector(state => state.wishlist.wishLoading);
@@ -21,7 +21,7 @@ const LikeButton = ({ariaLabel, outfit, top, bottom, right, left }) => {
   }, [wishlist, user, dispatch]);
 
   const handleLike = () => {
-    dispatch(toggleWishlist(outfit));
+    dispatch(toggleWishlist({...outfit, OOTDNUM}));
   };
   
   
@@ -31,6 +31,7 @@ const LikeButton = ({ariaLabel, outfit, top, bottom, right, left }) => {
     onClick={user 
       ? 
       (e) => {
+        e.preventDefault()
         e.stopPropagation(); // Prevent card click when like button is clicked
         handleLike();
       }
@@ -84,8 +85,8 @@ const StyledButton = styled.button`
   }
 
   @media (max-width:480px){
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
   }
 `;
 
@@ -94,8 +95,8 @@ const LikeIcon = styled.img`
   height: 25px;
   margin-top: 2.5px;
   @media (max-width:480px){
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
   }
 `;
 
