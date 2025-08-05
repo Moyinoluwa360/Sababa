@@ -9,3 +9,13 @@ body{
     padding: 0;
     overflow-x: hidden;
 }
+
+/* general layout / Layout */
+.generalLayout{
+    padding-top: 80px;
+    min-height: 100vh; 
+    width: 100%;
+    @media(max-width: 480px){
+        padding-top: 60px;
+    }
+}
