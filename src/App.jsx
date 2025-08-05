@@ -25,7 +25,7 @@ import { PaymentMethod } from './pages/Account/PaymentMethod/PaymentMethod'
 import { Settings } from './pages/Account/Settings/Settings'
 import { YourOrder } from './pages/Account/YourOrder/YourOrder'
 import SignInPage from './pages/signInUp/SignIn'
-import OutfitsDetails from './pages/OutfitBreakdown/OutfitsDetails'
+import {OutfitDetails} from './pages/OutfitBreakdown/OutfitsDetails'
 
 
 // actions and loaders
@@ -116,7 +116,7 @@ function App() {
                 <Wishlist />
               </RequireAuth>
             } />
-            <Route path="alloutfits/:id" element={<OutfitsDetails />} />
+            <Route path="alloutfits/:id" element={<OutfitDetails />} />
           </Route>
 
           <Route

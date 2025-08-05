@@ -7,7 +7,7 @@ import useWindowWidth from "../../components/useWindowWidth";
 import { useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-function OutfitsDetails() {
+export function OutfitDetails() {
   const location = useLocation();
   const { id } = useParams();
   const outfits = useSelector((state) => state.outfits.outfits);
@@ -79,5 +79,3 @@ const MainSection = styled.section`
     padding: 0 8px 0 8px;
   }
 `
-
-export default OutfitsDetails;
