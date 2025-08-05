@@ -1,25 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 
 export function ProductCard({ product }) {
-  const navigate = useNavigate();
   const { name, image, price, storeCount } = product;
   
-  const handleCardClick = () => {
-    navigate(`/product/${product.id}`);
-  };
-  
-  const handleLikeClick = (e) => {
-    e.stopPropagation(); // Prevent card click when like button is clicked
-    // Add like functionality here if needed
-  };
   
   return (
-    <CardContainer onClick={handleCardClick}>
+    <CardContainer >
       <ImageContainer>
         <ProductImage src={image} alt={name} loading="lazy" />
-        <LikeButton onClick={handleLikeClick} aria-label={`Like ${name}`}>
+        <LikeButton aria-label={`Like ${name}`}>
           <LikeIcon src="https://cdn.builder.io/api/v1/image/assets/d1df3775ad2c4bfbbcb6cc50e4ccaf24/c44b90513fc161d45e980628189af31a658fae5fc05b1e5e4b6050dd361f8626?apiKey=d1df3775ad2c4bfbbcb6cc50e4ccaf24&" alt="" />
         </LikeButton>
       </ImageContainer>
