@@ -44,15 +44,19 @@ export const Header = () => {
 
 const HeaderWrapper = styled.header`
   border-color: rgba(244, 244, 244, 1);
+  background-color: #ffffff;
   border-top-width: 2px;
   border-bottom-width: 2px;
   width: 100%;
-  padding: 0 32px 0 32px;
-  margin-bottom: 40px;
-  margin-top: 29px;
+  padding: 20px 32px 0 32px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  height: 10%;
   @media (max-width: ${deviceSizes.mobile}) {
-    height: 26px;
-    padding: 0 16px 0 16px;
+    padding: 14px 16px 0 16px;
+    height:7%;
   }
 `;
 
