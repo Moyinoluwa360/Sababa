@@ -25,7 +25,8 @@ import { PaymentMethod } from './pages/Account/PaymentMethod/PaymentMethod'
 import { Settings } from './pages/Account/Settings/Settings'
 import { YourOrder } from './pages/Account/YourOrder/YourOrder'
 import SignInPage from './pages/signInUp/SignIn'
-import ProductList from './pages/Products/ProductList'
+import OutfitsDetails from './pages/OutfitBreakdown/OutfitsDetails'
+
 
 // actions and loaders
 import { contactAction } from './formActions'
@@ -41,9 +42,9 @@ function PostLoginRedirect() {
   const { user } = useSelector((state) => state.auth);
   
   // If user is authenticated and we have a redirect path, navigate to it
-  if (user && location.state?.from) {
-    return <Navigate to={location.state.from} replace />;
-  }
+  // if (user && location.state?.from) {
+  //   return <Navigate to={location.state.from} replace />;
+  // }
   
   // Default redirect to home if no specific destination
   if (user) {
@@ -114,7 +115,7 @@ function App() {
                 <Wishlist />
               </RequireAuth>
             } />
-            <Route path="products" element={<ProductList />} />
+            <Route path="alloutfits/:id" element={<OutfitsDetails />} />
           </Route>
 
           <Route
@@ -147,16 +148,9 @@ function App() {
           <Route path="*" element={
             <div style={{ padding: '20px', textAlign: 'center' }}>
               <h1>404 - Page Not Found</h1>
-              <p>The page you're looking for doesn't exist.</p>
-              <p>Current user: {user ? 'Logged in' : 'Not logged in'}</p>
-              <p>Available routes:</p>
-              <ul style={{ textAlign: 'left', maxWidth: '300px', margin: '0 auto' }}>
-                <li>/home - Home page</li>
-                <li>/home/product/:productId - Product details</li>
-                <li>/home/bag - Shopping bag</li>
-                <li>/home/wishlist - Wishlist</li>
-                <li>/account - Account page</li>
-              </ul>
+              <p>My G the page u entered can't be found.</p>
+              <p>Current user: {user ? 'Logged In' : 'Make sure you ar logged In'}</p>
+  
             </div>
           } />
         </>
