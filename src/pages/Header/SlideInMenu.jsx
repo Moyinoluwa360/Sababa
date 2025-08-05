@@ -178,7 +178,7 @@ const dropdownDivs = {
       <DropdownContainer open={openDropdown === "outfits"}>
         {dropdownDivs.outfits.map((item) => (
           <DropdownItem key={item.type}>
-            <Icon src={item.img} />
+            <Icon loading={"lazy"} src={item.img} />
             {item.type}
           </DropdownItem>
         ))}
@@ -190,7 +190,7 @@ const dropdownDivs = {
       <DropdownContainer open={openDropdown === "categories"}>
         {dropdownDivs.categories.map((item) => (
           <DropdownItem key={item.type}>
-            <Icon src={item.img} />
+            <Icon loading={"lazy"} src={item.img} />
             {item.type}
           </DropdownItem>
         ))}
@@ -202,13 +202,13 @@ const dropdownDivs = {
       <DropdownContainer open={openDropdown === "stores"}>
         {dropdownDivs.stores.map((item) => (
           <DropdownItem key={item.type}>
-            <Icon src={item.img} />
+            <Icon loading= {"lazy"} src={item.img} />
             {item.type}
           </DropdownItem>
         ))}
       </DropdownContainer>
       
-      <MenuItem>FAQs</MenuItem>
+      <Link to={"/account"} onClick={onClose}  ><MenuItem>Account</MenuItem></Link>
       <Link to={"contact"} onClick={onClose}  ><MenuItem>Contact us</MenuItem></Link>
     </MenuContainer>
   );
