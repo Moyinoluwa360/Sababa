@@ -24,9 +24,8 @@ export default function HomePage() {
         </div>
       </HeroBanner>
       <GenderSection>
-        <Link 
-          to={`/home/alloutfits/`}
-          state={{gender:"male"}}
+        <Link
+          to={`/home/alloutfits/${"male"}`}
           style={{textDecoration:"none", color:"black", width:"50%", height:"100%"}}
         >
           <div id="maleSec">
@@ -37,8 +36,7 @@ export default function HomePage() {
           </div>
         </Link>
         <Link 
-          to={`/home/alloutfits`}
-          state={{gender:"female"}}
+          to={`/home/alloutfits/${"female"}`}
           style={{textDecoration:"none", color:"black", width:"50%", height:"100%"}}
         >
           <div id="femaleSec">
