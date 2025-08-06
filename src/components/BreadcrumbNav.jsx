@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
+import useWindowWidth from "./useWindowWidth";
 
 const BreadcrumbNav = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   let currentLink = ""
   const crumb = location.pathname.split("/").filter(crumb => crumb !== "")
@@ -22,9 +24,18 @@ const BreadcrumbNav = () => {
 
   return (
     <NavContainer>
-      <NavigationSection>
-        {splicedCrumb}
-      </NavigationSection>
+      {
+        useWindowWidth() > 480 ? (
+          <NavigationSection>
+            {splicedCrumb}
+          </NavigationSection>
+        ):
+        (
+          <div className="mobileNav" onClick={() => navigate(-1)} style={{color:"black", fontSize:"15px", fontWeight:"500"}}>
+            {<img src="/lessThan.svg" alt="Back" height={"12px"} />}{" Back"}
+          </div>
+        )
+      }
     </NavContainer>
   );
 };
