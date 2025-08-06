@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const OutfitCard = ({outfit, OOTDNUM}) => {
   return (
     <Link 
-      to={`/home/alloutfits/${outfit.id}`}
+      to={`/home/alloutfits/${outfit.gender}/${outfit.id}`}
       key={outfit.id}
       state={{outfitNumber: OOTDNUM}}
       style={{textDecoration:"none"}}
