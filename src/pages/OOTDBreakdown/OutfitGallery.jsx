@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import PieceCard from "./PieceCard";
 import LikeButton from "../../components/likeButton";
+import { useLocation} from "react-router-dom";
 // slider package react slick
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,6 +15,8 @@ import useWindowWidth from "../../components/useWindowWidth";
 
 export function OutfitGallery({outfit}) {
   let width = useWindowWidth()
+  let location = useLocation();
+  const { outfitNumber } = location.state || {};
   return (
     <GallerySection>
       <MainImageColumn>
@@ -28,6 +31,7 @@ export function OutfitGallery({outfit}) {
             ariaLabel={`Like ${outfit.id}`}
             bottom="12px"
             right="12px"
+            OOTDNUM={outfitNumber}
           />
         </ImageContainer>
       </MainImageColumn>
