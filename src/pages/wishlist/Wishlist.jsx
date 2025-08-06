@@ -1,15 +1,20 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import WhislistGrid from './WishlistGrid';
+import BreadcrumbNav from '../../components/BreadcrumbNav';
+import { Link } from 'react-router-dom';
 
 function Wishlist() {
   const wishlist = useSelector(state => state.wishlist.items);
   const wishLoading = useSelector(state => state.wishlist.wishLoading);
+  const { user } = useSelector(state => state.auth);
 
   // Filter products to only those in the wishlist
   const wishlistOutfit = wishlist;
   return (
     <>
+
+      <BreadcrumbNav />
       <PageTitle>
         Wish List
       </PageTitle>
@@ -24,6 +29,16 @@ function Wishlist() {
           <NoWishlistText>
             Items you add to your wishlist while browsing will appear here.
           </NoWishlistText>
+          {!user ? (
+            <NoWishlistText>
+              Please {
+                <Link to="/signin" style={{ textDecoration:"underline" ,fontWeight: '800px', color: '#000000' }}>
+                  sign in
+                </Link>
+              } in to view your wishlist.
+            </NoWishlistText>
+          ) : ( null
+          )}
         </NoWishlist>
       )}
     </>
