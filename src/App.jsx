@@ -35,10 +35,14 @@ import { useSelector } from 'react-redux'
 // firebase imports
 import { auth } from './firebase/firebase'
 import { initAuthListener } from './firebase/auth'
+// redux slices
+import { fetchOutfits } from "./redux/slices/outfitsSlice";
+// Redux store
+import { store } from './redux/store';
 
 // Component to handle post-login redirects
 function PostLoginRedirect() {
-  const location = useLocation();
+  // const location = useLocation();
   const { user } = useSelector((state) => state.auth);
   
   // If user is authenticated and we have a redirect path, navigate to it
@@ -79,6 +83,8 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged(() => {
       setIsInitialized(true);
     });
+    // Fetch outfits from the store
+    store.dispatch(fetchOutfits());
 
     return () => unsubscribe();
   }, []);
@@ -89,12 +95,6 @@ function App() {
     return createBrowserRouter(
       createRoutesFromElements(
         <>
-          {/* Public route: Sign in */}
-          <Route
-            path="/signin"
-            element={<PostLoginRedirect />}
-          />
-
           {/* Public route: Home */}
           <Route
             path="/"
@@ -112,11 +112,10 @@ function App() {
             <Route path="contact" element={<ContactUs />} action={contactAction} />
             <Route path="alloutfits" element={<AllOutfits />} />
             <Route path="wishlist" element={
-              <RequireAuth>
                 <Wishlist />
-              </RequireAuth>
             } />
-            <Route path="alloutfits/:id" element={<OutfitDetails />} />
+            <Route path="alloutfits/:gender" element={<AllOutfits />} />
+            <Route path="alloutfits/:gender/:id" element={<OutfitDetails />} />
           </Route>
 
           <Route
@@ -143,6 +142,12 @@ function App() {
                 <MobileAccountMenu />
               </RequireAuth>
             }
+          />
+
+          {/* Public route: Sign in */}
+          <Route
+            path="/signin"
+            element={<PostLoginRedirect />}
           />
 
           {/* 404 Not Found route */}
