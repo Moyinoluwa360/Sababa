@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import useWindowWidth from "../../components/useWindowWidth";
 import { doSignOut } from "../../firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function NavigationItem({ icon, label, setCurrentNav, currentNav, onClick }) {
@@ -28,15 +27,14 @@ function NavigationItem({ icon, label, setCurrentNav, currentNav, onClick }) {
 
 export function NavigationItems(props) {
   const windowWidth = useWindowWidth();
-  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
 
   const handleSignOut = async () => {
     try {
       await doSignOut();
-      navigate("/signin", { replace: true }); // Redirect to sign-in page after sign out
+      window.location.href = "/home"; // Redirect to sign-in page after sign out
       // Optionally show a success message or handle additional cleanup
-      console.log("User signed out successfully");
+      alert("User signed out successfully");
     } catch (error) {
       console.error("Error signing out:", error);
     }
