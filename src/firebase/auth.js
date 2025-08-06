@@ -16,9 +16,7 @@ export const initAuthListener = () => {
       };
       store.dispatch(setPostAuthData(userData));
     } else {
-      console.log("User is signed out", store.getState().auth.user);
       store.dispatch(clearUser());
-      console.log("User cleared from store", store.getState().auth.user);
     }
   });
 };
