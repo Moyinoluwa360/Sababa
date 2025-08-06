@@ -4,13 +4,12 @@ import OutfitCard from '../../components/OutfitCard';
 import BreadcrumbNav from '../../components/BreadcrumbNav'
 import { useSelector} from 'react-redux';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 
 const AllOutfits = () => {
   const outfits = useSelector((state) => state.outfits.outfits);
-  const location = useLocation()
-  const {gender} = location.state || {}
+  const { gender } = useParams();
   const outfitsLoading = useSelector((state) => state.outfits.outfitsLoading);
   const [genderFilter, setGenderFilter] = useState(gender || "male")
   let filteredOutfits =  outfits.filter((outfit)=> outfit.gender == genderFilter)
