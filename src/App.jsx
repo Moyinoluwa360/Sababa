@@ -26,6 +26,7 @@ import { Settings } from './pages/Account/Settings/Settings'
 import { YourOrder } from './pages/Account/YourOrder/YourOrder'
 import SignInPage from './pages/signInUp/SignIn'
 import {OutfitDetails} from './pages/OOTDBreakdown/OutfitDetails'
+import SignUpSignInPage from './pages/signInUp/signUp-signIn';
 
 
 // actions and loaders
@@ -111,9 +112,7 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="contact" element={<ContactUs />} action={contactAction} />
             <Route path="alloutfits" element={<AllOutfits />} />
-            <Route path="wishlist" element={
-                <Wishlist />
-            } />
+            <Route path="wishlist" element={<Wishlist />} />
             <Route path="alloutfits/:gender" element={<AllOutfits />} />
             <Route path="alloutfits/:gender/:id" element={<OutfitDetails />} />
           </Route>
@@ -149,6 +148,8 @@ function App() {
             path="/signin"
             element={<PostLoginRedirect />}
           />
+          {/* test sign in page */}
+          <Route path="testSignup" element={<SignUpSignInPage />} />
 
           {/* 404 Not Found route */}
           <Route path="*" element={
