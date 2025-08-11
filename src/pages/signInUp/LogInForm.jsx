@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { signInWithEmail } from '../../firebase/auth';
 
 export function LogInForm(props) {
 
@@ -7,22 +8,41 @@ export function LogInForm(props) {
     email: '',
     password: '',
   });
-  
-  const [isSigningIn, setIsSigningIn] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setError(''); // clear error while typing
+  };
+
+  const validateForm = () => {
+    if (!formData.email || !formData.password) {
+      return 'Both email and password are required';
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      return 'Please enter a valid email address';
+    }
+    return null;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-      alert(formData.email, formData.password)
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    try {
+      await signInWithEmail(formData.email, formData.password);
+      alert('Form submitted successfully!');
+    } catch (err) {
+      setError('Invalid email or password');
+    }
   };
 
-  
-  
   return (
     <LogInFormDiv>
       <div className="main-sec-head">
@@ -59,6 +79,7 @@ export function LogInForm(props) {
               </div>
               <div><u>Forgot password?</u></div>
             </div>
+            {error && <div style={{ color: 'red', fontSize: '14px', marginBottom: '8px', fontWeight:"600" }}>{error}</div>}
             <div className="logIn">
               <button type="submit" className="submit-button">
                 Log in
