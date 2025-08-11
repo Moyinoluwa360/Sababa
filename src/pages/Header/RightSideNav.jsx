@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 
 export default function Nav2 () {
   const user = useSelector((state) => state.auth.user);
+  const windowWidth = useWindowWidth();
   return (
     <IconButtonsWrapper>
       <Link to={"/account"}>
@@ -15,10 +16,10 @@ export default function Nav2 () {
           <div className="iconLabel">
             {
               user?
-              useWindowWidth() < 600
+              windowWidth < 600
                ?
               'Hello!'
-              : `Hello! ${user?.displayName?.split(' ')[0]}` 
+              : `Hello! ${user?.displayName?.split(' ')[0]|| user?.displayName}` 
               : (
                     <div className="signIn">Sign In</div>                  
               )
