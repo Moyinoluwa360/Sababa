@@ -1,20 +1,48 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { createUserWithEmail } from '../../firebase/auth';
 
-export default function CreateAccForm(props){
+export default function CreateAccForm(props) {
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setError(''); // clear error when typing
+  };
+
+  const validateForm = () => {
+    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+      return 'All fields are required';
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      return 'Please enter a valid email address';
+    }
+    if (formData.password.length < 6) {
+      return 'Password must be at least 6 characters';
+    }
+    if (formData.password !== formData.confirmPassword) {
+      return 'Passwords do not match';
+    }
+    return null;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    createUserWithEmail(formData.email, formData.password, formData.name);
     alert('Form submitted successfully!');
     console.log('Form Data:', formData);
   };
@@ -23,11 +51,22 @@ export default function CreateAccForm(props){
     <CreateAccFormDiv>
       <div className="main-sec-head">
         <div>Create your account</div>
-        <div>or <u onClick={()=>{props.setCurrentForm("sign in")}} >sign in</u></div>
+        <div>or <u onClick={() => { props.setCurrentForm("sign in") }}>sign in</u></div>
       </div>
       <div className="main-sec-body">
         <div className="input-section">
           <form onSubmit={handleSubmit} className="form-container">
+            <div className="input-group">
+              <div className="label">Username</div>
+              <input
+                type="text"
+                name="name"
+                className="input"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
             <div className="input-group">
               <div className="label">Email address</div>
               <input
@@ -36,6 +75,7 @@ export default function CreateAccForm(props){
                 className="input"
                 value={formData.email}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="input-group">
@@ -46,6 +86,7 @@ export default function CreateAccForm(props){
                 className="input"
                 value={formData.password}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="input-group">
@@ -56,11 +97,13 @@ export default function CreateAccForm(props){
                 className="input"
                 value={formData.confirmPassword}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="terms">
               By creating an account, you agree to our<pre> </pre><b><u>Terms Of Use</u></b>
             </div>
+            {error && <div style={{ color: 'red', fontSize: '14px', marginBottom: '8px', fontWeight:"600" }}>{error}</div>}
             <div className="createAccBtn">
               <button type="submit" className="submit-button">
                 Sign Up
@@ -77,7 +120,7 @@ export default function CreateAccForm(props){
           <div className="other-sign-in-opt">
             <div className="other-sign-in-option-btn">
               <span>
-                <img src="/google.svg" alt="Sign in with Google" loading='lazy'/>
+                <img src="/google.svg" alt="Sign in with Google" loading='lazy' />
                 Google
               </span>
             </div>
@@ -87,7 +130,6 @@ export default function CreateAccForm(props){
     </CreateAccFormDiv>
   );
 }
-
 const CreateAccFormDiv = styled.div`
     width: 514px;
     height: 680px;
@@ -129,18 +171,9 @@ const CreateAccFormDiv = styled.div`
       @media (max-width: 280px){
         padding: 8px;
       }
-      .join-signIn {
-      width: 100%;
-      height: 46px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 32px;
-    }
 
     .input-section {
-      height: 250px;
-
+      height: fit-content;
       form {
         width: inherit;
         height: inherit;
@@ -210,7 +243,6 @@ const CreateAccFormDiv = styled.div`
       display: flex;
       flex-direction: column;
       gap: 16px;
-      margin-top: 70px;
       @media (max-width: 500px){
         margin-top: 0px;
       }
