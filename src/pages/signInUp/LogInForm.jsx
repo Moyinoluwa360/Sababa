@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../firebase/auth';
-import { useAuth } from '../../contexts/authContext/authContext';
 
 export function LogInForm(props) {
-  const userLoggedIn = useAuth()
 
   const [formData, setFormData] = useState({
     email: '',
@@ -21,10 +18,7 @@ export function LogInForm(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isSigningIn){
-      setIsSigningIn(true);
-      await doSignInWithEmailAndPassword(formData.email, formData.password)
-    }
+      alert(formData.email, formData.password)
   };
 
   
@@ -33,7 +27,7 @@ export function LogInForm(props) {
     <LogInFormDiv>
       <div className="main-sec-head">
         <div>Sign in to your account</div>
-        <div>or <u onClick={()=>{props.setCurrentForm("create account")}}>create a new account</u></div>
+        <div>or <u onClick={()=>{props.setCurrentForm("create account")}}>sign up</u></div>
       </div>
       <div className="main-sec-body">
         <div className="input-section">
@@ -80,13 +74,10 @@ export function LogInForm(props) {
           </span>
           <div className="other-sign-in-opt">
             <div className="other-sign-in-option-btn">
-              <img src="/google.svg" alt="Sign in with Google" />
-            </div>
-            <div className="other-sign-in-option-btn">
-              <img src="/apple.svg" alt="Sign in with Apple" />
-            </div>
-            <div className="other-sign-in-option-btn">
-              <img src="/facebook.svg" alt="Sign in with Facebook" />
+              <span>
+                <img src="/google.svg" alt="Sign in with Google" loading='lazy'/>
+                Google
+              </span>
             </div>
           </div>
         </div>
@@ -122,6 +113,7 @@ const LogInFormDiv = styled.div`
       }
       :last-child{
         font-size: 16px;
+        font-weight: 500;
       }
     }
     .main-sec-body{
@@ -276,16 +268,24 @@ const LogInFormDiv = styled.div`
       .other-sign-in-opt{
         display: flex;
         gap: 24px;
+        flex-direction: column;
         justify-content: center;
         .other-sign-in-option-btn {
           height: 48px;
-          width: 48px;
+          width: 100%;
           background-color: #F4F4F4;
           display: flex;
           justify-content: center;
           align-items: center;
           border: 1px solid #D9D9D9;
           border-radius: 6px;
+          span{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: #727272;
+          }
         }
       }
     }

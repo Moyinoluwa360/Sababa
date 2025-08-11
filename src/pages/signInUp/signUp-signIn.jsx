@@ -6,7 +6,7 @@ import { useState } from "react";
 import useWindowWidth from "../../components/useWindowWidth";
 
 export default function SignUpSignInPage(){
-    const [currentForm, setCurrentForm] = useState("log in")
+    const [currentForm, setCurrentForm] = useState("sign in")
     return(
         <SignUpDiv currentForm = {currentForm}>
             {
@@ -19,9 +19,9 @@ export default function SignUpSignInPage(){
                     <div className="other-pages-link">
                         <div id="aboutUs">About us</div>
                         <div id="logIn"
-                        onClick={()=>{setCurrentForm("log in")}}
-                        currentForm = {currentForm}
-                        >Log in</div>
+                        onClick={()=>{setCurrentForm("sign in")}}
+                        $currentForm = {currentForm}
+                        >Sign in</div>
                         <div id="createAccount"
                         onClick={()=>{setCurrentForm("create account")}}
                         >Sign Up</div>
@@ -30,20 +30,26 @@ export default function SignUpSignInPage(){
               </header>
               :
               <div className="mobileHeader">
-                <img src="SababaLogo.svg" alt="" />
+                <img src="/SababaLogo.svg" alt="" />
               </div>
             }
             {
               useWindowWidth() < 500 ?
               <SignInToSignUpNAV>
-                <div>Sign In</div>
+                <div
+                  onClick={()=>{setCurrentForm("sign in")}}
+                  style={currentForm == "sign in" ? {fontWeight:"600", borderBottom:"2px solid black"} : null}
+                >Sign In</div>
                 |
-                <div>Sign Up</div>
+                <div
+                  onClick={()=>{setCurrentForm("create account")}}
+                   style={currentForm == "create account" ? {fontWeight:"600", borderBottom:"2px solid black"} : null}
+                >Sign Up</div>
               </SignInToSignUpNAV>
               : null
             }
             {
-              currentForm === "log in" ?
+              currentForm === "sign in" ?
               <LogInForm setCurrentForm = {setCurrentForm} />
               :
               <CreateAccForm setCurrentForm = {setCurrentForm} />
@@ -65,13 +71,13 @@ const SignUpDiv = styled.div`
   .mobileHeader{
     position: relative;
     width: 100%;
-    height: 100px;
+    height: 90px;
     background-color: #727272;
     img{
       position: absolute;
-      height: 64px;
-      width: 64px;
-      right: 40%;
+      height: 60px;
+      width: 60px;
+      right: 41%;
       bottom: -30%;
     }
   }
@@ -117,8 +123,8 @@ const SignUpDiv = styled.div`
           font-weight: 600;
         }
         #logIn{
-          color: ${(prop) => (prop.currentForm === "log in" ? "black" : "#727272")};
-          font-weight: ${(prop) => (prop.currentForm === "log in" ? "bold" : "light")};
+          color: ${(prop) => (prop.$currentForm === "sign in" ? "black" : "#727272")};
+          font-weight: ${(prop) => (prop.$currentForm === "sign in" ? "bold" : "light")};
         }
         #createAccount {
           background-color: black;
@@ -144,7 +150,8 @@ const SignInToSignUpNAV = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  color: grey;
+  color: #a3a3a3;
+  font-size: 12px;
   div{
     height: inherit;
     flex: 1;
