@@ -17,7 +17,6 @@ export default function SignUpSignInPage(){
                         <img src="/fullSababaLogo.svg" alt="Sababa Logo" />
                     </div>
                     <div className="other-pages-link">
-                        <div id="aboutUs">About us</div>
                         <div id="logIn"
                         onClick={()=>{setCurrentForm("sign in")}}
                         $currentForm = {currentForm}
@@ -118,10 +117,6 @@ const SignUpDiv = styled.div`
           gap: 16px;
         }
 
-        #aboutUs {
-          color: #727272;
-          font-weight: 600;
-        }
         #logIn{
           color: ${(prop) => (prop.$currentForm === "sign in" ? "black" : "#727272")};
           font-weight: ${(prop) => (prop.$currentForm === "sign in" ? "bold" : "light")};
