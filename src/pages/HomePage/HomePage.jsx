@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { StyleCategories } from './StyleCategories';
-import { ProductGallery } from './ProductYouMayLike/ProductGallery';
 import { Link } from 'react-router-dom';
 
 
@@ -48,7 +47,6 @@ export default function HomePage() {
         </Link>
       </GenderSection>
       <StyleCategories />
-      <ProductGallery title="Products you may like" />
     </HomeContainer>
   );
 }
@@ -73,9 +71,10 @@ const GenderSection = styled.div`
   div{
     height: inherit;
     width: 100%;
-    border: 4px solid rgba(0, 0, 0, 1);
+    border: 2.2px solid rgba(0, 0, 0, 1);
     display: flex;
     flex-direction: column;
+    border-radius: 8px;
     &:hover{
       opacity: 0.9;
     }
@@ -119,7 +118,7 @@ const HeroBanner = styled.div`
   width: 95%;
   max-width: 100%;
   height: 450px;
-  border: 4px solid rgba(0, 0, 0, 1);
+  border: 2.2px solid rgba(0, 0, 0, 1);
   flex-direction: column;
   .segregatedImages{
     display: flex;
