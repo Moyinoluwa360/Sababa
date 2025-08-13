@@ -56,12 +56,12 @@ const NavigationContainer = styled.nav`
   font-family: Inter, sans-serif;
   font-weight: 500;
   position: absolute;
-  top: 100%;
-  left: -400px;
-  right: 0;
+  top:40px;
+  left: -310px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  z-index: 100000;
+  overflow-y: auto;
 `;
 const MenuWrapper = styled.div`
   background-color: #fff;
@@ -86,7 +86,7 @@ const MenuContent = styled.div`
   flex-wrap: wrap;
   
   @media (max-width: 991px) {
-    max-width: 100%;
+    gap: 20px;
   }
 `;
 
