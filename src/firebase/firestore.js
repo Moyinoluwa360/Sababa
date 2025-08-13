@@ -24,9 +24,16 @@ export const getUser = async (userId) => {
   try {
     const docRef = doc(db, COLLECTIONS.USERS, userId);
     const docSnap = await getDoc(docRef);
-    
+
     if (docSnap.exists()) {
-      return { id: docSnap.id, ...docSnap.data() };
+      const data = docSnap.data();
+      // Convert updatedAt and createdAt if they exist and are Firestore Timestamps
+      return {
+        id: docSnap.id,
+        ...data,
+        createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt ?? null,
+        updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate().toISOString() : data.updatedAt ?? null,
+      };
     } else {
       return null;
     }
@@ -56,9 +63,19 @@ export const updateUser = async (userId, updates) => {
       ...updates,
       updatedAt: serverTimestamp()
     });
-    return { id: userId, ...updates };
+
+    // Fetch the updated user to get the real updatedAt value
+    const updatedSnap = await getDoc(docRef);
+    const updatedData = updatedSnap.data();
+    // Convert updatedAt and createdAt to string if they exist
+    return {
+      id: userId,
+      ...updatedData,
+      createdAt: updatedData.createdAt?.toDate ? updatedData.createdAt.toDate().toISOString() : updatedData.createdAt ?? null,
+      updatedAt: updatedData.updatedAt?.toDate ? updatedData.updatedAt.toDate().toISOString() : updatedData.updatedAt ?? null,
+    };
   } catch (error) {
     console.error('Error updating user:', error);
     throw error;
   }
-}; 
+};
