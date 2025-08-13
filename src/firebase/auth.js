@@ -42,7 +42,7 @@ export const signInWithGoogle = async () => {
     store.dispatch(setPostAuthData(userData));
     store.dispatch(setLoading(false));
   } catch (error) {
-    store.dispatch(setError(error.message || "Google sign-in failed"));
+    store.dispatch(setError(error.code.split("/")[1] || "Google sign-in failed"));
     store.dispatch(setLoading(false));
   }
 };
@@ -72,7 +72,7 @@ export const createUserWithEmail = async (email,password,displayName) => {
     store.dispatch(setPostAuthData(userData));
     store.dispatch(setLoading(false));
   } catch (error) {
-    store.dispatch(setError(error.message || "Failed to Create Account please validate your credentials and try again"));
+    store.dispatch(setError(error.code.split("/")[1] || "Failed to Create Account please validate your credentials and try again"));
     store.dispatch(setLoading(false));
   }
 };
@@ -90,7 +90,7 @@ export const signInWithEmail = async (email, password) => {
     store.dispatch(setPostAuthData(userData));
     store.dispatch(setLoading(false));
   } catch (error) {
-    store.dispatch(setError(error.message || "Sign in failed"));
+    store.dispatch(setError(error.code.split("/")[1] || "Sign in failed"));
     store.dispatch(setLoading(false));
   }
 };
