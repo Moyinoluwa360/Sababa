@@ -34,6 +34,7 @@ const authSlice = createSlice({
 // Thunk to set user and load wishlist and cart
 export const setPostAuthData = (user) => async (dispatch) => {
   dispatch(authSlice.actions.setUser(user));
+  dispatch(authSlice.actions.setError(null))
   if (user && user.uid) {
     await dispatch(fetchWishlistFromFirestore(user.uid));
     await dispatch(fetchOutfits());
