@@ -65,7 +65,7 @@ const CategoryCard = styled.div`
   position: relative;
   border-radius: 4px;
   min-height: 450px;
-  min-width: 268px;
+  min-width: 340px;
   overflow: hidden;
   cursor: pointer;
   flex: 1;
