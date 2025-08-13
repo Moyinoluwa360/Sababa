@@ -24,7 +24,6 @@ import { Contact } from './pages/Account/Contact/Contact'
 import { PaymentMethod } from './pages/Account/PaymentMethod/PaymentMethod'
 import { Settings } from './pages/Account/Settings/Settings'
 import { YourOrder } from './pages/Account/YourOrder/YourOrder'
-import SignInPage from './pages/signInUp/SignIn'
 import {OutfitDetails} from './pages/OOTDBreakdown/OutfitDetails'
 import SignUpSignInPage from './pages/signInUp/signUp-signIn';
 
@@ -40,6 +39,8 @@ import { initAuthListener } from './firebase/auth'
 import { fetchOutfits } from "./redux/slices/outfitsSlice";
 // Redux store
 import { store } from './redux/store';
+//loading component
+import { Loading } from './components/Loading';
 
 // Component to handle post-login redirects
 function PostLoginRedirect() {
@@ -57,7 +58,7 @@ function PostLoginRedirect() {
   }
   
   // If not authenticated, show the signin page
-  return <SignInPage />;
+  return <SignUpSignInPage />;
 }
 
 
@@ -68,7 +69,7 @@ function RequireAuth({ children }) {
   
   if (!user) {
     // Store the intended destination in location state
-    return <Navigate to="/signin" state={{ from: location.pathname }} replace />;
+    return <Navigate to="/auth" state={{ from: location.pathname }} replace />;
   }
   return children;
 }
@@ -145,11 +146,9 @@ function App() {
 
           {/* Public route: Sign in */}
           <Route
-            path="/signin"
+            path="/auth"
             element={<PostLoginRedirect />}
           />
-          {/* test sign in page */}
-          <Route path="testSignup" element={<SignUpSignInPage />} />
 
           {/* 404 Not Found route */}
           <Route path="*" element={
@@ -169,7 +168,7 @@ function App() {
   if (!isInitialized || isLoading) {
     return (
       <div className="App">
-        <div className="loading-spinner">Loading...</div>
+        <Loading/>
       </div>
     );
   }
