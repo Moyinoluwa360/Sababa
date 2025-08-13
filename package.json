@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.14.4",
     "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.6.0",
     "date-fns": "^2.30.0",
