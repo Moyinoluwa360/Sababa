@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { signInWithEmail } from '../../firebase/auth';
+import { signInWithEmail, signInWithGoogle } from '../../firebase/auth';
 
 export function LogInForm(props) {
 
@@ -94,7 +94,9 @@ export function LogInForm(props) {
             <div className="line" />
           </span>
           <div className="other-sign-in-opt">
-            <div className="other-sign-in-option-btn">
+            <div className="other-sign-in-option-btn Google-sign-in"
+              onClick={()=>{signInWithGoogle()}}
+            >
               <span>
                 <img src="/google.svg" alt="Sign in with Google" loading='lazy'/>
                 Google

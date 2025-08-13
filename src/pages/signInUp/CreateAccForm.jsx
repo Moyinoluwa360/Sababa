@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { createUserWithEmail } from '../../firebase/auth';
+import { createUserWithEmail, signInWithGoogle } from '../../firebase/auth';
+import { useSelector } from 'react-redux';
 
 export default function CreateAccForm(props) {
+  const authError = useSelector((state) => state.auth.error);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -43,8 +45,6 @@ export default function CreateAccForm(props) {
     }
 
     createUserWithEmail(formData.email, formData.password, formData.name);
-    alert('Form submitted successfully!');
-    console.log('Form Data:', formData);
   };
 
   return (
@@ -118,7 +118,9 @@ export default function CreateAccForm(props) {
             <div className="line" />
           </span>
           <div className="other-sign-in-opt">
-            <div className="other-sign-in-option-btn">
+            <div className="other-sign-in-option-btn Google-sign-in"
+              onClick={()=>{signInWithGoogle()}}
+            >
               <span>
                 <img src="/google.svg" alt="Sign in with Google" loading='lazy' />
                 Google
