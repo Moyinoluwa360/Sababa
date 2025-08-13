@@ -12,7 +12,13 @@ export default function Nav2 () {
     <IconButtonsWrapper>
       <Link to={"/account"}>
         <IconButton  tabIndex="0">
-          <img src={user ? user.photoURL : "/account.svg"} alt="account icon" className='userImg' loading={"lazy"}  />
+          {
+            user?.photoURL == "default_profile_picture_url"
+              ?
+            <img src= "/account.svg" alt="account icon" className='userImg' loading={"lazy"}  />
+              :
+            <img src={user ? user.photoURL : "/account.svg"} alt="account icon" className='userImg' loading={"lazy"}  />
+          }
           <div className="iconLabel">
             {
               user?
