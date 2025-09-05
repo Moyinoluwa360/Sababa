@@ -32,7 +32,7 @@ function Wishlist() {
           {!user ? (
             <NoWishlistText>
               Please {
-                <Link to="/auth" style={{ textDecoration:"underline" ,fontWeight: '800px', color: '#000000' }}>
+                <Link to="/auth" style={{ textDecoration:"underline" ,fontWeight: '500', color: '#000000' }}>
                   sign in
                 </Link>
               } in to view your wishlist.
