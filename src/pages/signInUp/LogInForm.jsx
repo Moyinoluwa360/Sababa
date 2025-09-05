@@ -50,6 +50,23 @@ export function LogInForm(props) {
         <div>or <u onClick={()=>{props.setCurrentForm("create account")}}>sign up</u></div>
       </div>
       <div className="main-sec-body">
+        <div className="other-sign-in-options">
+          <div className="other-sign-in-opt">
+            <div className="other-sign-in-option-btn Google-sign-in"
+              onClick={()=>{signInWithGoogle()}}
+            >
+              <span>
+                <img src="/google.svg" alt="Sign in with Google" loading='lazy'/>
+                Google
+              </span>
+            </div>
+          </div>
+          <span>
+            <div className="line" />
+            <div className="text">or continue with</div>
+            <div className="line" />
+          </span>
+        </div>
         <div className="input-section">
           <form onSubmit={handleSubmit} className="form-container">
             <div className="input-group">
@@ -86,23 +103,6 @@ export function LogInForm(props) {
               </button>
             </div>
           </form>
-        </div>
-        <div className="other-sign-in-options">
-          <span>
-            <div className="line" />
-            <div className="text">or continue with</div>
-            <div className="line" />
-          </span>
-          <div className="other-sign-in-opt">
-            <div className="other-sign-in-option-btn Google-sign-in"
-              onClick={()=>{signInWithGoogle()}}
-            >
-              <span>
-                <img src="/google.svg" alt="Sign in with Google" loading='lazy'/>
-                Google
-              </span>
-            </div>
-          </div>
         </div>
       </div>
     </LogInFormDiv>
