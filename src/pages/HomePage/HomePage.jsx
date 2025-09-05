@@ -7,21 +7,23 @@ import { Link } from 'react-router-dom';
 export default function HomePage() {
   return (
     <HomeContainer>
-      <HeroBanner>
-        <div className="segregatedImages">
-          <div className="sec a">
-            <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp1.svg" alt="segregated image 1" loading='lazy' />
-            <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp2.svg" alt="segregated image 2" loading='lazy' />
-          </div>
-          <div className="sec b">
-            <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp3.svg" alt="segregated image 3" className='hmp3' />
-            <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp4.svg" alt="segregated image 4" loading='lazy'/>
-          </div>
-        </div>
-        <div className="heroBannerTitle">
-          Discover Outfits, Click to Buy
-        </div>
-      </HeroBanner>
+      <Link to={"alloutfits"} style={{textDecoration:"none", color:"black", width:"100%", display:"flex", justifyContent:"center"}}>
+        <HeroBanner>
+            <div className="segregatedImages">
+              <div className="sec a">
+                <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp1.svg" alt="segregated image 1" loading='lazy' />
+                <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp2.svg" alt="segregated image 2" loading='lazy' />
+              </div>
+              <div className="sec b">
+                <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp3.svg" alt="segregated image 3" className='hmp3' />
+                <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp4.svg" alt="segregated image 4" loading='lazy'/>
+              </div>
+            </div>
+            <div className="heroBannerTitle" style={{textDecoration:"none", color:"black"}}>
+              Discover Outfits, Click to Buy
+            </div>
+        </HeroBanner>
+      </Link>
       <div className="genderSecHead">Click on your gender to EXPLORE</div>
       <GenderSection>
         <Link
