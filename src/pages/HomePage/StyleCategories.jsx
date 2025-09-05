@@ -78,8 +78,9 @@ const CategoryCard = styled.div`
     left: 50%;
     transform: translate(-50%);
     color: #ffffff;
-    opacity: 0.5;
+    opacity: 0.9;
     font: 20px Inter, sans-serif;
+    font-style: italic;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
     @media (max-width: 480px) {
     font-size: 13px;
