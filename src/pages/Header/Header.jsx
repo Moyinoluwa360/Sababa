@@ -54,6 +54,7 @@ const HeaderWrapper = styled.header`
   left: 0;
   z-index: 10000;
   height: 10%;
+  margin-bottom: auto;
   @media (max-width: ${deviceSizes.mobile}) {
     padding: 14px 16px 0 16px;
     height:7%;
