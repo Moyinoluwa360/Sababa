@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import ErrorPopup from "../../components/ErrorPopup";
 import { store } from "../../redux/store";
 import { setError } from "../../redux/slices/authSlice";
+import { Link } from "react-router-dom";
 
 export default function SignUpSignInPage() {
   const [currentForm, setCurrentForm] = useState("sign in");
@@ -30,7 +31,7 @@ export default function SignUpSignInPage() {
         <header>
           <div className="headerContent">
             <div className="logo">
-              <img src="/fullSababaLogo.svg" alt="Sababa Logo" />
+              <Link to={"/"} ><img src="/fullSababaLogo.svg" alt="sababa"/></Link>
             </div>
             <div className="other-pages-link">
               <div
