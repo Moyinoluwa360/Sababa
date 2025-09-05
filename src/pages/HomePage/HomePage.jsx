@@ -10,25 +10,26 @@ export default function HomePage() {
       <HeroBanner>
         <div className="segregatedImages">
           <div className="sec a">
-            <img src="hmp1.svg" alt="segregated image 1" />
-            <img src="hmp2.svg" alt="segregated image 2" />
+            <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp1.svg" alt="segregated image 1" loading='lazy' />
+            <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp2.svg" alt="segregated image 2" loading='lazy' />
           </div>
           <div className="sec b">
-            <img src="hmp3.svg" alt="segregated image 3" className='hmp3' />
-            <img src="hmp4.svg" alt="segregated image 4" />
+            <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp3.svg" alt="segregated image 3" className='hmp3' />
+            <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp4.svg" alt="segregated image 4" loading='lazy'/>
           </div>
         </div>
         <div className="heroBannerTitle">
           Discover Outfits, Click to Buy
         </div>
       </HeroBanner>
+      <div className="genderSecHead">Click on your gender to EXPLORE</div>
       <GenderSection>
         <Link
           to={`/home/alloutfits/${"male"}`}
           style={{textDecoration:"none", color:"black", width:"50%", height:"100%"}}
         >
           <div id="maleSec">
-            <img src="/hmp1.svg" alt="male section Image"/>
+            <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp1.svg" alt="male section Image" loading='lazy'/>
             <span className="title">
               Men
             </span>
@@ -39,7 +40,7 @@ export default function HomePage() {
           style={{textDecoration:"none", color:"black", width:"50%", height:"100%"}}
         >
           <div id="femaleSec">
-            <img src="/hmp3.svg" alt="female section Image"/>
+            <img src="https://cdn.jsdelivr.net/gh/Moyinoluwa360/sababa-images/hmp3.svg" alt="female section Image" loading='lazy'/>
             <span className="title">
               Women
             </span>
@@ -58,6 +59,19 @@ const HomeContainer = styled.div`
   overflow: hidden;
   align-items: center;
   font-style: Inter;
+  .genderSecHead{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 24px;
+    font-weight: 600;
+    @media (max-width: 768px) {
+      font-size: 17px;
+   }
+   @media (max-width: 500px) {
+    font-size: 15px;
+   }
+  }
+  
 `;
 
 const GenderSection = styled.div`
