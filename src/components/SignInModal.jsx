@@ -31,14 +31,15 @@ export default function SignInModal({ open, setShowModal }) {
             border: "none",
             fontSize: 25,
             cursor: "pointer",
-            color : "#000"
+            color : "#000",
+            background: "none"
           }}
           aria-label="Close"
         >×</button>
-        <h2 style={{ marginBottom: 16 }}>Please Sign In</h2>
-        <p style={{ marginBottom: 32 }}>Sign in to add items to your wishlist.</p>
+        <h2 style={{ marginBottom: 16, color:"black"}}>Please Sign In</h2>
+        <p style={{ marginBottom: 32, color:"black"}}>Sign in to add items to your wishlist.</p>
         <button
-          onClick={() => navigate("/signin") } 
+          onClick={() => navigate("/signin")} 
           style={{
             width: "100%",
             background: "#000",
