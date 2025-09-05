@@ -7,6 +7,7 @@ function GeneralLayout() {
   return (
     <>
         <Header/>
+        {/* styling for this element is in index.css */}
         <div className='generalLayout'>
           <Outlet />
         </div>
