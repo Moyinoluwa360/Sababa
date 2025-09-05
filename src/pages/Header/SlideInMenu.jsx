@@ -76,6 +76,12 @@ const DropdownItem = styled.div`
   @media (max-width: 300px) {
     font-size: 11px;
   }
+  .comingSoon{
+    margin-left: auto;
+    font-size: 10px;
+    color: gray;
+    font-style: italic;
+  }
 `;
 
 const Icon = styled.img`
@@ -113,59 +119,7 @@ const dropdownDivs = {
       type : "Corporate Outfit",
       img : "/hamburger imgs/styles/corporate.svg"
     },
-  ],
- categories: [
-  {
-    type : "Hats",
-    img : "/hamburger imgs/products/hats.svg"
-  },
-  {
-    type : "Jewelries",
-    img : "/hamburger imgs/products/jewellries.svg"
-  },
-  {
-    type : "Bags",
-    img : "/hamburger imgs/products/bags.svg"
-  },
-  {
-    type : "Belts",
-    img : "/hamburger imgs/products/belts.svg"
-  },
-  {
-    type : "Pants & Shorts",
-    img : "/hamburger imgs/products/pants.svg"
-  },
-  {
-    type : "Shirts",
-    img : "/hamburger imgs/products/shirts.svg"
-  },
-  {
-    type : "Hoodies",
-    img : "/hamburger imgs/products/hoodies.svg"
-  },
-  {
-    type : "Shoes",
-    img : "/hamburger imgs/products/shoes.svg"
-  }
- ],
- stores : [
-  {
-    type : "Amazon",
-    img : "/hamburger imgs/stores/amazon.svg"
-  },
-  {
-    type : "Etsy",
-    img : "/hamburger imgs/stores/etsy.svg"
-  },
-  {
-    type : "Shein",
-    img : "/hamburger imgs/stores/shein.svg"
-  },
-  {
-    type : "Uniqlo",
-    img : "/hamburger imgs/stores/uniqlo.svg"
-  }
- ]
+  ]
 }
   return (
     <MenuContainer open={open}>
@@ -180,30 +134,9 @@ const dropdownDivs = {
           <DropdownItem key={item.type}>
             <Icon loading={"lazy"} src={item.img} />
             {item.type}
-          </DropdownItem>
-        ))}
-      </DropdownContainer>
-
-      <MenuItem onClick={() => toggleDropdown("categories")}> 
-        Products by Categories {openDropdown === "categories" ? <FiChevronUp /> : <FiChevronDown />}
-      </MenuItem>
-      <DropdownContainer open={openDropdown === "categories"}>
-        {dropdownDivs.categories.map((item) => (
-          <DropdownItem key={item.type}>
-            <Icon loading={"lazy"} src={item.img} />
-            {item.type}
-          </DropdownItem>
-        ))}
-      </DropdownContainer>
-
-      <MenuItem onClick={() => toggleDropdown("stores")}> 
-        Products by Stores {openDropdown === "stores" ? <FiChevronUp /> : <FiChevronDown />}
-      </MenuItem>
-      <DropdownContainer open={openDropdown === "stores"}>
-        {dropdownDivs.stores.map((item) => (
-          <DropdownItem key={item.type}>
-            <Icon loading= {"lazy"} src={item.img} />
-            {item.type}
+            <div className="comingSoon">
+              Coming soon
+            </div>
           </DropdownItem>
         ))}
       </DropdownContainer>
