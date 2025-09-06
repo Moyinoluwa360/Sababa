@@ -131,6 +131,7 @@ const HeroBanner = styled.div`
   background-color: rgba(255, 255, 255, 1);
   display: flex;
   margin-top: 7px;
+  margin-bottom: 20px;
   width: 95%;
   max-width: 100%;
   height: 450px;
