@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Form } from "react-router-dom";
 import styled from "styled-components";
+import { saveContactMessage } from "../../firebase/firestore";
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -20,10 +21,21 @@ function ContactForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Form submission logic would go here
-    console.log("Form submitted:", formData);
+    const success = await saveContactMessage(formData);
+    if (success) {
+      alert("Thank you for contacting us! your response has been received.");
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+        privacyAccepted: false,
+      });
+    } else {
+      alert("Sorry, there was a problem submitting your message. Please try again.");
+    }
   };
 
   return (
@@ -42,73 +54,81 @@ function ContactForm() {
         </EmailText>
       </EmailInfoBox>
 
-      <Form method="post" action="/contact" >
-        <StyledForm onSubmit={handleSubmit}>
-          <FormFields>
-            <FormGroup>
-              <FormLabel htmlFor="name">Name</FormLabel>
-              <FormInput
-                type="text"
-                id="name"
-                name="name"
+      <StyledForm onSubmit={handleSubmit}>
+        <FormFields>
+          <FormGroup>
+            <FormLabel htmlFor="name">Name</FormLabel>
+            <FormInput
+              type="text"
+              id="name"
+              name="name"
+              required
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <FormLabel htmlFor="email">Email</FormLabel>
+            <FormInput
+              type="email"
+              id="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <FormLabel htmlFor="subject">Subject</FormLabel>
+            <FormInput
+              type="text"
+              id="subject"
+              name="subject"
+              required
+              value={formData.subject}
+              onChange={handleChange}
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <FormLabel htmlFor="message">Message</FormLabel>
+            <FormTextarea
+              id="message"
+              name="message"
+              required
+              value={formData.message}
+              onChange={handleChange}
+            />
+          </FormGroup>
+        </FormFields>
+
+        <FormActions>
+          <PrivacyContainer>
+            <CheckboxContainer>
+              <Checkbox
+                type="checkbox"
+                id="privacy"
+                name="privacyAccepted"
                 required
+                checked={formData.privacyAccepted}
+                onChange={handleChange}
               />
-            </FormGroup>
-
-            <FormGroup>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <FormInput
-                type="email"
-                id="email"
-                name="email"
-                required
+              <CheckboxIcon
+                src="https://cdn.builder.io/api/v1/image/assets/08bf16d58b0d4aa28fefd3a671be5059/0e18d44f55ed96ae37f0649893cd9c49f49dc1295f315ad53ec4c871825c9986?placeholderIfAbsent=true"
+                alt="Checkbox"
               />
-            </FormGroup>
+            </CheckboxContainer>
+            <PrivacyText>
+              <span>To submit this form you have to accept our </span>
+              <PrivacyLink href="/privacy">Privacy Statement</PrivacyLink>
+            </PrivacyText>
+          </PrivacyContainer>
 
-            <FormGroup>
-              <FormLabel htmlFor="subject">Subject</FormLabel>
-              <FormInput
-                type="text"
-                id="subject"
-                name="subject"
-                required
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <FormLabel htmlFor="message">Message</FormLabel>
-              <FormTextarea
-                id="message"
-                name="message"
-                required
-              />
-            </FormGroup>
-          </FormFields>
-
-          <FormActions>
-            <PrivacyContainer>
-              <CheckboxContainer>
-                <Checkbox
-                  type="checkbox"
-                  id="privacy"
-                  name="privacyAccepted"
-                  required
-                />
-                <CheckboxIcon
-                  src="https://cdn.builder.io/api/v1/image/assets/08bf16d58b0d4aa28fefd3a671be5059/0e18d44f55ed96ae37f0649893cd9c49f49dc1295f315ad53ec4c871825c9986?placeholderIfAbsent=true"
-                  alt="Checkbox"
-                />
-              </CheckboxContainer>
-              <PrivacyText>
-                <span>To submit this form you have to accept our </span>
-                <PrivacyLink href="/privacy">Privacy Statement</PrivacyLink>
-              </PrivacyText>
-            </PrivacyContainer>
-
-            <SubmitButton type="submit">Send</SubmitButton>
-          </FormActions>
-        </StyledForm>
-      </Form>
+          <SubmitButton type="submit">Send</SubmitButton>
+        </FormActions>
+      </StyledForm>
     </FormContainer>
   );
 }
@@ -209,7 +229,7 @@ const EmailAddress = styled.span`
   font-weight: 500;
 `;
 
-const StyledForm = styled.div`
+const StyledForm = styled.form`
   margin-top: 24px;
   width: 100%;
   @media (max-width: 991px) {
