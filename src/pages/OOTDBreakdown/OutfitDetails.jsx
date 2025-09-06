@@ -47,6 +47,7 @@ const PageTitle = styled.div`
   justify-content:center;
   height: 40px;
   margin: 21px 0 40px 0;
+  background-color: #ffffff;
   @media (max-width: 480px) {
     margin-bottom: 0px;
   }
@@ -72,6 +73,7 @@ const MainSection = styled.section`
   gap: 18px;
   padding: 0 40px 0 40px;
   margin-bottom: 40px;
+  background-color: #ffffff;
   @media (max-width: 680px) {
     padding: 0 16px 0 16px;
   }

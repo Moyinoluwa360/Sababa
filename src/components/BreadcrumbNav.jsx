@@ -45,6 +45,7 @@ const NavContainer = styled.section`
   padding: 0 0 0 40px;
   width: 100%;
   flex-direction: column;
+  background-color: #ffffff;
   font-family:
     Inter,
     -apple-system,
