@@ -7,7 +7,8 @@ import {
   serverTimestamp,
   getDocs,
   query,
-  orderBy
+  orderBy,
+  addDoc
 } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -77,5 +78,19 @@ export const updateUser = async (userId, updates) => {
   } catch (error) {
     console.error('Error updating user:', error);
     throw error;
+  }
+};
+
+export const saveContactMessage = async (formData) => {
+  try {
+    const contactRef = collection(db, "contactUs");
+    await addDoc(contactRef, {
+      ...formData,
+      createdAt: serverTimestamp()
+    });
+    return true;
+  } catch (error) {
+    console.error("Error saving contact message:", error);
+    return false;
   }
 };
