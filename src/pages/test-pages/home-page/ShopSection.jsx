@@ -134,6 +134,7 @@ const BuyButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  height: 35px;
 
   &:hover {
     background: #1C1C1C;
