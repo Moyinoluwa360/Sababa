@@ -41,6 +41,7 @@ import { fetchOutfits } from "./redux/slices/outfitsSlice";
 import { store } from './redux/store';
 //loading component
 import { Loading } from './components/Loading';
+import NewHome from './pages/test-pages/home-page/NewHome';
 
 // Component to handle post-login redirects
 function PostLoginRedirect() {
@@ -117,6 +118,8 @@ function App() {
             <Route path="alloutfits/:gender" element={<AllOutfits />} />
             <Route path="alloutfits/:gender/:id" element={<OutfitDetails />} />
           </Route>
+          
+          <Route path="testhome" element={<NewHome />} />
 
           <Route
             path="/account"
