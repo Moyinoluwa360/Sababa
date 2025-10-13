@@ -16,32 +16,35 @@ const AllOutfits = () => {
   return (
     <PageWrapper>
       <BreadcrumbNav/>
-      <PageTitle>All Outfits</PageTitle>
-        <GenderFilter>
-          <div id="maleFilter"
-           style={genderFilter == "male" ? {backgroundColor:"black" }: {}}
-           onClick={()=> setGenderFilter("male")}
-          >
-            Male
-          </div>
-          <div id="femaleFilter" 
-            style={genderFilter == "female" ? {backgroundColor:"black" }: {}}
-            onClick={()=> setGenderFilter("female")}
-          >
-            Female
-          </div>
-        </GenderFilter>
-        <OutfitContainer>
-        {outfitsLoading ? <div>Loading...</div> : 
-        // this is for the random outfits to show on the page
-       filteredOutfits.map((outfit, index) => (
-          <OutfitCard 
-            key={outfit.id}
-            outfit = {outfit}
-            OOTDNUM = {filteredOutfits.length - index}
-          />
-        ))}
-        </OutfitContainer>
+      <PageHeading>
+        <div className="headingTitle">Outfits</div>
+        <div className="headingDes">Discover looks you love and shop each item with ease.</div>
+      </PageHeading>
+      {/* <GenderFilter>
+        <div id="maleFilter"
+          style={genderFilter == "male" ? {backgroundColor:"black" }: {}}
+          onClick={()=> setGenderFilter("male")}
+        >
+          Male
+        </div>
+        <div id="femaleFilter" 
+          style={genderFilter == "female" ? {backgroundColor:"black" }: {}}
+          onClick={()=> setGenderFilter("female")}
+        >
+          Female
+        </div>
+      </GenderFilter> */}
+      <OutfitContainer>
+      {outfitsLoading ? <div>Loading...</div> : 
+      // this is for the random outfits to show on the page
+      filteredOutfits.map((outfit, index) => (
+        <OutfitCard 
+          key={outfit.id}
+          outfit = {outfit}
+          OOTDNUM = {filteredOutfits.length - index}
+        />
+      ))}
+      </OutfitContainer>
 
     </PageWrapper>
   );
@@ -54,15 +57,40 @@ const PageWrapper = styled.main`
   overflow: hidden;
   align-items: center;
 `;
-const PageTitle = styled.h1`
+const PageHeading = styled.div`
   color: rgba(0, 0, 0, 1);
-  font-size: 32px;
-  font-weight: 600;
   margin-top: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
   @media (max-width: 480px){
-    font-size: 20px;
+    gap: 7px;
+  }
+  .headingTitle{
+    font-size: 32px;
+    font-weight: 600;
+    color: #1C1C1C;
+    @media (max-width: 480px){
+      font-size: 20px;
+    }
+  }
+  .headingDes{
+    font-size: 16px;
+    font-weight: 500;
+    color: #787C7F;
+    @media (max-width: 480px){
+      font-size: 14px;
+    }
+    @media (max-width: 382px){
+      font-size: 12px;
+    }
+    @media (max-width: 382px){
+      font-size: 12px;
+    }
+    @media (max-width: 326px){
+      font-size: 10px;
+    }
   }
 `;
 
@@ -100,15 +128,14 @@ const GenderFilter = styled.div`
 const OutfitContainer = styled.section`
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
-  margin-top: 24px;
   justify-content: center;
-  gap: 12px;
-  padding-left: 5px;
-  padding-right: 5px;
-
+  width: 100%;
+  margin-top: 60px;
+  gap: 30px;
   @media (max-width: 480px){
-    gap: 12px;
+    padding: 0 16px 0 16px;
+    gap: 20px;
+    margin-top: 40px;
   }
 `;
 
