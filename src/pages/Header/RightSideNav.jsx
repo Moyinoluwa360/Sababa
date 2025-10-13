@@ -45,19 +45,6 @@ export default function Nav2 () {
           }
         </IconButton>
       </Link>
-
-      {/* not yet available for mvp and use */}
-      {/* <Link to={"bag"}>
-        <IconButton  tabIndex="0">
-          <img src="/shopping-cart.svg" alt="cart icon"  />
-          {
-            useWindowWidth() > 600 ?
-            <div className="iconLabel">Bag(0)</div>
-            :
-            null
-          }
-        </IconButton>
-      </Link> */}
       
     </IconButtonsWrapper>
   );
