@@ -33,27 +33,39 @@ const OutfitCard = ({outfit, OOTDNUM}) => {
 const CardWrapper = styled.article`
   display: flex;
   flex-direction: column;
-  width: 218px; /* Will fill grid cell */ /* Keeps card from getting too big */
-  height: 327px;
+  min-width: 240px; /* Will fill grid cell */ /* Keeps card from getting too big */
+  max-width: 240px; /* Keeps card from getting too big */
+  height: 391px;
+  border-radius: 20px;
+  @media (max-width: 550px){
+    height: 307px;
+    min-width: 172px; /* Will fill grid cell */ /* Keeps card from getting too big */
+    max-width: 172px;
+  }
   @media (max-width: 480px){
-    height: 251px;
-    width: 168px;
+    height: 297px;
+    min-width: 172px; /* Will fill grid cell */ /* Keeps card from getting too big */
+    max-width: 172px;
   }
-  @media (max-width: 370px){
-    height: 230px;
-    width: 150px;
+  @media (max-width: 410px){
+    height: 277px;
+    min-width: 162px; /* Will fill grid cell */ /* Keeps card from getting too big */
+    max-width: 162px;
   }
-  @media (max-width: 340px){
-    height: 210px;
-    width: 135px;
+  @media (max-width: 390px){
+    height: 237px;
+    min-width: 142px; /* Will fill grid cell */ /* Keeps card from getting too big */
+    max-width: 142px;
   }
-  @media (max-width: 307px){
-    height: 190px;
-    width: 120px;
+  @media (max-width: 355px){
+    height: 197px;
+    min-width: 122px; /* Will fill grid cell */ /* Keeps card from getting too big */
+    max-width: 122px;
   }
-  @media (max-width: 280px){
-    height: 165px;
-    width: 95px;
+  @media (max-width: 310px){
+    height: 147px;
+    min-width: 92px; /* Will fill grid cell */ /* Keeps card from getting too big */
+    max-width: 92px;
   }
 `;
 
@@ -63,7 +75,7 @@ const CardImageContainer = styled.div`
   border-radius: 4px;
   position: relative;
   width: inherit;
-  height: 95%;
+  height: 90%;
   padding: 260px 44px 12px;
   align-items: flex-end;
   
@@ -79,16 +91,16 @@ const CardImage = styled.img`
   width: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius: 5px;
+  border-radius: 20px;
 `;
 
 
 
 const OutfitTitle = styled.h3`
-  color: rgba(0, 0, 0, 1);
-  font-size: 16px;
+  color: #1C1C1C;
+  font-size: 15px;
   font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
-  font-weight: 500;
+  font-weight: 550;
   align-self: center;
   margin-top: 4px;
   @media (max-width: 480px){
