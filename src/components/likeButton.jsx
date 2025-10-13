@@ -79,8 +79,10 @@ const StyledButton = styled.button`
   ${({ $top }) => $top !== undefined && `top: ${$top};`}
   ${({ $left }) => $left !== undefined && `left: ${$left};`}
   border-radius: 25px;
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: -1px -1px 4px 0 rgba(255, 255, 255, 0.20) inset,1px 1px 4px 0 rgba(255, 255, 255, 0.20) inset;
+  backdrop-filter: blur(10px);
+  border: none;
   width: 40px;
   height: 40px;
   border: none;
@@ -91,32 +93,27 @@ const StyledButton = styled.button`
   transition: background-color 0.3s ease;
   
   &:hover {
-    background-color: rgba(255, 255, 255, 0.8);
+    background: rgba(108, 108, 108, 0.15);
   }
   
-  &:focus {
-    outline: 2px solid #000;
-    outline-offset: 2px;
-  }
-
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;
   }
 
   @media (max-width:480px){
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
   }
 `;
 
 const LikeIcon = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   margin-top: 2.5px;
   @media (max-width:480px){
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 14px;
   }
 `;
 
