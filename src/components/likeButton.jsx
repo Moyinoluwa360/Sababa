@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { updateWishlistInFirestore } from "../redux/slices/wishlistSlice";
 import { toggleWishlist } from '../redux/slices/wishlistSlice';
-import SignInModal from "./SignInModal";
 
-const LikeButton = ({ariaLabel, outfit, top, OOTDNUM, bottom, right, left }) => {
-  const [showModal, setShowModal] = useState(false);
+const LikeButton = ({ariaLabel, outfit, top, OOTDNUM, bottom, right, left, onShowModal }) => {
   const dispatch = useDispatch();
   const wishlist = useSelector(state => state.wishlist.items);
   const wishLoading = useSelector(state => state.wishlist.wishLoading);
@@ -14,7 +12,6 @@ const LikeButton = ({ariaLabel, outfit, top, OOTDNUM, bottom, right, left }) => 
   const liked = wishlist.some(item => item.id === outfit.id);
   const prevWishlistRef = useRef(wishlist);
   
-
   // Save to Firestore when wishlist changes
   useEffect(() => {
     if (user && user.uid && prevWishlistRef.current !== wishlist) {
@@ -27,50 +24,36 @@ const LikeButton = ({ariaLabel, outfit, top, OOTDNUM, bottom, right, left }) => 
     dispatch(toggleWishlist({...outfit, OOTDNUM}));
   };
 
-  
-  
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation(); // Prevent card click when like button is clicked
+    
+    if (user) {
+      handleLike();
+    } else {
+      onShowModal?.(); // Call the modal handler passed from parent
+    }
+  };
   
   return (
-  <StyledButton 
-    onClick={user 
-      ? 
-      (e) => {
-        e.preventDefault()
-        e.stopPropagation(); // Prevent card click when like button is clicked
-        handleLike();
-      }
-      : (e) => {
-        e.preventDefault();
-        e.stopPropagation(); // Prevent card click when like button is clicked
-        if (!showModal) {
-          setShowModal(true);
-        }else {
-          setShowModal(false);
-        }
-      }} 
-    aria-label={ariaLabel} 
-    type="button"
-    title={!user ? "Log in to add to wishlist" : wishLoading ? "Updating wishlist..." : ""}
-    $bottom={bottom}
-    $right={right}
-    $top={top}
-    $left={left}
-  >
-    <LikeIcon
-      src={liked ? "/heart/liked-heart.svg" : "/heart/unliked-heart.svg"}
-      alt={liked ? "Black heart (wishlisted)" : "Red heart (wishlisted)"}
-      loading="lazy"
-    />
-    {/* // the pop up that shows when the user is not logged in */}
-    {
-      showModal &&
-      <SignInModal 
-        open = {showModal} 
-        setShowModal = {setShowModal} 
-      /> 
-    }
-  </StyledButton>
-)};
+    <StyledButton 
+      onClick={handleClick}
+      aria-label={ariaLabel} 
+      type="button"
+      title={!user ? "Log in to add to wishlist" : wishLoading ? "Updating wishlist..." : ""}
+      $bottom={bottom}
+      $right={right}
+      $top={top}
+      $left={left}
+    >
+      <LikeIcon
+        src={liked ? "/heart/liked-heart.svg" : "/heart/unliked-heart.svg"}
+        alt={liked ? "Black heart (wishlisted)" : "Red heart (wishlisted)"}
+        loading="lazy"
+      />
+    </StyledButton>
+  );
+};
 
 const StyledButton = styled.button`
   position: absolute;
