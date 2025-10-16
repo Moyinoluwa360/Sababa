@@ -23,6 +23,9 @@ export function OutfitDetails() {
             useWindowWidth() > 481 ? `Outfit Of The Day ${outfitNumber}` : `OOTD ${outfitNumber}`
           }
         </div>
+        <div className="titleDes">
+          Discover looks you love and shop each item with ease.
+        </div>
       </PageTitle>
       <MainSection>
         {
@@ -44,7 +47,10 @@ export function OutfitDetails() {
 const PageTitle = styled.div`
   display: flex;
   align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   justify-content:center;
+  flex-direction: column;
+  gap: 8px;
   height: 40px;
   margin: 21px 0 40px 0;
   background-color: #ffffff;
@@ -65,19 +71,16 @@ const PageTitle = styled.div`
       font-size: 16px;
     }
   }
+  .titleDes{
+    color: #787C7F;
+    font-weight: 500;
+  }
 `
 
 const MainSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 18px;
-  padding: 0 40px 0 40px;
   margin-bottom: 40px;
-  background-color: #ffffff;
-  @media (max-width: 680px) {
-    padding: 0 16px 0 16px;
-  }
-  @media (max-width: 360px) {
-    padding: 0 8px 0 8px;
-  }
+  background-color: #ffffff; 
 `

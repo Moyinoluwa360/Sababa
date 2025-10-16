@@ -13,7 +13,7 @@ const BreadcrumbNav = () => {
           currentLink += `/${crumb}`
           return (
             <NavLink key={crumb}>
-              <Link style={{color:"black", paddingRight:"5px"}} to={currentLink}>{crumb.charAt(0).toUpperCase() + crumb.slice(1)}</Link>
+              <Link className="Link" style={{color:"black", paddingRight:"5px", textDecoration:"none", color: "#787C7F"}} to={currentLink}>{crumb.charAt(0).toUpperCase() + crumb.slice(1)}</Link>
               <Separator
                 src="https://cdn.builder.io/api/v1/image/assets/08bf16d58b0d4aa28fefd3a671be5059/0c050b4fac73f3abab8e7ab7fabe9a73a8a3555807e34010ed93561d489ffcb3?placeholderIfAbsent=true"
                 alt="Separator"
@@ -74,17 +74,25 @@ const NavLink = styled.div`
   margin-top: auto;
   margin-bottom: auto;
   cursor: pointer;
+  .Link{
+    color: black;
+    :last-child{
+      color: black;
+    }
+  }
 `;
 
 const Separator = styled.img`
   aspect-ratio: 0.57;
   object-fit: contain;
   object-position: center;
-  width: 4px;
+  width: 6px;
   align-self: stretch;
   margin-top: auto;
   margin-bottom: auto;
+  margin-left: 5px;
   flex-shrink: 0;
+  padding-top: 1px;
 `;
 
 

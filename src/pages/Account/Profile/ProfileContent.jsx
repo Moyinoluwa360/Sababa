@@ -2,14 +2,12 @@
 import React from "react";
 import styled from "styled-components";
 import { EmailSection } from "./EmailSection";
-import { PasswordSection } from "./PasswordSection";
 
 export function ProfileContent() {
   return (
     <ContentContainer>
       <ContentWrapper>
         <EmailSection />
-        <PasswordSection />
       </ContentWrapper>
     </ContentContainer>
   );

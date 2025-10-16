@@ -16,7 +16,7 @@ function Wishlist() {
 
       <BreadcrumbNav />
       <PageTitle>
-        Wish List
+        Wishlist
       </PageTitle>
       {wishLoading ? (
         <LoadingMessage>Loading wish list...</LoadingMessage>

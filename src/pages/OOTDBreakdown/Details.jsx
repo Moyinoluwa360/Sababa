@@ -88,6 +88,13 @@ const DetailsSection = styled.section`
   flex-direction: column;
   gap: 20px;
   margin-top:auto;
+  padding: 0 40px 0 40px;
+  @media (max-width: 680px) {
+    padding: 0 16px 0 16px;
+  }
+  @media (max-width: 360px) {
+    padding: 0 8px 0 8px;
+  }
 `;
 
 const MainContent = styled.div`

@@ -82,7 +82,7 @@ const PasswordInputWrapper = styled.div`
   }
 `;
 
-const ShowButton = styled.button`
+const ShowButton = styled.div`
   position: absolute;
   right: 16px;
   top: 50%;

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import PieceCard from "./PieceCard";
 import LikeButton from "../../components/likeButton";
 import { useLocation} from "react-router-dom";
+import { useRef } from "react";
 // slider package react slick
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,6 +15,7 @@ import 'swiper/css';
 import useWindowWidth from "../../components/useWindowWidth";
 
 export function OutfitGallery({outfit}) {
+  const swiperRef = useRef(null);
   let width = useWindowWidth()
   let location = useLocation();
   const { outfitNumber } = location.state || {};
@@ -39,27 +41,38 @@ export function OutfitGallery({outfit}) {
         <div className="mobileHeader">
           <h2>Piece</h2>
         </div>
+        {/* swiper custom navigation left */}
+        <div className='swiper-prev swipe-arrows' onClick={() => swiperRef.current?.slidePrev()}>
+          <img src="/arrow-left.svg" alt="previous" style={{ width: '15px', height: '15px' }} />
+        </div>
+        {/* swiper custom navigation right */}
+        <div className='swiper-next swipe-arrows' onClick={() => swiperRef.current?.slideNext()}>
+          <img src="/arrow-right.svg" alt="next" style={{ width: '15px', height: '15px' }} />
+        </div>
         <Swiper
-        // install Swiper modules
-        modules={[Navigation, Pagination, A11y]}
-        spaceBetween={20}
-        slidesPerView={Math.min(outfit.pieces.length, width < 610 ? (width < 420 ? 1 : 2) : 3)}
-        navigation
-        pagination={{ clickable: true }}
-        scrollbar={{ draggable: true }}
-        className="swiper"
-        >
-              {
-                outfit.pieces.map((piece, index) => (
-                  <SwiperSlide key={piece.id || index}>
-                    <PieceCard
-                      key={piece.id}
-                      piece = {piece}
-                    />   
-                  </SwiperSlide>          
-                ))
-              }
-          </Swiper>
+          // install Swiper modules
+          modules={[Navigation, Pagination, A11y]}
+          spaceBetween={20}
+          slidesPerView={Math.min(outfit.pieces.length, width < 610 ? (width < 420 ? 1 : 2) : 3)}
+          navigation
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          pagination={{ clickable: true }}
+          scrollbar={{ draggable: true }}
+          className="swiper"
+          >
+            {
+              outfit.pieces.map((piece, index) => (
+                <SwiperSlide key={piece.id || index}>
+                  <PieceCard
+                    key={piece.id}
+                    piece = {piece}
+                  />   
+                </SwiperSlide>          
+              ))
+            }
+        </Swiper>
       </BreakdownSection>
     </GallerySection>
   );
@@ -80,8 +93,8 @@ const GallerySection = styled.section`
   }
 `
 const MainImageColumn = styled.div`
-  height: 402px;
-  width: 288px;
+  height: 452px;
+  width: 338px;
   flex-shrink: 0;
   
   @media (max-width: 750px) {
@@ -125,6 +138,7 @@ const MainImage = styled.img`
 const BreakdownSection = styled.section` 
   width: 75%;
   height: 460px;
+  position: relative;
   .mobileHeader{
     text-align: center;
     display: none;
@@ -164,32 +178,33 @@ const BreakdownSection = styled.section`
   }
     .swiper-button-next,
     .swiper-button-prev {
-      top: 50% !important; /* Vertical center */
-      margin-top: -22px !important; /* Half of button height */
-      color: #000000 !important;
-      background: rgba(255, 255, 255, 0.9) !important;
-      width: 40px !important;
-      height: 40px !important;
-      border-radius: 50% !important;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
-      transition: all 0.3s ease !important;
-      
-      &:after {
-        font-size: 20px !important;
-        font-weight: bold !important;
-      }
-      &:hover {
-        background: rgba(255, 255, 255, 1) !important;
-        transform: scale(1.1);
-      }
-      }
-
-    .swiper-button-next {
-      right: 1px !important; /* Distance from right edge */
-    }
-
-    .swiper-button-prev {
-      left: 1px !important; /* Distance from left edge */
+      display: none; /* Hide default navigation buttons */
     }
   }
+  .swipe-arrows {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.15);
+      box-shadow: -1px -1px 4px 0 rgba(255, 255, 255, 0.20) inset,1px 1px 4px 0 rgba(255, 255, 255, 0.20) inset;
+      backdrop-filter: blur(10px);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+       background: rgba(43, 43, 43, 0.15);
+      }
+    }
+    .swiper-prev {
+      left: 10px;
+    }
+    .swiper-next {
+      right: 10px;
+    }
 `;
