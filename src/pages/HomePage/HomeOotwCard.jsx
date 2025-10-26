@@ -20,7 +20,6 @@ const CardContainer = styled.div`
   @media (max-width: 480px) {
     height: auto;
   }
-
 `
 
 const ImgCardContainer = styled.div`  
@@ -31,17 +30,26 @@ const ImgCardContainer = styled.div`
   gap: 12px;
   text-align: center;
   color: #787C7F;
+  
   img{
     height: 360px;
     width: 100%;
     border-radius: 20px;
+    object-fit: cover;
+    object-position: center;
   }
+  
   @media (max-width: 480px) {
     height: auto;
+    
+    img{
+      height: 300px;
+    }
+    
     span{
       display: none;
     }
   }
-  `
+`
 
 export default HomeOotwCard

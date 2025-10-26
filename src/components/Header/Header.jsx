@@ -151,7 +151,7 @@ function Header() {
         }
 
         <Logo>
-          <Link to={"/"} ><img src="/Sababa.svg" alt="sababa logo"/></Link>
+          <Link to= "/" ><img src="Sababa.svg" alt="sababa logo"/></Link>
         </Logo>
 
         <RightActions>
