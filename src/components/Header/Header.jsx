@@ -120,12 +120,6 @@ const ActionItem = styled.div`
       display: none;
     }
   }
-  .userImg{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
 `;
 
 function Header() {
@@ -176,7 +170,7 @@ function Header() {
                   ?
                 <img src= "/account.svg" alt="account icon" className='userImg' loading={"lazy"}  />
                   :
-                <img src={user ? user.photoURL : "/account.svg"} alt="account icon" className='userImg' loading={"lazy"}  />
+                <img src={user ? user.photoURL : "/account.svg"} alt="account icon" className='userImg' loading={"lazy"} style={user ? {width:"30px", height:"30px", borderRadius:"50%", objectFit:"cover" } : null}  />
               }
               <div className="iconLabel">
                 {
