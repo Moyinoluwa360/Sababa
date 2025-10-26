@@ -21,7 +21,7 @@ const CardWrapper = styled.article`
     height: 302px;
     width:188px;
   }
-  @media (max-width: 420px){
+  @media (max-width: 480px){
     width:100%;
   }
 `;
@@ -46,7 +46,7 @@ const BuyPieceBtn = styled.a`
   align-self: center;
   color: rgb(0, 0, 0);
   transition: background-color 0.3s ease;
-  background-color: #ffffff;
+  background-color: #D9D9D9;
   border: 2px solid #000000;
   font-size: 15px;
   font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;

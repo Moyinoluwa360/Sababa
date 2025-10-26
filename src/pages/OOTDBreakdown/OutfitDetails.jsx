@@ -49,13 +49,14 @@ const PageTitle = styled.div`
   align-items: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   justify-content:center;
+  align-items: center;
   flex-direction: column;
   gap: 8px;
   height: 40px;
   margin: 21px 0 40px 0;
-  background-color: #ffffff;
+  background-color: #D9D9D9;
   @media (max-width: 480px) {
-    margin-bottom: 0px;
+    margin-bottom: 30px;
   }
   .pTitle{
   align-self:center;
@@ -74,6 +75,12 @@ const PageTitle = styled.div`
   .titleDes{
     color: #787C7F;
     font-weight: 500;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 5px;
+    @media (max-width: 480px) {
+      font-size: 12px;
+    }
   }
 `
 
@@ -82,5 +89,5 @@ const MainSection = styled.section`
   flex-direction: column;
   gap: 18px;
   margin-bottom: 40px;
-  background-color: #ffffff; 
+  background-color: #D9D9D9; 
 `

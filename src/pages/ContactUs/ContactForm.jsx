@@ -135,7 +135,7 @@ function ContactForm() {
 
 const FormContainer = styled.div`
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: #D9D9D9;
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.15);
   display: flex;
   margin-top: 16px;
@@ -281,6 +281,7 @@ const FormLabel = styled.label`
 const FormInput = styled.input`
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #D9D9D9;
   display: block;
   min-height: 48px;
   width: 100%;
@@ -302,6 +303,7 @@ const FormTextarea = styled.textarea`
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   display: block;
+  background-color: #D9D9D9;
   min-height: 159px;
   width: 100%;
   padding: 12px;

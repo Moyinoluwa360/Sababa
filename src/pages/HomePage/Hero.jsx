@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeroContainer = styled.div`
@@ -75,10 +76,12 @@ function HeroSection() {
     <HeroContainer>
       <HeroContent>
         <HeroTitle>Shop Every Item in the Look,<br/> Outfits made shoppable.</HeroTitle>
-        <ExploreButton>
-          Explore Outfits
-          <img src="/arrow-up-right.svg" alt="arrow icon" style={{ width: '14px', height: '14px' }} loading='lazy' />
-        </ExploreButton>
+        <Link to={"alloutfits"} style={{ textDecoration: 'none' }}>
+          <ExploreButton >
+            Explore Outfits
+            <img src="/arrow-up-right.svg" alt="arrow icon" style={{ width: '14px', height: '14px' }} loading='lazy' />
+          </ExploreButton>
+        </Link>
       </HeroContent>
     </HeroContainer>
   );

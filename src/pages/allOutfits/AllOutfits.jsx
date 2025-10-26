@@ -51,7 +51,7 @@ const AllOutfits = () => {
 };
 
 const PageWrapper = styled.main`
-  background-color: rgba(252, 252, 252, 1);
+  background-color: #D9D9D9;
   display: flex;
   flex-direction: column;
   overflow: hidden;

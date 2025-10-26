@@ -53,7 +53,7 @@ export function OutfitGallery({outfit}) {
           // install Swiper modules
           modules={[Navigation, Pagination, A11y]}
           spaceBetween={20}
-          slidesPerView={Math.min(outfit.pieces.length, width < 610 ? (width < 420 ? 1 : 2) : 3)}
+          slidesPerView={Math.min(outfit.pieces.length, width < 610 ? (width < 480 ? 1 : 2) : 3)}
           navigation
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
@@ -132,7 +132,9 @@ const MainImage = styled.img`
   height: 100%;
   width: 100%;
   object-fit: cover;
-  border-radius: 4px;
+  @media (max-width: 750px) {
+    border-radius: 20px;
+  }
 `;
 
 const BreakdownSection = styled.section` 

@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import useWindowWidth from './useWindowWidth';
+import useWindowWidth from '../useWindowWidth';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import SlideInMenu from './SlideInMenu';
+
+const Container = styled.div`
+  position: fixed;
+  width: 100%;
+  height: fit-content;
+  z-index: 10000000;
+  background-color: #D9D9D9;
+`
 
 const BannerContainer = styled.div`
   display: flex;
@@ -109,11 +120,26 @@ const ActionItem = styled.div`
       display: none;
     }
   }
+  .userImg{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 `;
 
 function Header() {
+  const user = useSelector((state) => state.auth.user);
+  const windowWidth = useWindowWidth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   return (
-    <>
+    <Container>
+      { isMenuOpen && <SlideInMenu open={isMenuOpen} onClose={toggleMenu} /> }
       <BannerContainer>
         <BannerText>IT'S NEVER TOO LATE TO UPGRADE YOUR STYLE!</BannerText>
       </BannerContainer>
@@ -127,11 +153,11 @@ function Header() {
             <NavItem>INSPIRATIONS</NavItem>
           </LeftNav>
           : 
-          <FontAwesomeIcon icon={faBars} className='hamburger'/>
+          <FontAwesomeIcon icon={faBars} className='hamburger' onClick={toggleMenu} />
         }
 
         <Logo>
-          <img src="/Sababa.svg" alt="sababa logo" />
+          <Link to={"/"} ><img src="/Sababa.svg" alt="sababa logo"/></Link>
         </Logo>
 
         <RightActions>
@@ -143,23 +169,44 @@ function Header() {
             <span className="action-text">SEARCH</span>
           </ActionItem>
 
-          <ActionItem>
-            <svg viewBox="0 0 28 28" fill="none">
-              <path d="M15 21.9998V20.2221C15 19.2791 14.631 18.3747 13.975 17.7079C13.318 17.0411 12.428 16.6665 11.5 16.6665H4.5C3.572 16.6665 2.682 17.0411 2.025 17.7079C1.369 18.3747 1 19.2791 1 20.2221V21.9998" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M8 13.1111C9.933 13.1111 11.5 11.5192 11.5 9.55556C11.5 7.59188 9.933 6 8 6C6.067 6 4.5 7.59188 4.5 9.55556C4.5 11.5192 6.067 13.1111 8 13.1111Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span className="action-text">USER LOGIN</span>
-          </ActionItem>
+          <Link to={"/account"} style={{textDecoration:"none"}}>
+            <ActionItem style={{gap:"5px"}}>
+              {
+                user?.photoURL == "default_profile_picture_url"
+                  ?
+                <img src= "/account.svg" alt="account icon" className='userImg' loading={"lazy"}  />
+                  :
+                <img src={user ? user.photoURL : "/account.svg"} alt="account icon" className='userImg' loading={"lazy"}  />
+              }
+              <div className="iconLabel">
+                {
+                  user?
+                  windowWidth < 600
+                  ?
+                  'Hello!'
+                  : `Hello! ${user?.displayName?.split(' ')[0]|| user?.displayName}` 
+                  : (
+                        <span className="action-text">USER LOGIN</span>                 
+                  )
+                }
+              </div>
+            </ActionItem>
+          </Link>
 
-          <ActionItem>
-            <svg viewBox="0 0 28 28" fill="none">
-              <path d="M17.612 7.41452C17.172 6.96607 16.65 6.61034 16.075 6.36763C15.5 6.12492 14.884 6 14.262 6C13.64 6 13.024 6.12492 12.449 6.36763C11.875 6.61034 11.352 6.96607 10.913 7.41452L10 8.34476L9.087 7.41452C8.199 6.50912 6.994 6.00047 5.737 6.00047C4.481 6.00047 3.276 6.50912 2.388 7.41452C1.499 8.31992 1 9.5479 1 10.8283C1 12.1088 1.499 13.3367 2.388 14.2421L3.3 15.1724L10 22L16.699 15.1724L17.612 14.2421C18.052 13.7939 18.401 13.2617 18.639 12.676C18.877 12.0902 19 11.4624 19 10.8283C19 10.1943 18.877 9.56645 18.639 8.9807C18.401 8.39494 18.052 7.86275 17.612 7.41452Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span className="action-text">WISHLIST</span>
-          </ActionItem>
+          <Link to={"wishlist"} style={{textDecoration:"none"}}>
+            <ActionItem style={{gap:"5px"}}>
+              <img src="/wishlistHeaderHeart.svg" alt="liked icon"/>
+              {
+                useWindowWidth() > 600 ?
+                <span className="action-text">WISHLIST</span>
+                :
+                null
+              }
+            </ActionItem>
+          </Link>
         </RightActions>
       </HeaderContainer>
-    </>
+    </Container>
   );
 }
 

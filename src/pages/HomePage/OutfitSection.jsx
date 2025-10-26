@@ -44,7 +44,7 @@ function OutfitSection() {
         grabCursor: true,
         slidesPerView: 1,
         centeredSlides: true,
-        cardsEffect: { perSlideOffset: 8, perSlideRotate: 2 },
+        cardsEffect: { perSlideOffset: 6, perSlideRotate: 2 },
         initialSlide: currentDayIndex,
       }
     : {

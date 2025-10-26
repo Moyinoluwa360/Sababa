@@ -137,12 +137,15 @@ const CreateAccFormDiv = styled.div`
     height: 680px;
     align-self: center;
     margin-top: 80px;
+    padding-top: 70px;
     display: flex;
     flex-direction: column;
     gap: 24px;
     @media (max-width: 500px){
         width: 100%;
         margin-top: 10px;
+        padding-top: 120px;
+        margin-bottom: 30px;
     }
     .main-sec-head{
       display: flex;
@@ -151,7 +154,7 @@ const CreateAccFormDiv = styled.div`
       font-weight:bold;
       gap: 4px;
       @media (max-width: 500px){
-        display: none;
+        
       }
       :first-child{
         font-size: 28px;
