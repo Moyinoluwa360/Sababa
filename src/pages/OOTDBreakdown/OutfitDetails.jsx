@@ -12,30 +12,34 @@ export function OutfitDetails() {
   const { id } = useParams();
   const outfits = useSelector((state) => state.outfits.outfits);
   const outfit = outfits.find(outfit => outfit.id == id)
-  const { outfitNumber } = location.state || {};
-
+  const { outfitNumber, ootdType, ootwData } = location.state || {};
   return (
     <main className="ootd-container">
       <BreadcrumbNav/>
       <PageTitle>
         <div className="pTitle">
           {
+            ootdType == "ootw"
+            ?
+            ootwData.day.charAt(0).toUpperCase() + ootwData.day.slice(1)
+            :
             useWindowWidth() > 481 ? `Outfit Of The Day ${outfitNumber}` : `OOTD ${outfitNumber}`
           }
+          
         </div>
         <div className="titleDes">
-          Discover looks you love and shop each item with ease.
+          {ootdType == "ootw"? "Outfit of the Week - Summer Essentials": "Discover looks you love and shop each item with ease."}
         </div>
       </PageTitle>
       <MainSection>
         {
-          outfit ? (
+          outfit || ootwData ? (
             <>
-              <OutfitGallery outfit = {outfit} />
-              <Details outfit = {outfit} />
+              <OutfitGallery outfit = {ootdType == "ootw" ? ootwData :  outfit} />
+              <Details outfit = {ootdType == "ootw" ? ootwData : outfit} />
             </>
           ) : (
-            <div>Loading...</div>
+            <div style={{textAlign:"center"}} >Loading...</div>
           )
         }
       </MainSection>

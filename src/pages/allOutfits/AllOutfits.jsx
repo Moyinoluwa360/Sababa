@@ -2,12 +2,20 @@
 import styled from 'styled-components';
 import OutfitCard from '../../components/OutfitCard';
 import BreadcrumbNav from '../../components/BreadcrumbNav'
-import { useSelector} from 'react-redux';
-import { useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-
+import { useDispatch, useSelector} from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { fetchOutfits } from '../../redux/slices/outfitsSlice';
 
 const AllOutfits = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // NOW the thunks run when component mounts
+    dispatch(fetchOutfits());
+  }, [dispatch]);
+
   const outfits = useSelector((state) => state.outfits.outfits);
   const { gender } = useParams();
   const outfitsLoading = useSelector((state) => state.outfits.outfitsLoading);
@@ -21,7 +29,7 @@ const AllOutfits = () => {
         <div className="headingDes">Discover looks you love and shop each item with ease.</div>
       </PageHeading>
       {/* <GenderFilter>
-        <div id="maleFilter"
+        <div id="maleFilter"u
           style={genderFilter == "male" ? {backgroundColor:"black" }: {}}
           onClick={()=> setGenderFilter("male")}
         >

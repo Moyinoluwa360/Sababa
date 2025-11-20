@@ -33,7 +33,7 @@ import { useSelector } from 'react-redux'
 import { auth } from './firebase/firebase'
 import { initAuthListener } from './firebase/auth'
 // redux slices
-import { fetchOutfits } from "./redux/slices/outfitsSlice";
+import { fetchOOTW, fetchOutfits } from "./redux/slices/outfitsSlice";
 // Redux store
 import { store } from './redux/store';
 //loading component
@@ -74,6 +74,7 @@ function RequireAuth({ children }) {
 function App() {
   const [isInitialized, setIsInitialized] = useState(false);
   const { user, isLoading } = useSelector((state) => state.auth);
+  const {ootwLoading} = useSelector((state)=> state.outfits )
 
   useEffect(() => {
     initAuthListener(); // Start listening to auth changes
@@ -84,6 +85,7 @@ function App() {
     });
     // Fetch outfits from the store
     store.dispatch(fetchOutfits());
+    store.dispatch(fetchOOTW())
 
     return () => unsubscribe();
   }, []);
@@ -113,6 +115,7 @@ function App() {
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="alloutfits/:gender" element={<AllOutfits />} />
             <Route path="alloutfits/:gender/:id" element={<OutfitDetails />} />
+            <Route path="ootw/:day" element={<OutfitDetails />} />
           </Route>
 
           <Route
@@ -150,7 +153,7 @@ function App() {
   }, [user]); // Recreate router when user changes
 
   // Show loading spinner while auth is initializing
-  if (!isInitialized || isLoading) {
+  if (!isInitialized || isLoading || ootwLoading) {
     return (
       <div className="App">
         <Loading/>

@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 export function Details({outfit}) {
+
   const fits = outfit.pieces.filter(piece => piece.category == "Fit")
   const accessoriess = outfit.pieces.filter(piece => piece.category == "Accessories")
   const footwear = outfit.pieces.filter(piece => piece.category == "Footwear")

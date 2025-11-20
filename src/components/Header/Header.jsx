@@ -6,6 +6,7 @@ import useWindowWidth from '../useWindowWidth';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SlideInMenu from './SlideInMenu';
+import {SearchModal} from './SearchModal';
 
 const Container = styled.div`
   position: fixed;
@@ -126,6 +127,7 @@ function Header() {
   const user = useSelector((state) => state.auth.user);
   const windowWidth = useWindowWidth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -155,7 +157,7 @@ function Header() {
         </Logo>
 
         <RightActions>
-          <ActionItem>
+          <ActionItem onClick={() => setIsSearchOpen(true)}>
             <svg viewBox="0 0 28 28" fill="none">
               <path d="M7.22209 20.2222C10.6585 20.2222 13.4442 17.0384 13.4442 13.1111C13.4442 9.18374 10.6585 6 7.22209 6C3.78572 6 1 9.18374 1 13.1111C1 17.0384 3.78572 20.2222 7.22209 20.2222Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               <path d="M15.0004 22L11.6172 18.1333" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -200,6 +202,9 @@ function Header() {
           </Link>
         </RightActions>
       </HeaderContainer>
+
+      {/* Search modal — connected, no design changes to header */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </Container>
   );
 }

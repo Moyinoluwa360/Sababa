@@ -1,43 +1,52 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import styled from 'styled-components';
 import HomeOotwCard from './HomeOotwCard';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, A11y,EffectCards } from 'swiper/modules';
+import { Navigation, A11y, EffectCards } from 'swiper/modules';
 import 'swiper/css/navigation';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
 import useWindowWidth from './useWindowWidth';
 
-const outfits = [
-  { day: 'Monday', image: 'https://i.pinimg.com/736x/0a/9c/bb/0a9cbb6e735ee766458d353d994a2ece.jpg' },
-  { day: 'Tuesday', image: 'https://cdn.shopify.com/s/files/1/0012/7339/7332/files/17_Vertical_Striped_Shirts_You_Should_Definitely_Own_Right_Now_2048x2048.jpg?v=1673224456' },
-  { day: 'Wednesday', image: 'https://sfycdn.speedsize.com/2780c694-3419-4266-9652-d242439affeb/stateandliberty.com/cdn/shop/articles/unnamed_e0bb3512-7fea-4d26-8bb8-10eb92ff4c47.jpg?v=1675795862&width=1365' },
-  { day: 'Thursday', image: 'https://westernrise.com/cdn/shop/articles/what_to_wear_in_60-degree_weather_for_men.jpg?v=1727901586&width=1500' },
-  { day: 'Friday', image: 'https://sfycdn.speedsize.com/2780c694-3419-4266-9652-d242439affeb/stateandliberty.com/cdn/shop/articles/unnamed_e0bb3512-7fea-4d26-8bb8-10eb92ff4c47.jpg?v=1675795862&width=1365' },
-  { day: 'Saturday', image: 'https://cdn.shopify.com/s/files/1/0012/7339/7332/files/17_Vertical_Striped_Shirts_You_Should_Definitely_Own_Right_Now_2048x2048.jpg?v=1673224456' },
-  { day: 'Sunday', image: 'https://i.pinimg.com/736x/0a/9c/bb/0a9cbb6e735ee766458d353d994a2ece.jpg' }
-];
+const orderMap = {
+  monday: 0,
+  tuesday: 1,
+  wednesday: 2,
+  thursday: 3,
+  friday: 4,
+  saturday: 5,
+  sunday: 6
+};
 
 function OutfitSection() {
+  const navigate = useNavigate();
+  const ootwData = useSelector((state) => state.outfits?.ootw || []);
+
+  const sortedOotw = useMemo(() => {
+    return [...ootwData].sort((a, b) => {
+      const ia = orderMap[(a.day || '').toLowerCase()] ?? 7;
+      const ib = orderMap[(b.day || '').toLowerCase()] ?? 7;
+      return ia - ib;
+    });
+  }, [ootwData]);
+
   const [activeGender, setActiveGender] = useState('men');
-  const [currentDay, setCurrentDay] = useState('');
+  const [activeDay, setActiveDay] = useState('');
+  const [pendingNavigation, setPendingNavigation] = useState(null); // queue navigation after slide becomes active
   const swiperRef = useRef(null);
   const width = useWindowWidth();
 
-  // Get current day name and index
-  const { currentDayName, currentDayIndex } = useMemo(() => {
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const today = new Date().getDay();
-    const dayName = daysOfWeek[today];
-    // Convert Sunday (0) to index 6, Monday (1) to 0, etc.
-    const dayIndex = today === 0 ? 6 : today - 1;
-    return { currentDayName: dayName, currentDayIndex: dayIndex };
-  }, []);
+  useEffect(() => {
+    if (sortedOotw.length > 0) setActiveDay(sortedOotw[0].day || '');
+    else setActiveDay('');
+  }, [sortedOotw]);
 
-  // Determine Swiper settings based on width
   const isCardsEffect = width <= 480;
   const swiperModules = isCardsEffect ? [EffectCards] : [Navigation, A11y];
+
   const swiperProps = isCardsEffect
     ? {
         effect: 'cards',
@@ -45,7 +54,10 @@ function OutfitSection() {
         slidesPerView: 1,
         centeredSlides: true,
         cardsEffect: { perSlideOffset: 6, perSlideRotate: 2 },
-        initialSlide: currentDayIndex,
+        initialSlide: 0,
+        preventClicks: false,
+        preventClicksPropagation: false,
+        slideToClickedSlide: false, // we handle navigation manually
       }
     : {
         spaceBetween: 20,
@@ -53,23 +65,38 @@ function OutfitSection() {
         centeredSlides: width <= 600,
         navigation: true,
         scrollbar: { draggable: true },
+        preventClicks: false,
+        preventClicksPropagation: false,
+        slideToClickedSlide: true,
       };
 
-  // Create a key that changes when switching between card/navigation modes
   const swiperKey = isCardsEffect ? 'cards' : 'navigation';
 
-  // Update current day when slide changes
   const handleSlideChange = (swiper) => {
-    const realIndex = swiper.realIndex;
-    setCurrentDay(outfits[realIndex].day);
+    const idx = swiper.realIndex ?? swiper.activeIndex ?? 0;
+    const item = sortedOotw[idx];
+    if (item && item.day) setActiveDay(item.day);
+
+    // if pending navigation, execute it now that slide is active
+    if (pendingNavigation) {
+      navigate(pendingNavigation.path, { state: { outfitData: pendingNavigation.outfit } });
+      setPendingNavigation(null);
+    }
   };
 
-  // Set initial day
-  React.useEffect(() => {
+  const handleCardClick = (outfit, slideIndex) => {
     if (isCardsEffect) {
-      setCurrentDay(outfits[currentDayIndex].day);
+      // on mobile (effect-cards): move to slide first, then navigate after it's active
+      setPendingNavigation({
+        path: `/home/ootw/${outfit.day}`,
+        outfit: outfit,
+      });
+      swiperRef.current?.slideTo(slideIndex);
+    } else {
+      // on desktop: navigate immediately (slides are all visible)
+      navigate(`/home/ootw/${outfit.day}`, { state: { outfitData: outfit } });
     }
-  }, [isCardsEffect, currentDayIndex]);
+  };
 
   return (
     <SectionContainer>
@@ -80,20 +107,8 @@ function OutfitSection() {
         </SectionHeader>
 
         <GenderToggle>
-          <GenderBtn
-            active={activeGender === 'men'}
-            onClick={() => setActiveGender('men')}
-            aria-pressed={activeGender === 'men'}
-          >
-            Men
-          </GenderBtn>
-          <GenderBtn
-            active={activeGender === 'women'}
-            onClick={() => setActiveGender('women')}
-            aria-pressed={activeGender === 'women'}
-          >
-            Women
-          </GenderBtn>
+          <GenderBtn active={activeGender === 'men'} onClick={() => setActiveGender('men')} aria-pressed={activeGender === 'men'}>Men</GenderBtn>
+          <GenderBtn active={activeGender === 'women'} onClick={() => setActiveGender('women')} aria-pressed={activeGender === 'women'}>Women</GenderBtn>
         </GenderToggle>
       </Heading>
 
@@ -104,28 +119,36 @@ function OutfitSection() {
           {...swiperProps}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
-            if (isCardsEffect) {
-              setCurrentDay(outfits[swiper.realIndex].day);
-            }
+            const idx = swiper.realIndex ?? swiper.activeIndex ?? 0;
+            const item = sortedOotw[idx];
+            if (item && item.day) setActiveDay(item.day);
           }}
           onSlideChange={handleSlideChange}
           className={isCardsEffect ? 'swiper cards-effect' : 'swiper'}
         >
-          {outfits.map((outfit, index) => {
+          {sortedOotw.map((outfit, index) => {
             const position = index % 2 === 0 ? 'bottom' : 'top';
+
             return (
-              <SwiperSlide key={index} className="swiper-slide">
+              <SwiperSlide
+                key={outfit.id || index}
+                onClick={() => handleCardClick(outfit, index)}
+                style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+              >
                 <HomeOotwCard
-                  img={outfit.image}
+                  img={outfit.outfitImage}
                   day={outfit.day}
-                  position={position}
+                  $position={position}
+                  outfitData={outfit}
+                  onClick={() => handleCardClick(outfit, index)}
                 />
               </SwiperSlide>
             );
           })}
         </Swiper>
+
         <div className='mobileDay'>
-          {currentDay || currentDayName}
+          {activeDay ? String(activeDay).charAt(0).toUpperCase() + String(activeDay).slice(1) : ''}
         </div>
       </OutfitGallery>
 
@@ -144,15 +167,15 @@ function OutfitSection() {
   );
 }
 
-// ================== Styled Components ==================
+/* ========== Styled Components ========== */
 
 const SectionContainer = styled.div`
   max-width: 1440px;
   padding: 0 40px;
   margin: 80px 0 0 0;
-   @media (max-width: 850px) {
+  @media (max-width: 850px) {
     margin-top: 48px;
-    padding: 0 16px 0 16px;
+    padding: 0 16px;
   }
 `;
 
@@ -166,7 +189,7 @@ const Heading = styled.div`
     gap: 20px;
     margin-bottom: 40px;
   }
-`
+`;
 
 const SectionHeader = styled.div`
   display: flex;
@@ -174,7 +197,7 @@ const SectionHeader = styled.div`
   gap: 12px;
   align-items: flex-start;
   text-align: left;
-   @media (max-width: 850px) {
+  @media (max-width: 850px) {
     align-items: center;
     gap: 4px;
   }
@@ -187,18 +210,10 @@ const SectionTitle = styled.h2`
   font-weight: 600;
   line-height: normal;
   margin: 0;
-  @media (max-width: 635px) {
-    font-size: 23px;
-  }
-  @media (max-width: 480px) {
-    font-size: 18px;
-  }
-  @media (max-width: 375px) {
-    font-size: 16px;    
-  }
-  @media (max-width: 335px) {
-    font-size: 14px;    
-  }
+  @media (max-width: 635px) { font-size: 23px; }
+  @media (max-width: 480px) { font-size: 18px; }
+  @media (max-width: 375px) { font-size: 16px; }
+  @media (max-width: 335px) { font-size: 14px; }
 `;
 
 const SectionSubtitle = styled.p`
@@ -206,15 +221,9 @@ const SectionSubtitle = styled.p`
   font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif;
   font-size: 16px;
   font-weight: 500;
-  line-height: normal;
   margin: 0;
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-  }
-  @media (max-width: 375px) {
-    font-size: 12px;  
-  }
+  @media (max-width: 768px) { font-size: 14px; }
+  @media (max-width: 375px) { font-size: 12px; }
 `;
 
 const GenderToggle = styled.div`
@@ -228,7 +237,7 @@ const GenderToggle = styled.div`
     border: 1px solid #C4C4C4;
     border-radius: 25px;
   }
-`
+`;
 
 const GenderBtn = styled.div`
   color: grey;
@@ -244,34 +253,14 @@ const GenderBtn = styled.div`
     align-items: center;
     color: ${(props) => (props.active ? 'white' : '#787C7F')};
     background-color: ${(props) => (props.active ? 'black' : '#ffffffff')};
-    &:first-child{
-      border-top-left-radius: 25px;
-      border-bottom-left-radius: 25px;
-    }
-    &:last-child{
-      border-top-right-radius: 25px;
-      border-bottom-right-radius: 25px;
-    }
+    &:first-child{ border-top-left-radius: 25px; border-bottom-left-radius: 25px; }
+    &:last-child{ border-top-right-radius: 25px; border-bottom-right-radius: 25px; }
   }
 `;
-
-/*------------------------------------------------*/
 
 const OutfitGallery = styled.div`
   width: 100%;
   height: 456px;
-  .mobileDay {
-    display: none;
-    @media (max-width: 480px) {
-      display: block;
-      text-align: center;
-      font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      color: #1C1C1C;
-      margin-top: 12px;
-    }
-  }
   @media (max-width: 480px) {
     display: flex;
     flex-direction: column;
@@ -283,14 +272,17 @@ const OutfitGallery = styled.div`
     width: 100%;
     height: 100%;
     padding: 0;
-    @media (max-width: 480px) {
-      width: 250px;
-      justify-self: center;
-    }
+
+    .swiper-wrapper { align-items: center; }
 
     .swiper-slide {
       height: 100%;
       width: 240px;
+      pointer-events: auto !important;
+      z-index: 1;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      touch-action: pan-y;
       @media (max-width: 480px) {
         width: unset !important;
         min-width: 0 !important;
@@ -298,9 +290,23 @@ const OutfitGallery = styled.div`
       }
     }
 
+    .swiper-slide-active { z-index: 3; pointer-events: auto !important; }
+    .swiper-slide-next,
+    .swiper-slide-prev { z-index: 2; }
+
     .swiper-button-next,
-    .swiper-button-prev {
-      display: none;
+    .swiper-button-prev { display: none; }
+  }
+
+  .mobileDay {
+    display: none;
+    @media (max-width: 480px) {
+      display: block;
+      margin-top: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #1C1C1C;
+      text-transform: capitalize;
     }
   }
 `;
@@ -326,10 +332,7 @@ const OutfitGalleryController = styled.div`
       background-color: #252525ff;
       border-radius: 50%;
       cursor: pointer;
-      &:hover {
-        background: rgba(53, 53, 53, 1);
-        transform: scale(1.1);
-      }
+      &:hover { background: rgba(53, 53, 53, 1); transform: scale(1.1); }
     }
   }
 
@@ -345,10 +348,7 @@ const OutfitGalleryController = styled.div`
     border: 2px solid #1C1C1C;
     border-radius: 8px;
     cursor: pointer;
-    &:hover {
-      background-color: #1C1C1C;
-      color: white;
-    }
+    &:hover { background-color: #1C1C1C; color: white; }
   }
 `;
 
