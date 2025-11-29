@@ -143,8 +143,8 @@ const dropdownDivs = {
       
       <Link to={"/account"} onClick={onClose}  ><MenuItem>Account</MenuItem></Link>
       <Link to={"contact"} onClick={onClose}  ><MenuItem>Contact us</MenuItem></Link>
-      <Link to={"/men"} onClick={onClose}  ><MenuItem>Men</MenuItem></Link>
-      <Link to={"/women"} onClick={onClose}  ><MenuItem>Women</MenuItem></Link>
+      <Link to={"alloutfits/male"} onClick={onClose}  ><MenuItem>Men</MenuItem></Link>
+      <Link to={"alloutfits/female"} onClick={onClose}  ><MenuItem>Women</MenuItem></Link>
     </MenuContainer>
   );
 };
