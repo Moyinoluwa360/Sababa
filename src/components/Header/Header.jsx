@@ -41,7 +41,7 @@ const BannerText = styled.div`
 
 const HeaderContainer = styled.div`
   display: flex;
-  max-width: 1360px;
+  width: 98%;
   height: 44px;
   padding: 12.5 0 12.5px 0;
   margin: 0 auto;
@@ -153,7 +153,7 @@ function Header() {
         }
 
         <Logo>
-          <Link to= "/" ><img src="/Sababa.svg" alt="sababa logo"/></Link>
+          <Link to= "/" ><img src="/sababa.svg" alt="sababa logo"/></Link>
         </Logo>
 
         <RightActions>

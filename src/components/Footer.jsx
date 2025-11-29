@@ -248,7 +248,7 @@ function Footer() {
         <FooterMain>
           <FooterNewsDescription>
             <FooterLogo>
-              <img src='/Sababa.svg' alt='Sababa logo'/>
+              <img src='/sababa.svg' alt='Sababa logo'/>
             </FooterLogo>
             <FooterDescription>
               Join Sababa Newsletter to never miss a fit, be the <br/> first to know about our weekly drops.

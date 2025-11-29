@@ -183,7 +183,7 @@ export default function OutfitSection() {
 // ========== STYLED COMPONENTS ==========
 
 const Container = styled.div`
-  max-width: 1440px;
+  width: 100%;
   padding: 0 40px;
   margin: 80px 0 0 0;
 
