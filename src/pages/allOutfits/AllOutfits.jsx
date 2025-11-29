@@ -4,7 +4,7 @@ import OutfitCard from '../../components/OutfitCard';
 import BreadcrumbNav from '../../components/BreadcrumbNav'
 import { useDispatch, useSelector} from 'react-redux';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { fetchOutfits } from '../../redux/slices/outfitsSlice';
 
 const AllOutfits = () => {
@@ -18,9 +18,32 @@ const AllOutfits = () => {
 
   const outfits = useSelector((state) => state.outfits.outfits);
   const { gender } = useParams();
+
+  // normalize incoming param and derive initial filter
+  const genderParam = (gender || "male").toString().toLowerCase();
+
   const outfitsLoading = useSelector((state) => state.outfits.outfitsLoading);
-  const [genderFilter, setGenderFilter] = useState(gender || "male")
-  let filteredOutfits =  outfits.filter((outfit)=> outfit.gender == genderFilter)
+
+ // keep state for UI control but update when param changes
+  const [genderFilter, setGenderFilter] = useState(genderParam);
+
+  // update local state whenever route param changes
+  useEffect(() => {
+    setGenderFilter(genderParam);
+  }, [genderParam]);
+
+  // normalize outfits.gender and compare lowercased values
+  let filteredOutfits = outfits.filter((outfit) => {
+    const g = (outfit.gender || '').toString().toLowerCase();
+    // accept "men"/"male" variants if needed:
+    if (genderFilter === 'men' || genderFilter === 'male') {
+      return g === 'male' || g === 'men';
+    }
+    if (genderFilter === 'women' || genderFilter === 'female') {
+      return g === 'female' || g === 'women';
+    }
+    return g === genderFilter;
+  });
   return (
     <PageWrapper>
       <BreadcrumbNav/>
