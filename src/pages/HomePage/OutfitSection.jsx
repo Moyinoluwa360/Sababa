@@ -5,13 +5,15 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, A11y, EffectCards } from 'swiper/modules';
+import { Navigation, A11y, EffectCards, Pagination } from 'swiper/modules';
 import 'swiper/css/navigation';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
 import useWindowWidth from './useWindowWidth';
 
-const orderMap = {
+// Pagination dynamic
+
+const dayOrder = {
   monday: 0,
   tuesday: 1,
   wednesday: 2,
@@ -21,169 +23,182 @@ const orderMap = {
   sunday: 6
 };
 
-function OutfitSection() {
+export default function OutfitSection() {
   const navigate = useNavigate();
-  const ootwData = useSelector((state) => state.outfits?.ootw || []);
+  const outfits = useSelector(state => state.outfits?.ootw || []);
+  const screenWidth = useWindowWidth();
+  const swiperInstance = useRef(null);
 
-  const sortedOotw = useMemo(() => {
-    return [...ootwData].sort((a, b) => {
-      const ia = orderMap[(a.day || '').toLowerCase()] ?? 7;
-      const ib = orderMap[(b.day || '').toLowerCase()] ?? 7;
-      return ia - ib;
+  // State
+  const [currentGender, setCurrentGender] = useState('men');
+  const [currentDayDisplay, setCurrentDayDisplay] = useState('');
+
+  // Sort outfits by day
+  const outfitsList = useMemo(() => {
+    return [...outfits].sort((a, b) => {
+      const dayA = dayOrder[(a.day || '').toLowerCase()] ?? 999;
+      const dayB = dayOrder[(b.day || '').toLowerCase()] ?? 999;
+      return dayA - dayB;
     });
-  }, [ootwData]);
+  }, [outfits]);
 
-  const [activeGender, setActiveGender] = useState('men');
-  const [activeDay, setActiveDay] = useState('');
-  const [pendingNavigation, setPendingNavigation] = useState(null); // queue navigation after slide becomes active
-  const swiperRef = useRef(null);
-  const width = useWindowWidth();
-
+  // Initialize day display
   useEffect(() => {
-    if (sortedOotw.length > 0) setActiveDay(sortedOotw[0].day || '');
-    else setActiveDay('');
-  }, [sortedOotw]);
+    if (outfitsList.length > 0) {
+      setCurrentDayDisplay(outfitsList[0].day || '');
+    }
+  }, [outfitsList]);
 
-  const isCardsEffect = width <= 480;
-  const swiperModules = isCardsEffect ? [EffectCards] : [Navigation, A11y];
+  // Determine layout mode
+  const isMobileMode = screenWidth <= 480;
+  const swiperModules = isMobileMode ? [Pagination] : [Navigation, A11y];
 
-  const swiperProps = isCardsEffect
+  // Swiper configuration
+  const config = isMobileMode
     ? {
         effect: 'cards',
         grabCursor: true,
         slidesPerView: 1,
         centeredSlides: true,
-        cardsEffect: { perSlideOffset: 6, perSlideRotate: 2 },
-        initialSlide: 0,
-        preventClicks: false,
-        preventClicksPropagation: false,
-        slideToClickedSlide: false, // we handle navigation manually
+        loop : true,
+        // cardsEffect: { perSlideOffset: 6, perSlideRotate: 2 },
+        // initialSlide: 0,
       }
     : {
         spaceBetween: 20,
         slidesPerView: 'auto',
-        centeredSlides: width <= 600,
+        centeredSlides: screenWidth <= 600,
         navigation: true,
         scrollbar: { draggable: true },
-        preventClicks: false,
-        preventClicksPropagation: false,
-        slideToClickedSlide: true,
       };
 
-  const swiperKey = isCardsEffect ? 'cards' : 'navigation';
+  // Event handlers
+  const onNavigateToOutfit = (outfit) => {
+    navigate(`/home/ootw/${outfit.day}`, {
+      state: { ootwData: outfit, ootdType: 'ootw' }
+    });
+  };
 
-  const handleSlideChange = (swiper) => {
-    const idx = swiper.realIndex ?? swiper.activeIndex ?? 0;
-    const item = sortedOotw[idx];
-    if (item && item.day) setActiveDay(item.day);
-
-    // if pending navigation, execute it now that slide is active
-    if (pendingNavigation) {
-      navigate(pendingNavigation.path, { state: { outfitData: pendingNavigation.outfit } });
-      setPendingNavigation(null);
+  const onSlideChanged = (swiper) => {
+    const currentIndex = swiper.realIndex ?? swiper.activeIndex ?? 0;
+    const currentOutfit = outfitsList[currentIndex];
+    if (currentOutfit?.day) {
+      setCurrentDayDisplay(currentOutfit.day);
     }
   };
 
-  const handleCardClick = (outfit, slideIndex) => {
-    if (isCardsEffect) {
-      // on mobile (effect-cards): move to slide first, then navigate after it's active
-      setPendingNavigation({
-        path: `/home/ootw/${outfit.day}`,
-        outfit: outfit,
-      });
-      swiperRef.current?.slideTo(slideIndex);
-    } else {
-      // on desktop: navigate immediately (slides are all visible)
-      navigate(`/home/ootw/${outfit.day}`, { state: { outfitData: outfit } });
+  const onSwiperReady = (swiper) => {
+    swiperInstance.current = swiper;
+    const idx = swiper.realIndex ?? swiper.activeIndex ?? 0;
+    const outfit = outfitsList[idx];
+    if (outfit?.day) {
+      setCurrentDayDisplay(outfit.day);
     }
   };
 
   return (
-    <SectionContainer>
-      <Heading>
-        <SectionHeader>
-          <SectionTitle>Outfit of the Week - Summer Essentials</SectionTitle>
-          <SectionSubtitle>Your go-to fit for effortless summer days.</SectionSubtitle>
-        </SectionHeader>
+    <Container id='for_inspiration_btn_header' >
+      <Header>
+        <HeaderContent>
+          <Title>Outfit of the Week - Summer Essentials</Title>
+          <Subtitle>Your go-to fit for effortless summer days.</Subtitle>
+        </HeaderContent>
 
-        <GenderToggle>
-          <GenderBtn active={activeGender === 'men'} onClick={() => setActiveGender('men')} aria-pressed={activeGender === 'men'}>Men</GenderBtn>
-          <GenderBtn active={activeGender === 'women'} onClick={() => setActiveGender('women')} aria-pressed={activeGender === 'women'}>Women</GenderBtn>
-        </GenderToggle>
-      </Heading>
+        <GenderSelector>
+          <GenderOption
+            isActive={currentGender === 'men'}
+            onClick={() => setCurrentGender('men')}
+          >
+            Men
+          </GenderOption>
+          <GenderOption
+            isActive={currentGender === 'women'}
+            onClick={() => setCurrentGender('women')}
+          >
+            Women
+          </GenderOption>
+        </GenderSelector>
+      </Header>
 
-      <OutfitGallery>
+      <Gallery>
         <Swiper
-          key={swiperKey}
+          key={isMobileMode ? 'mobile' : 'desktop'}
           modules={swiperModules}
-          {...swiperProps}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-            const idx = swiper.realIndex ?? swiper.activeIndex ?? 0;
-            const item = sortedOotw[idx];
-            if (item && item.day) setActiveDay(item.day);
+          {...config}
+          onSwiper={onSwiperReady}
+          pagination={{
+            dynamicBullets: true,
           }}
-          onSlideChange={handleSlideChange}
-          className={isCardsEffect ? 'swiper cards-effect' : 'swiper'}
+          onSlideChange={onSlideChanged}
+          className="outfit-swiper"
         >
-          {sortedOotw.map((outfit, index) => {
-            const position = index % 2 === 0 ? 'bottom' : 'top';
-
+          {outfitsList.map((outfit, idx) => {
+            const alignment = idx % 2 === 0 ? 'bottom' : 'top';
             return (
-              <SwiperSlide
-                key={outfit.id || index}
-                onClick={() => handleCardClick(outfit, index)}
-                style={{ cursor: 'pointer', pointerEvents: 'auto' }}
-              >
+              <SwiperSlide key={`outfit-${outfit.id || idx}`}>
                 <HomeOotwCard
                   img={outfit.outfitImage}
                   day={outfit.day}
-                  $position={position}
+                  position={alignment}
                   outfitData={outfit}
-                  onClick={() => handleCardClick(outfit, index)}
+                  onClick={() => onNavigateToOutfit(outfit)}
                 />
               </SwiperSlide>
             );
           })}
         </Swiper>
 
-        <div className='mobileDay'>
-          {activeDay ? String(activeDay).charAt(0).toUpperCase() + String(activeDay).slice(1) : ''}
-        </div>
-      </OutfitGallery>
+        <MobileDayIndicator>
+          {currentDayDisplay
+            ? currentDayDisplay.charAt(0).toUpperCase() + currentDayDisplay.slice(1)
+            : ''}
+        </MobileDayIndicator>
+      </Gallery>
 
-      <OutfitGalleryController>
-        <div className='OGCMain'>
-          <div className='swiper-prev swipe-arrows' onClick={() => swiperRef.current?.slidePrev()}>
-            <img src="/arrow-left.svg" alt="previous" style={{ width: '15px', height: '15px' }} />
-          </div>
-          <div className='addToWishlist'>Add to Wishlist</div>
-          <div className='swiper-next swipe-arrows' onClick={() => swiperRef.current?.slideNext()}>
-            <img src="/arrow-right.svg" alt="next" style={{ width: '15px', height: '15px' }} />
-          </div>
-        </div>
-      </OutfitGalleryController>
-    </SectionContainer>
+      <Controls>
+        <ControlGroup>
+          <ArrowButton
+            className="prev"
+            onClick={() => swiperInstance.current?.slidePrev()}
+            aria-label="Previous outfit"
+          >
+            <img src="/arrow-left.svg" alt="" style={{ width: '15px', height: '15px' }} />
+          </ArrowButton>
+
+          <WishlistButton>Add to Wishlist</WishlistButton>
+
+          <ArrowButton
+            className="next"
+            onClick={() => swiperInstance.current?.slideNext()}
+            aria-label="Next outfit"
+          >
+            <img src="/arrow-right.svg" alt="" style={{ width: '15px', height: '15px' }} />
+          </ArrowButton>
+        </ControlGroup>
+      </Controls>
+    </Container>
   );
 }
 
-/* ========== Styled Components ========== */
+// ========== STYLED COMPONENTS ==========
 
-const SectionContainer = styled.div`
+const Container = styled.div`
   max-width: 1440px;
   padding: 0 40px;
   margin: 80px 0 0 0;
+
   @media (max-width: 850px) {
     margin-top: 48px;
     padding: 0 16px;
   }
 `;
 
-const Heading = styled.div`
+const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 60px;
+
   @media (max-width: 850px) {
     flex-direction: column;
     gap: 20px;
@@ -191,45 +206,62 @@ const Heading = styled.div`
   }
 `;
 
-const SectionHeader = styled.div`
+const HeaderContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: flex-start;
   text-align: left;
+
   @media (max-width: 850px) {
     align-items: center;
     gap: 4px;
   }
 `;
 
-const SectionTitle = styled.h2`
+const Title = styled.h2`
   color: #1C1C1C;
   font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif;
   font-size: 32px;
   font-weight: 600;
   line-height: normal;
   margin: 0;
-  @media (max-width: 635px) { font-size: 23px; }
-  @media (max-width: 480px) { font-size: 18px; }
-  @media (max-width: 375px) { font-size: 16px; }
-  @media (max-width: 335px) { font-size: 14px; }
+
+  @media (max-width: 635px) {
+    font-size: 23px;
+  }
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
+  @media (max-width: 375px) {
+    font-size: 16px;
+  }
+  @media (max-width: 335px) {
+    font-size: 14px;
+  }
 `;
 
-const SectionSubtitle = styled.p`
+const Subtitle = styled.p`
   color: #787C7F;
   font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif;
   font-size: 16px;
   font-weight: 500;
+  line-height: normal;
   margin: 0;
-  @media (max-width: 768px) { font-size: 14px; }
-  @media (max-width: 375px) { font-size: 12px; }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+  @media (max-width: 375px) {
+    font-size: 12px;
+  }
 `;
 
-const GenderToggle = styled.div`
+const GenderSelector = styled.div`
   display: flex;
   align-items: center;
   gap: 32px;
+
   @media (max-width: 850px) {
     width: 160px;
     height: 40px;
@@ -239,11 +271,12 @@ const GenderToggle = styled.div`
   }
 `;
 
-const GenderBtn = styled.div`
+const GenderOption = styled.div`
   color: grey;
   font-weight: 550;
   font-size: 16px;
   cursor: pointer;
+
   @media (max-width: 850px) {
     height: 100%;
     flex: 1;
@@ -251,16 +284,25 @@ const GenderBtn = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${(props) => (props.active ? 'white' : '#787C7F')};
-    background-color: ${(props) => (props.active ? 'black' : '#ffffffff')};
-    &:first-child{ border-top-left-radius: 25px; border-bottom-left-radius: 25px; }
-    &:last-child{ border-top-right-radius: 25px; border-bottom-right-radius: 25px; }
+    color: ${props => props.isActive ? 'white' : '#787C7F'};
+    background-color: ${props => props.isActive ? 'black' : '#ffffffff'};
+
+    &:first-child {
+      border-top-left-radius: 25px;
+      border-bottom-left-radius: 25px;
+    }
+    &:last-child {
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+    }
   }
 `;
 
-const OutfitGallery = styled.div`
+const Gallery = styled.div`
   width: 100%;
   height: 456px;
+  position: relative;
+
   @media (max-width: 480px) {
     display: flex;
     flex-direction: column;
@@ -268,88 +310,105 @@ const OutfitGallery = styled.div`
     height: 360px;
   }
 
-  .swiper {
+  .outfit-swiper {
     width: 100%;
     height: 100%;
     padding: 0;
 
-    .swiper-wrapper { align-items: center; }
-
-    .swiper-slide {
-      height: 100%;
-      width: 240px;
-      pointer-events: auto !important;
-      z-index: 1;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      touch-action: pan-y;
-      @media (max-width: 480px) {
-        width: unset !important;
-        min-width: 0 !important;
-        max-width: 100% !important;
-      }
+    @media (max-width: 480px) {
+      width: 250px;
     }
-
-    .swiper-slide-active { z-index: 3; pointer-events: auto !important; }
-    .swiper-slide-next,
-    .swiper-slide-prev { z-index: 2; }
-
-    .swiper-button-next,
-    .swiper-button-prev { display: none; }
   }
 
-  .mobileDay {
-    display: none;
+  .swiper-slide {
+    height: 100%;
+    width: 240px;
+    pointer-events: auto;
+
     @media (max-width: 480px) {
-      display: block;
-      margin-top: 12px;
-      font-size: 16px;
-      font-weight: 600;
-      color: #1C1C1C;
-      text-transform: capitalize;
+      width: 100% !important;
+      /* min-width: 0 !important;
+      max-width: 100% !important; */
     }
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: black !important;
   }
 `;
 
-const OutfitGalleryController = styled.div`
+const MobileDayIndicator = styled.div`
+  display: none;
+
+  @media (max-width: 480px) {
+    display: block;
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1C1C1C;
+    text-transform: capitalize;
+    text-align: center;
+  }
+`;
+
+const Controls = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 44px;
+`;
 
-  .OGCMain {
-    width: 324px;
-    height: 43px;
-    display: flex;
-    justify-content: space-between;
+const ControlGroup = styled.div`
+  width: 324px;
+  height: 43px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
-    .swipe-arrows {
-      width: 40px;
-      height: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #252525ff;
-      border-radius: 50%;
-      cursor: pointer;
-      &:hover { background: rgba(53, 53, 53, 1); transform: scale(1.1); }
-    }
+const ArrowButton = styled.button`
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background-color: #252525ff;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.2s, transform 0.2s;
+
+  &:hover {
+    background: rgba(53, 53, 53, 1);
+    transform: scale(1.1);
   }
 
-  .addToWishlist {
-    width: 180px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 550;
-    border: 2px solid #1C1C1C;
-    border-radius: 8px;
-    cursor: pointer;
-    &:hover { background-color: #1C1C1C; color: white; }
+  img {
+    display: block;
   }
 `;
 
-export default OutfitSection;
+const WishlistButton = styled.div`
+  width: 180px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 550;
+  border: 2px solid #1C1C1C;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+
+  &:hover {
+    background-color: #1C1C1C;
+    color: white;
+  }
+`;

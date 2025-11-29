@@ -3,7 +3,12 @@ import styled from 'styled-components';
 
 function HomeOotwCard({ img, day, position, outfitData, onClick }) {
   return (
-    <CardButton onClick={onClick} aria-label={`Open outfit ${day}`}>
+    <CardWrapper
+      onClick={(e) => { console.log('CARD CLICK', outfitData?.id, outfitData?.day); onClick?.(); }}
+      onTouchStart={(e) => { console.log('CARD TOUCHSTART', outfitData?.id); }}
+      role="button"
+      tabIndex={0}
+    >
       {/* pass transient prop $position instead of position to avoid forwarding to DOM */}
       <CardContainer $position={position}>
         <ImgCardContainer>
@@ -11,11 +16,11 @@ function HomeOotwCard({ img, day, position, outfitData, onClick }) {
           <DayLabel>{day ? String(day).charAt(0).toUpperCase() + String(day).slice(1) : ''}</DayLabel>
         </ImgCardContainer>
       </CardContainer>
-    </CardButton>
+    </CardWrapper>
   );
 }
 
-const CardButton = styled.button`
+const CardWrapper = styled.div`
   display: block;
   width: 100%;
   height: 100%;
