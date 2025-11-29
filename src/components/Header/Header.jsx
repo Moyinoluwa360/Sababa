@@ -144,9 +144,9 @@ function Header() {
           useWindowWidth() > 768
           ?
           <LeftNav>
-            <NavItem className="active">MEN</NavItem>
-            <NavItem>WOMEN</NavItem>
-            <NavItem>INSPIRATIONS</NavItem>
+            <Link to={"/home/alloutfits/male"} style={{textDecoration:"none"}}><NavItem >MEN</NavItem></Link>
+            <Link to={"/home/alloutfits/female"} style={{textDecoration:"none"}} ><NavItem>WOMEN</NavItem></Link>
+            <NavItem> <a href="#for_inspiration_btn_header" style={{color:"#787C7F", textDecoration:"none"}}>INSPIRATIONS</a></NavItem>
           </LeftNav>
           : 
           <FontAwesomeIcon icon={faBars} className='hamburger' onClick={toggleMenu} />
