@@ -125,7 +125,7 @@ const dropdownDivs = {
     <MenuContainer open={open}>
       <CloseButton onClick={onClose} />
       <Link to={"/"} onClick={onClose} ><MenuItem>Home</MenuItem></Link>
-      <Link to={"alloutfits"} onClick={onClose}  ><MenuItem>All Outfits</MenuItem></Link>
+      <Link to={"/home/alloutfits"} onClick={onClose}  ><MenuItem>All Outfits</MenuItem></Link>
       <MenuItem onClick={() => toggleDropdown("outfits")}> 
         Outfits by Style {openDropdown === "outfits" ? <FiChevronUp /> : <FiChevronDown />}
       </MenuItem>
@@ -143,6 +143,8 @@ const dropdownDivs = {
       
       <Link to={"/account"} onClick={onClose}  ><MenuItem>Account</MenuItem></Link>
       <Link to={"contact"} onClick={onClose}  ><MenuItem>Contact us</MenuItem></Link>
+      <Link to={"alloutfits/male"} onClick={onClose}  ><MenuItem>Men</MenuItem></Link>
+      <Link to={"alloutfits/female"} onClick={onClose}  ><MenuItem>Women</MenuItem></Link>
     </MenuContainer>
   );
 };

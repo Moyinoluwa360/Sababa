@@ -6,7 +6,7 @@ import { ProfileContent } from "./Profile/ProfileContent";
 import {Contact} from "./Contact/Contact"
 import { Settings } from "./Settings/Settings";
 import { PaymentMethod } from "./PaymentMethod/PaymentMethod";
-import {YourOrder} from "./YourOrder/YourOrder"
+import {YourOrder} from "./Password/Password"
 import { AccountFooter } from "./AccountFooter";
 import { useParams, Link } from 'react-router-dom';
 

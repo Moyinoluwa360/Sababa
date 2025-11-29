@@ -1,59 +1,83 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-// like buttton imports
 import LikeButton from './likeButton';
+import SignInModal from './SignInModal';
 import { Link } from 'react-router-dom';
 
-
 const OutfitCard = ({outfit, OOTDNUM}) => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <Link 
-      to={`/home/alloutfits/${outfit.gender}/${outfit.id}`}
-      key={outfit.id}
-      state={{outfitNumber: OOTDNUM}}
-      style={{textDecoration:"none"}}
+    <>
+      <Link 
+        to={`/home/alloutfits/${outfit.gender}/${outfit.id}`}
+        key={outfit.id}
+        state={{outfitNumber: OOTDNUM}}
+        style={{textDecoration:"none"}}
       >
-      <CardWrapper>
-        <CardImageContainer>
-          <CardImage loading="lazy" src={outfit.outfitImage} alt={`OOTD ${outfit.id}`} />
-          <LikeButton
-            outfit = {outfit}
-            OOTDNUM = {OOTDNUM}
-            ariaLabel={`Like ${outfit.id}`}
-            bottom="12px"
-            right="12px"
-          />
-        </CardImageContainer>
-        {<OutfitTitle>OOTD {OOTDNUM}</OutfitTitle>}
-      </CardWrapper>
-    </Link>
+        <CardWrapper>
+          <CardImageContainer>
+            <CardImage loading="lazy" src={outfit.outfitImage} alt={`OOTD ${outfit.id}`} />
+            <LikeButton
+              outfit={outfit}
+              OOTDNUM={OOTDNUM}
+              ariaLabel={`Like ${outfit.id}`}
+              bottom="12px"
+              right="12px"
+              onShowModal={() => setShowModal(true)}
+            />
+          </CardImageContainer>
+          {<OutfitTitle>OOTD {OOTDNUM}</OutfitTitle>}
+        </CardWrapper>
+      </Link>
+
+      {/* Modal rendered outside Link */}
+      {showModal && (
+        <SignInModal 
+          open={showModal} 
+          setShowModal={setShowModal} 
+        />
+      )}
+    </>
   );
 };
 
 const CardWrapper = styled.article`
   display: flex;
   flex-direction: column;
-  width: 218px; /* Will fill grid cell */ /* Keeps card from getting too big */
-  height: 327px;
+  min-width: 240px;
+  max-width: 240px;
+  height: 391px;
+  border-radius: 20px;
+  @media (max-width: 550px){
+    height: 307px;
+    min-width: 172px;
+    max-width: 172px;
+  }
   @media (max-width: 480px){
-    height: 251px;
-    width: 168px;
+    height: 297px;
+    min-width: 172px;
+    max-width: 172px;
   }
-  @media (max-width: 370px){
-    height: 230px;
-    width: 150px;
+  @media (max-width: 410px){
+    height: 277px;
+    min-width: 162px;
+    max-width: 162px;
   }
-  @media (max-width: 340px){
-    height: 210px;
-    width: 135px;
+  @media (max-width: 390px){
+    height: 237px;
+    min-width: 142px;
+    max-width: 142px;
   }
-  @media (max-width: 307px){
-    height: 190px;
-    width: 120px;
+  @media (max-width: 355px){
+    height: 197px;
+    min-width: 122px;
+    max-width: 122px;
   }
-  @media (max-width: 280px){
-    height: 165px;
-    width: 95px;
+  @media (max-width: 310px){
+    height: 147px;
+    min-width: 92px;
+    max-width: 92px;
   }
 `;
 
@@ -63,7 +87,7 @@ const CardImageContainer = styled.div`
   border-radius: 4px;
   position: relative;
   width: inherit;
-  height: 95%;
+  height: 90%;
   padding: 260px 44px 12px;
   align-items: flex-end;
   
@@ -79,16 +103,14 @@ const CardImage = styled.img`
   width: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius: 5px;
+  border-radius: 20px;
 `;
 
-
-
 const OutfitTitle = styled.h3`
-  color: rgba(0, 0, 0, 1);
-  font-size: 16px;
+  color: #1C1C1C;
+  font-size: 15px;
   font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
-  font-weight: 500;
+  font-weight: 550;
   align-self: center;
   margin-top: 4px;
   @media (max-width: 480px){

@@ -21,7 +21,7 @@ const CardWrapper = styled.article`
     height: 302px;
     width:188px;
   }
-  @media (max-width: 420px){
+  @media (max-width: 480px){
     width:100%;
   }
 `;
@@ -43,9 +43,11 @@ const CardImage = styled.img`
 `;
 
 const BuyPieceBtn = styled.a`
-  color: rgb(255, 255, 255);
+  align-self: center;
+  color: rgb(0, 0, 0);
   transition: background-color 0.3s ease;
-  background-color: black;
+  background-color: #D9D9D9;
+  border: 2px solid #000000;
   font-size: 15px;
   font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
   font-weight: 500;
@@ -53,19 +55,22 @@ const BuyPieceBtn = styled.a`
   justify-content: center;
   align-items: center;
   margin-top: 8px;
-  height: 50px;
-  width: 100%;
-  border-radius: 5px;
+  height: 43px;
+  width: 220px;
+  border-radius: 40px;
   cursor: pointer;
   text-decoration: none;
   
   &:hover {
-    background-color: rgb(26, 26, 26);
+    background-color: rgb(206, 206, 206);
   }
   
   @media (max-width: 480px) {
     font-size: 12px;
-    height: 45px;
+    width: fit-content;
+    padding: 0 20px;
+    height: 41px;
+    border-radius: 12px;
   }
 `;
 

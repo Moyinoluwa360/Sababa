@@ -57,6 +57,19 @@ export const getAllOutfits = async () => {
   }
 }
 
+export const getAllOotw = async ()=>{
+  try {
+     const querySnapshot = await getDocs(collection(db, "ootw"));
+     return querySnapshot.docs.map(doc => ({ 
+      id: doc.id, 
+      ...doc.data() 
+    }));
+  } catch (error) {
+    console.error('Error fetching collection:', error.code);
+    throw error.code;
+  }
+}
+
 export const updateUser = async (userId, updates) => {
   try {
     const docRef = doc(db, COLLECTIONS.USERS, userId);

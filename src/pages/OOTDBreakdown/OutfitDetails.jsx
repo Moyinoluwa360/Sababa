@@ -12,27 +12,34 @@ export function OutfitDetails() {
   const { id } = useParams();
   const outfits = useSelector((state) => state.outfits.outfits);
   const outfit = outfits.find(outfit => outfit.id == id)
-  const { outfitNumber } = location.state || {};
-
+  const { outfitNumber, ootdType, ootwData } = location.state || {};
   return (
     <main className="ootd-container">
       <BreadcrumbNav/>
       <PageTitle>
         <div className="pTitle">
           {
+            ootdType == "ootw"
+            ?
+            ootwData.day.charAt(0).toUpperCase() + ootwData.day.slice(1)
+            :
             useWindowWidth() > 481 ? `Outfit Of The Day ${outfitNumber}` : `OOTD ${outfitNumber}`
           }
+          
+        </div>
+        <div className="titleDes">
+          {ootdType == "ootw"? "Outfit of the Week - Summer Essentials": "Discover looks you love and shop each item with ease."}
         </div>
       </PageTitle>
       <MainSection>
         {
-          outfit ? (
+          outfit || ootwData ? (
             <>
-              <OutfitGallery outfit = {outfit} />
-              <Details outfit = {outfit} />
+              <OutfitGallery outfit = {ootdType == "ootw" ? ootwData :  outfit} />
+              <Details outfit = {ootdType == "ootw" ? ootwData : outfit} />
             </>
           ) : (
-            <div>Loading...</div>
+            <div style={{textAlign:"center"}} >Loading...</div>
           )
         }
       </MainSection>
@@ -44,12 +51,16 @@ export function OutfitDetails() {
 const PageTitle = styled.div`
   display: flex;
   align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   justify-content:center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
   height: 40px;
   margin: 21px 0 40px 0;
-  background-color: #ffffff;
+  background-color: #D9D9D9;
   @media (max-width: 480px) {
-    margin-bottom: 0px;
+    margin-bottom: 30px;
   }
   .pTitle{
   align-self:center;
@@ -65,19 +76,22 @@ const PageTitle = styled.div`
       font-size: 16px;
     }
   }
+  .titleDes{
+    color: #787C7F;
+    font-weight: 500;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 5px;
+    @media (max-width: 480px) {
+      font-size: 12px;
+    }
+  }
 `
 
 const MainSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 18px;
-  padding: 0 40px 0 40px;
   margin-bottom: 40px;
-  background-color: #ffffff;
-  @media (max-width: 680px) {
-    padding: 0 16px 0 16px;
-  }
-  @media (max-width: 360px) {
-    padding: 0 8px 0 8px;
-  }
+  background-color: #D9D9D9; 
 `

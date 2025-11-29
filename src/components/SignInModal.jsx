@@ -39,7 +39,7 @@ export default function SignInModal({ open, setShowModal }) {
         <h2 style={{ marginBottom: 16, color:"black"}}>Please Sign In</h2>
         <p style={{ marginBottom: 32, color:"black"}}>Sign in to add items to your wishlist.</p>
         <button
-          onClick={() => navigate("/signin")} 
+          onClick={() => navigate("/auth")} 
           style={{
             width: "100%",
             background: "#000",

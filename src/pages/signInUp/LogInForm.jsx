@@ -110,6 +110,7 @@ export function LogInForm(props) {
 }
 
 const LogInFormDiv = styled.div`
+    padding-top: 70px;
     width: 514px;
     height: 595px;
     align-self: center;
@@ -121,6 +122,7 @@ const LogInFormDiv = styled.div`
       width: 100%;
       gap: 16px;
       margin-top: 10px;
+      padding-top: 130px;
     }
     .main-sec-head{
       display: flex;
@@ -129,7 +131,7 @@ const LogInFormDiv = styled.div`
       font-weight:bold;
       gap: 4px;
       @media (max-width: 500px){
-        display: none;
+        
       }
       :first-child{
         font-size: 26px;

@@ -5,22 +5,20 @@ import styled from "styled-components";
 export function EmailSection() {
   return (
     <>
-      <Section>
-        <SectionTitle>Email</SectionTitle>
-        <EmailInfo>
-          <Label>Current email</Label>
-          <Value>vwegbaeminokanju@gmail.com</Value>
-        </EmailInfo>
-        <StatusInfo>
-          <Label>Status</Label>
-          <Value>Unconfirmed</Value>
-        </StatusInfo>
-        <ResendButton>Resend confirmation email</ResendButton>
-      </Section>
-
+      <ProfileHeader>
+        <div className="profileHeaderTitle">
+          Profile
+        </div>
+        <div className="profileHeaderDes">
+          Profile information will be displayed on your dashboard
+        </div>
+      </ProfileHeader>
       <ChangeEmailSection>
-        <SectionTitle>Change email</SectionTitle>
         <Form>
+          <FormGroup>
+            <Label>Username</Label>
+            <Input type="name" />
+          </FormGroup>
           <FormGroup>
             <Label>New email</Label>
             <Input type="email" />
@@ -36,49 +34,39 @@ export function EmailSection() {
               <ShowButton>Show</ShowButton>
             </PasswordInputWrapper>
           </FormGroup>
-          <SubmitButton>Change email</SubmitButton>
-          <HelpText>
-            Your email address will not change until you confirm it via email.
-          </HelpText>
+          <SubmitButton>Save</SubmitButton>
         </Form>
       </ChangeEmailSection>
     </>
   );
 }
 
-const Section = styled.div`
+const ProfileHeader = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 12px;
+  gap: 4px;
+  .profileHeaderTitle{
+    font-family: Inter;
+    font-weight: 550;
+    font-size: 32px;
+    @media(max-width:480px){
+      font-size: 20px;
+    }
+  }
+  .profileHeaderDes{
+    color: #787C7F;
+    font-size: 16px;
+    font-weight: 500;
+    @media(max-width:480px){
+      font-size: 14px;
+    }
+  }
 `;
 
 const ChangeEmailSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-`;
-
-const SectionTitle = styled.h3`
-  color: #545454;
-  font-size: 16px;
-  @media (max-width: 480px){
-    font-size: 14px;
-  }
-`;
-
-const EmailInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`;
-
-const StatusInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
 `;
 
 const Label = styled.label`
@@ -89,14 +77,6 @@ const Label = styled.label`
   }
 `;
 
-const Value = styled.p`
-  color: #1c1c1c;
-  font-size: 16px;
-  margin: 0;
-  @media (max-width: 480px){
-    font-size: 12px;
-  }
-`;
 
 const Form = styled.form`
   display: flex;
@@ -144,23 +124,6 @@ const ShowButton = styled.button`
   cursor: pointer;
 `;
 
-const ResendButton = styled.button`
-  width: 370px;
-  height: 40px;
-  border: 1px solid #1c1c1c;
-  border-radius: 8px;
-  color: #1c1c1c;
-  font-size: 16px;
-  background: none;
-  cursor: pointer;
-
-  @media (max-width: 780px) {
-    width: 100%;
-  }
-  @media (max-width: 480px){
-    font-size: 12px;
-  }
-`;
 
 const SubmitButton = styled.button`
   width: 370px;
@@ -177,14 +140,5 @@ const SubmitButton = styled.button`
   }
   @media (max-width: 480px){
     font-size: 14px;
-  }
-`;
-
-const HelpText = styled.p`
-  color: #545454;
-  font-size: 12px;
-  margin: 0;
-  @media (max-width: 480px){
-    font-size: 10px;
   }
 `;

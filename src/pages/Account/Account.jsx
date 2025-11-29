@@ -14,11 +14,7 @@ export function AccountPage() {
       <AccountHeader currentNav ={currentNav} />
       <MainContent>
         <NavigationItems currentNav ={currentNav} setCurrentNav ={setCurrentNav} />
-        {
-          useWindowWidth() > 720 ? (
-            <Outlet/>
-          ) : null
-        }
+        <Outlet/>
       </MainContent>
       <AccountFooter />
     </PageContainer>
@@ -38,7 +34,9 @@ const MainContent = styled.main`
   padding-right: 40px;
   justify-content: center;
 
-  @media (max-width: 600px) {
-    padding: 0%;
+  @media (max-width: 800px) {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: column;
   }
 `;

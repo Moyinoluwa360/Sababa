@@ -16,15 +16,12 @@ import HomePage from './pages/HomePage/HomePage';
 import AllOutfits from './pages/allOutfits/AllOutfits'
 import ContactUs from './pages/ContactUs/ContactUs'
 import { AccountPage } from './pages/Account/Account'
-import MobileAccountMenu from './pages/Account/MobileAccountMenu'
 import Wishlist from './pages/wishlist/Wishlist'
 import GeneralLayout from './Layouts/GeneralLayout'
 import { ProfileContent } from './pages/Account/Profile/ProfileContent'
 import { Contact } from './pages/Account/Contact/Contact'
-import { PaymentMethod } from './pages/Account/PaymentMethod/PaymentMethod'
-import { Settings } from './pages/Account/Settings/Settings'
-import { YourOrder } from './pages/Account/YourOrder/YourOrder'
 import {OutfitDetails} from './pages/OOTDBreakdown/OutfitDetails'
+import {PasswordSection} from './pages/Account/Password/PasswordSection'
 import SignUpSignInPage from './pages/signInUp/signUp-signIn';
 
 
@@ -36,7 +33,7 @@ import { useSelector } from 'react-redux'
 import { auth } from './firebase/firebase'
 import { initAuthListener } from './firebase/auth'
 // redux slices
-import { fetchOutfits } from "./redux/slices/outfitsSlice";
+import { fetchOOTW, fetchOutfits } from "./redux/slices/outfitsSlice";
 // Redux store
 import { store } from './redux/store';
 //loading component
@@ -77,6 +74,7 @@ function RequireAuth({ children }) {
 function App() {
   const [isInitialized, setIsInitialized] = useState(false);
   const { user, isLoading } = useSelector((state) => state.auth);
+  const {ootwLoading} = useSelector((state)=> state.outfits )
 
   useEffect(() => {
     initAuthListener(); // Start listening to auth changes
@@ -87,6 +85,7 @@ function App() {
     });
     // Fetch outfits from the store
     store.dispatch(fetchOutfits());
+    store.dispatch(fetchOOTW())
 
     return () => unsubscribe();
   }, []);
@@ -116,6 +115,7 @@ function App() {
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="alloutfits/:gender" element={<AllOutfits />} />
             <Route path="alloutfits/:gender/:id" element={<OutfitDetails />} />
+            <Route path="ootw/:day" element={<OutfitDetails />} />
           </Route>
 
           <Route
@@ -129,20 +129,8 @@ function App() {
             <Route index element={<Navigate to="profile" replace />} />
             <Route path="profile" element={<ProfileContent />} />
             <Route path="contact" element={<Contact />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="payment-method" element={<PaymentMethod />} />
-            <Route path="your-order" element={<YourOrder />} />
+            <Route path="password" element={<PasswordSection />} />
           </Route>
-
-          {/* Mobile account menu (protected if needed) */}
-          <Route
-            path="accounts/:menuLabel"
-            element={
-              <RequireAuth >
-                <MobileAccountMenu />
-              </RequireAuth>
-            }
-          />
 
           {/* Public route: Sign in */}
           <Route
@@ -165,7 +153,7 @@ function App() {
   }, [user]); // Recreate router when user changes
 
   // Show loading spinner while auth is initializing
-  if (!isInitialized || isLoading) {
+  if (!isInitialized || isLoading || ootwLoading) {
     return (
       <div className="App">
         <Loading/>

@@ -23,7 +23,7 @@ function ContactUs() {
 }
 
 const ContactPageWrapper = styled.main`
-  background-color: rgba(252, 252, 252, 1);
+  background-color: #D9D9D9;
 `;
 
 const MainContent = styled.section`
