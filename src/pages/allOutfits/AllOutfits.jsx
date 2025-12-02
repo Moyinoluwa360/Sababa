@@ -6,6 +6,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { fetchOutfits } from '../../redux/slices/outfitsSlice';
+import MenOrWomen from './MenOrWomen';
 
 const AllOutfits = () => {
 
@@ -45,6 +46,8 @@ const AllOutfits = () => {
     return g === genderFilter;
   });
   return (
+    gender  === undefined ? <MenOrWomen />
+     : 
     <PageWrapper>
       <BreadcrumbNav/>
       <PageHeading>
