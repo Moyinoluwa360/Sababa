@@ -33,7 +33,7 @@ import { useSelector } from 'react-redux'
 import { auth } from './firebase/firebase'
 import { initAuthListener } from './firebase/auth'
 // redux slices
-import { fetchOOTW, fetchOutfits } from "./redux/slices/outfitsSlice";
+import { fetchMenOOTW, fetchWomenOOTW, fetchOutfits } from "./redux/slices/outfitsSlice";
 // Redux store
 import { store } from './redux/store';
 //loading component
@@ -85,7 +85,8 @@ function App() {
     });
     // Fetch outfits from the store
     store.dispatch(fetchOutfits());
-    store.dispatch(fetchOOTW())
+    store.dispatch(fetchMenOOTW())
+    store.dispatch(fetchWomenOOTW())
 
     return () => unsubscribe();
   }, []);

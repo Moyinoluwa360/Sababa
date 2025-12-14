@@ -57,7 +57,7 @@ export const getAllOutfits = async () => {
   }
 }
 
-export const getAllOotw = async ()=>{
+export const getAllMenOotw = async ()=>{
   try {
      const querySnapshot = await getDocs(collection(db, "ootw"));
      return querySnapshot.docs.map(doc => ({ 
@@ -65,7 +65,20 @@ export const getAllOotw = async ()=>{
       ...doc.data() 
     }));
   } catch (error) {
-    console.error('Error fetching collection:', error.code);
+    console.error('Error fetching men collection:', error.code);
+    throw error.code;
+  }
+}
+
+export const getAllWomenOotw = async ()=>{
+  try {
+     const querySnapshot = await getDocs(collection(db, "w-ootw"));
+     return querySnapshot.docs.map(doc => ({ 
+      id: doc.id, 
+      ...doc.data() 
+    }));
+  } catch (error) {
+    console.error('Error fetching women collection:', error.code);
     throw error.code;
   }
 }

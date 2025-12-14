@@ -12,8 +12,7 @@ function Wishlist() {
   // Filter products to only those in the wishlist
   const wishlistOutfit = wishlist;
   return (
-    <>
-
+    <MainCon>
       <BreadcrumbNav />
       <PageTitle>
         Wishlist
@@ -41,9 +40,13 @@ function Wishlist() {
           )}
         </NoWishlist>
       )}
-    </>
+    </MainCon>
   )
 }
+
+const MainCon = styled.div`
+  margin-top: 40px;
+`
 
 const PageTitle = styled.div`
   font-size: 20px;

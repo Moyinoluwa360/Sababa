@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import useWindowWidth from '../useWindowWidth';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SlideInMenu from './SlideInMenu';
-import {SearchModal} from './SearchModal';
+import SearchModal from './SearchModal';
 
 const Container = styled.div`
   position: fixed;
+  left: 0;
+  right: 0;
   width: 100%;
-  height: fit-content;
+  box-sizing: border-box;
   z-index: 10000000;
   background-color: #D9D9D9;
-`
+`;
 
 const BannerContainer = styled.div`
   display: flex;
@@ -23,11 +25,11 @@ const BannerContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: #1C1C1C;
+  box-sizing: border-box;
   @media (max-width: 480px) {
     height: 44px;
   }
 `;
-
 
 const BannerText = styled.div`
   color: #FFFFFF;
@@ -41,29 +43,41 @@ const BannerText = styled.div`
 
 const HeaderContainer = styled.div`
   display: flex;
-  width: 98%;
-  height: 44px;
-  padding: 12.5 0 12.5px 0;
+  width: 100%;
+  max-width: 1440px;
+  box-sizing: border-box;
+  padding: 12px 16px;
   margin: 0 auto;
-  margin: 15px 16.5px;
   justify-content: space-between;
   align-items: center;
-
-  .hamburger{
-    font-size: 30px;
-    @media (max-width: 480px) {
-      font-size: 24px;
-    }
-  }
 `;
 
 const LeftNav = styled.div`
-  display: none;
-  align-items: center;
-  gap: 32px;
   display: flex;
+  align-items: center;
+  gap: 24px;
 `;
 
+const Logo = styled.div`
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    @media (max-width: 480px) {
+      width: 80px;
+  }
+}
+`;
+
+const RightActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+  @media (min-width: 768px) {
+    gap: 32px;
+  }
+`;
 
 const NavItem = styled.div`
   color: #787C7F;
@@ -73,27 +87,10 @@ const NavItem = styled.div`
   cursor: pointer;
   transition: color 0.3s;
 
+  a { color: inherit; text-decoration: none; }
+
   &:hover {
     color: #1C1C1C;
-  }
-`;
-
-const Logo = styled.div`
-  @media (max-width: 480px) {
-    img{
-      height: 33px;
-      width: 75px;
-    }
-  }
-`;
-
-const RightActions = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  @media (min-width: 768px) {
-    gap: 32px;
   }
 `;
 
@@ -116,94 +113,91 @@ const ActionItem = styled.div`
     height: 20px;
     stroke: currentColor;
   }
-  span{
+
+  .action-text {
+    margin-left: 8px;
     @media (max-width: 900px) {
       display: none;
     }
   }
+
+  img.userImg {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 `;
 
 function Header() {
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth?.user);
   const windowWidth = useWindowWidth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
-  };
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   return (
     <Container>
-      { isMenuOpen && <SlideInMenu open={isMenuOpen} onClose={toggleMenu} /> }
+      {isMenuOpen && <SlideInMenu open={isMenuOpen} onClose={toggleMenu} />}
+
       <BannerContainer>
         <BannerText>IT'S NEVER TOO LATE TO UPGRADE YOUR STYLE!</BannerText>
       </BannerContainer>
+
       <HeaderContainer>
-        {
-          useWindowWidth() > 768
-          ?
+        {windowWidth > 768 ? (
           <LeftNav>
-            <Link to={"/home/alloutfits/male"} style={{textDecoration:"none"}}><NavItem >MEN</NavItem></Link>
-            <Link to={"/home/alloutfits/female"} style={{textDecoration:"none"}} ><NavItem>WOMEN</NavItem></Link>
-            <NavItem> <a href="#for_inspiration_btn_header" style={{color:"#787C7F", textDecoration:"none"}}>INSPIRATIONS</a></NavItem>
+            <Link to="/home/alloutfits/male" style={{ textDecoration: 'none' }}>
+              <NavItem>MEN</NavItem>
+            </Link>
+            <Link to="/home/alloutfits/female" style={{ textDecoration: 'none' }}>
+              <NavItem>WOMEN</NavItem>
+            </Link>
+            <NavItem>
+              <a href="#for_inspiration_btn_header" style={{ color: '#787C7F', textDecoration: 'none' }}>
+                INSPIRATIONS
+              </a>
+            </NavItem>
           </LeftNav>
-          : 
-          <FontAwesomeIcon icon={faBars} className='hamburger' onClick={toggleMenu} />
-        }
+        ) : (
+          <FontAwesomeIcon icon={faBars} className="hamburger" onClick={toggleMenu} />
+        )}
 
         <Logo>
-          <Link to= "/" ><img src="/sababa.svg" alt="sababa logo"/></Link>
+          <Link to="/">
+            <img src="/sababa.svg" alt="sababa logo" />
+          </Link>
         </Logo>
 
         <RightActions>
-          <ActionItem onClick={() => setIsSearchOpen(true)}>
-            <svg viewBox="0 0 28 28" fill="none">
-              <path d="M7.22209 20.2222C10.6585 20.2222 13.4442 17.0384 13.4442 13.1111C13.4442 9.18374 10.6585 6 7.22209 6C3.78572 6 1 9.18374 1 13.1111C1 17.0384 3.78572 20.2222 7.22209 20.2222Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M15.0004 22L11.6172 18.1333" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+          <ActionItem onClick={() => setIsSearchOpen(true)} aria-label="Open search">
+            <img src="/searchIcon.svg" alt="search icon" />
             <span className="action-text">SEARCH</span>
           </ActionItem>
 
-          <Link to={"/account"} style={{textDecoration:"none"}}>
-            <ActionItem style={{gap:"5px"}}>
-              {
-                user?.photoURL == "default_profile_picture_url"
-                  ?
-                <img src= "/account.svg" alt="account icon" className='userImg' loading={"lazy"}  />
-                  :
-                <img src={user ? user.photoURL : "/account.svg"} alt="account icon" className='userImg' loading={"lazy"} style={user ? {width:"30px", height:"30px", borderRadius:"50%", objectFit:"cover" } : null}  />
-              }
-              <div className="iconLabel">
-                {
-                  user?
-                  windowWidth < 600
-                  ?
-                  'Hello!'
-                  : `Hello! ${user?.displayName?.split(' ')[0]|| user?.displayName}` 
-                  : (
-                        <span className="action-text">USER LOGIN</span>                 
-                  )
-                }
+          <Link to="/account" style={{ textDecoration: 'none' }}>
+            <ActionItem aria-label="Account">
+              {user?.photoURL ? (
+                <img src={user.photoURL} alt="account icon" className="userImg" loading="lazy" />
+              ) : (
+                <img src="/account.svg" alt="account icon" className="userImg" loading="lazy" />
+              )}
+              <div className="action-text">
+                {user ? `Hello! ${String(user.displayName || '').split(' ')[0] || 'User'}` : <span className="action-text">USER LOGIN</span>}
               </div>
             </ActionItem>
           </Link>
 
-          <Link to={"wishlist"} style={{textDecoration:"none"}}>
-            <ActionItem style={{gap:"5px"}}>
-              <img src="/wishlistHeaderHeart.svg" alt="liked icon"/>
-              {
-                useWindowWidth() > 600 ?
-                <span className="action-text">WISHLIST</span>
-                :
-                null
-              }
+          <Link to="/wishlist" style={{ textDecoration: 'none' }}>
+            <ActionItem aria-label="Wishlist">
+              <img src="/headerHeart.svg" alt="liked icon" />
+              <span className="action-text">WISHLIST</span>
             </ActionItem>
           </Link>
         </RightActions>
       </HeaderContainer>
 
-      {/* Search modal — connected, no design changes to header */}
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </Container>
   );

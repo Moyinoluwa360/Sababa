@@ -5,6 +5,15 @@ import { useState } from "react";
 
 export default function WhislistGrid({wish}) {
   const [activeGender, setActiveGender] = useState('men');
+
+  // normalize and filter by selected gender
+  const filteredWish = (wish || []).filter((outfit) => {
+    const g = (outfit.gender || '').toString().toLowerCase();
+    if (activeGender === 'men') return g === 'men' || g === 'male';
+    if (activeGender === 'women') return g === 'women' || g === 'female';
+    return true;
+  });
+
   return (
     <>
       <GenderContainer>
@@ -26,10 +35,10 @@ export default function WhislistGrid({wish}) {
         </GenderToggle>
       </GenderContainer>
       <Wrapper>
-        {wish.slice().reverse().map((outfit) => (
-            <OutfitCard 
+        {filteredWish.slice().reverse().map((outfit) => (
+          <OutfitCard
             key={outfit.id}
-            outfit = {outfit}
+            outfit={outfit}
             OOTDNUM={outfit.OOTDNUM}
           />
         ))}

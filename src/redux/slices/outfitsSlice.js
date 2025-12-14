@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllOutfits, getAllOotw } from '../../firebase/firestore';
+import { getAllOutfits, getAllMenOotw, getAllWomenOotw } from '../../firebase/firestore';
 
 export const fetchOutfits = createAsyncThunk(
   'outfits/fetchOutfits',
@@ -9,13 +9,22 @@ export const fetchOutfits = createAsyncThunk(
   }
 );
 
-export const fetchOOTW = createAsyncThunk(
-  'outfits/fetchOOTW',
+export const fetchMenOOTW = createAsyncThunk(
+  'outfits/fetchMenOOTW',
   async () => {
-    const outfits = await getAllOotw();
+    const outfits = await getAllMenOotw();
     return outfits;
   }
 );
+
+export const fetchWomenOOTW = createAsyncThunk(
+  'outfits/fetchWomenOOTW',
+  async () => {
+    const outfits = await getAllWomenOotw();
+    return outfits;
+  }
+);
+
 
 
 
@@ -24,8 +33,10 @@ const outfitsSlice = createSlice({
     initialState: {
       outfitsLoading : false,
       outfits: [], // array of product objects
-      ootwLoading: false,
-      ootw: [], 
+      menOTTWLoading: false,
+      menOOTW: [],
+      womenOOTWLoading: false,
+      womenOOTW: [], 
     },
     extraReducers: (builder) => {
       builder
@@ -35,24 +46,31 @@ const outfitsSlice = createSlice({
         .addCase(fetchOutfits.fulfilled, (state, action) => {
           state.outfits = action.payload;
           state.outfitsLoading = false;
-          console.log("shepvwuiarp")
         })
         .addCase(fetchOutfits.rejected, (state) => {
           state.outfitsLoading = false;
         })
-        .addCase(fetchOOTW.pending, (state) => {
-          state.ootwLoading = true;
-          console.log("shepvwuiarp")
+        .addCase(fetchMenOOTW.pending, (state) => {
+          state.menOTTWLoading = true;
         })
-        .addCase(fetchOOTW.fulfilled, (state, action) => {
-          state.ootw = action.payload;
-          state.ootwLoading = false;
-          console.log("sharp")
+        .addCase(fetchMenOOTW.fulfilled, (state, action) => {
+          state.menOOTW = action.payload;
+          state.menOTTWLoading = false;
           console.log(action.payload)
         })
-        .addCase(fetchOOTW.rejected, (state) => {
-          state.ootwLoading = false;
-          console.log("bbbbbbbbbbbbbbbcbc")
+        .addCase(fetchMenOOTW.rejected, (state) => {
+          state.menOTTWLoading = false;
+        })
+        .addCase(fetchWomenOOTW.pending, (state) => {
+          state .womenOOTWLoading= true;
+        })
+        .addCase(fetchWomenOOTW.fulfilled, (state, action) => {
+          state.womenOOTW = action.payload;
+          state.womenOOTWLoading = false;
+          console.log(action.payload)
+        })
+        .addCase(fetchWomenOOTW.rejected, (state) => {
+          state.womenOOTWLoading = false;
         })
         
     }

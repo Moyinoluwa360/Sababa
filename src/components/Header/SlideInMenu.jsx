@@ -126,10 +126,15 @@ const dropdownDivs = {
       <CloseButton onClick={onClose} />
       <Link to={"/"} onClick={onClose} ><MenuItem>Home</MenuItem></Link>
       <Link to={"/home/alloutfits"} onClick={onClose}  ><MenuItem>All Outfits</MenuItem></Link>
-      <MenuItem onClick={() => toggleDropdown("outfits")}> 
+
+
+      {/* drop down menu for shop outfits by style  */}
+
+      {/* <MenuItem onClick={() => toggleDropdown("outfits")}> 
         Outfits by Style {openDropdown === "outfits" ? <FiChevronUp /> : <FiChevronDown />}
-      </MenuItem>
-      <DropdownContainer open={openDropdown === "outfits"}>
+      </MenuItem> */}
+
+      {/* <DropdownContainer open={openDropdown === "outfits"}>
         {dropdownDivs.outfits.map((item) => (
           <DropdownItem key={item.type}>
             <Icon loading={"lazy"} src={item.img} />
@@ -139,7 +144,7 @@ const dropdownDivs = {
             </div>
           </DropdownItem>
         ))}
-      </DropdownContainer>
+      </DropdownContainer> */}
       
       <Link to={"/account"} onClick={onClose}  ><MenuItem>Account</MenuItem></Link>
       <Link to={"contact"} onClick={onClose}  ><MenuItem>Contact us</MenuItem></Link>

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useMemo, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import HomeOotwCard from './HomeOotwCard';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,6 +10,8 @@ import 'swiper/css/navigation';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
 import useWindowWidth from './useWindowWidth';
+import { toggleWishlist } from '../../redux/slices/wishlistSlice';
+import SignInModal from '../../components/SignInModal';
 
 // Pagination dynamic
 
@@ -25,34 +27,56 @@ const dayOrder = {
 
 export default function OutfitSection() {
   const navigate = useNavigate();
-  const outfits = useSelector(state => state.outfits?.ootw || []);
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.user);
+  const menOutfits = useSelector(state => state.outfits?.menOOTW || []);
+  const womenOutfits = useSelector(state => state.outfits?.womenOOTW || []);
+  
   const screenWidth = useWindowWidth();
   const swiperInstance = useRef(null);
 
+  // track current centered slide
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [showSignInModal, setShowSignInModal] = useState(false);
   // State
   const [currentGender, setCurrentGender] = useState('men');
   const [currentDayDisplay, setCurrentDayDisplay] = useState('');
 
-  // Sort outfits by day
+  // choose source by gender and sort by day
   const outfitsList = useMemo(() => {
-    return [...outfits].sort((a, b) => {
-      const dayA = dayOrder[(a.day || '').toLowerCase()] ?? 999;
-      const dayB = dayOrder[(b.day || '').toLowerCase()] ?? 999;
+    const source = currentGender === 'men' ? menOutfits : womenOutfits;
+    return [...(source || [])].sort((a, b) => {
+      const dayA = dayOrder[(a?.day || '').toLowerCase()] ?? 999;
+      const dayB = dayOrder[(b?.day || '').toLowerCase()] ?? 999;
       return dayA - dayB;
     });
-  }, [outfits]);
-
-  // Initialize day display
+  }, [menOutfits, womenOutfits, currentGender]);
+ 
+  // Initialize / update day display and reset swiper when gender or list changes
   useEffect(() => {
     if (outfitsList.length > 0) {
-      setCurrentDayDisplay(outfitsList[0].day || '');
+      // prefer Monday as the starting slide; fall back to first item
+      const mondayIndex = outfitsList.findIndex(
+        (o) => (o?.day || '').toString().toLowerCase() === 'monday'
+      );
+      const startIndex = mondayIndex >= 0 ? mondayIndex : 0;
+      setCurrentDayDisplay(outfitsList[startIndex].day || '');
+      // move swiper to the startIndex when swapping gender/list
+      requestAnimationFrame(() => {
+        try {
+          swiperInstance.current?.slideTo?.(startIndex);
+          setActiveIndex(startIndex);
+        } catch (e) {}
+      });
+    } else {
+      setCurrentDayDisplay('');
     }
-  }, [outfitsList]);
-
+  }, [outfitsList, currentGender]);
+ 
   // Determine layout mode
   const isMobileMode = screenWidth <= 480;
   const swiperModules = isMobileMode ? [Pagination] : [Navigation, A11y];
-
+ 
   // Swiper configuration
   const config = isMobileMode
     ? {
@@ -81,18 +105,49 @@ export default function OutfitSection() {
 
   const onSlideChanged = (swiper) => {
     const currentIndex = swiper.realIndex ?? swiper.activeIndex ?? 0;
+    setActiveIndex(currentIndex);
     const currentOutfit = outfitsList[currentIndex];
-    if (currentOutfit?.day) {
-      setCurrentDayDisplay(currentOutfit.day);
-    }
+    if (currentOutfit?.day) setCurrentDayDisplay(currentOutfit.day);
   };
 
   const onSwiperReady = (swiper) => {
     swiperInstance.current = swiper;
-    const idx = swiper.realIndex ?? swiper.activeIndex ?? 0;
+    // If outfitsList already contains a Monday entry, prefer that as active index.
+    const mondayIndex = outfitsList.findIndex(
+      (o) => (o?.day || '').toString().toLowerCase() === 'monday'
+    );
+    const idx = typeof mondayIndex === 'number' && mondayIndex >= 0
+      ? mondayIndex
+      : (swiper.realIndex ?? swiper.activeIndex ?? 0);
+    setActiveIndex(idx);
     const outfit = outfitsList[idx];
-    if (outfit?.day) {
-      setCurrentDayDisplay(outfit.day);
+    if (outfit?.day) setCurrentDayDisplay(outfit.day);
+  };
+
+  // mobile controls -> dispatch wishlist action for active outfit
+  const handleAddCurrentToWishlist = (e) => {
+    // defensive: prevent navigation / bubbling
+    e?.preventDefault?.();
+    e?.stopPropagation?.();
+
+    console.log('mobile wishlist clicked, activeIndex:', activeIndex);
+    const outfit = outfitsList[activeIndex];
+    if (!outfit) {
+      console.warn('No outfit at activeIndex', activeIndex);
+      return;
+    }
+
+    try {
+      if (user && user.uid) {
+        // same shape as LikeButton: include OOTDNUM if your flow expects it
+        console.log('dispatching toggleWishlist for', outfit.id);
+        dispatch(toggleWishlist({ ...outfit, OOTDNUM: outfit.id }));
+      } else {
+        console.log('not authed — opening sign-in modal');
+        setShowSignInModal(true);
+      }
+    } catch (err) {
+      console.error('Error dispatching wishlist action', err);
     }
   };
 
@@ -103,7 +158,7 @@ export default function OutfitSection() {
           <Title>Outfit of the Week - Summer Essentials</Title>
           <Subtitle>Your go-to fit for effortless summer days.</Subtitle>
         </HeaderContent>
-
+                            
         <GenderSelector>
           <GenderOption
             isActive={currentGender === 'men'}
@@ -122,31 +177,32 @@ export default function OutfitSection() {
 
       <Gallery>
         <Swiper
-          key={isMobileMode ? 'mobile' : 'desktop'}
-          modules={swiperModules}
-          {...config}
-          onSwiper={onSwiperReady}
-          pagination={{
-            dynamicBullets: true,
-          }}
-          onSlideChange={onSlideChanged}
-          className="outfit-swiper"
-        >
-          {outfitsList.map((outfit, idx) => {
-            const alignment = idx % 2 === 0 ? 'bottom' : 'top';
-            return (
-              <SwiperSlide key={`outfit-${outfit.id || idx}`}>
-                <HomeOotwCard
-                  img={outfit.outfitImage}
-                  day={outfit.day}
-                  position={alignment}
-                  outfitData={outfit}
-                  onClick={() => onNavigateToOutfit(outfit)}
-                />
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
+          // include currentGender in key so Swiper remounts when gender changes (keeps visual state correct)
+          key={`${isMobileMode ? 'mobile' : 'desktop'}-${currentGender}`}
+           modules={swiperModules}
+           {...config}
+           onSwiper={onSwiperReady}
+           pagination={{
+             dynamicBullets: true,
+           }}
+           onSlideChange={onSlideChanged}
+           className="outfit-swiper"
+         >
+           {outfitsList.map((outfit, idx) => {
+             const alignment = idx % 2 === 0 ? 'bottom' : 'top';
+             return (
+               <SwiperSlide key={`outfit-${outfit.id || idx}`}>
+                 <HomeOotwCard
+                   img={outfit.outfitImage}
+                   day={outfit.day}
+                   position={alignment}
+                   outfitData={outfit}
+                   onClick={() => onNavigateToOutfit(outfit)}
+                 />
+               </SwiperSlide>
+             );
+           })}
+         </Swiper>
 
         <MobileDayIndicator>
           {currentDayDisplay
@@ -157,25 +213,22 @@ export default function OutfitSection() {
 
       <Controls>
         <ControlGroup>
-          <ArrowButton
-            className="prev"
-            onClick={() => swiperInstance.current?.slidePrev()}
-            aria-label="Previous outfit"
-          >
+          <ArrowButton onClick={() => swiperInstance.current?.slidePrev()} aria-label="Previous outfit">
             <img src="/arrow-left.svg" alt="" style={{ width: '15px', height: '15px' }} />
           </ArrowButton>
 
-          <WishlistButton>Add to Wishlist</WishlistButton>
+          <WishlistButton onClick={handleAddCurrentToWishlist}>Add to Wishlist</WishlistButton>
 
-          <ArrowButton
-            className="next"
-            onClick={() => swiperInstance.current?.slideNext()}
-            aria-label="Next outfit"
-          >
+          <ArrowButton onClick={() => swiperInstance.current?.slideNext()} aria-label="Next outfit">
             <img src="/arrow-right.svg" alt="" style={{ width: '15px', height: '15px' }} />
           </ArrowButton>
         </ControlGroup>
       </Controls>
+
+     {/* Sign in modal for mobile control fallback */}
+     {showSignInModal && (
+       <SignInModal open={showSignInModal} setShowModal={setShowSignInModal} />
+     )}
     </Container>
   );
 }
@@ -332,10 +385,18 @@ const Gallery = styled.div`
     }
   }
 
+  /* show swiper native arrows only on desktop (hide on mobile) */
   .swiper-button-next,
-  .swiper-button-prev {
-    display: none;
+  .swiper-button-prev { display: none; }
+  @media (min-width: 481px) {
+    .swiper-button-next,
+    .swiper-button-prev {
+      display: block;
+      color: #000;
+      /* position tweaks if needed */
+    }
   }
+
   .swiper-pagination-bullet-active {
     background-color: black !important;
   }
@@ -355,11 +416,15 @@ const MobileDayIndicator = styled.div`
   }
 `;
 
+/* Controls visible only on mobile (Add to Wishlist + small arrow buttons) */
 const Controls = styled.div`
   width: 100%;
-  display: flex;
+  display: none; /* hide on desktop */
   justify-content: center;
   margin-top: 44px;
+  @media (max-width: 480px) {
+    display: flex; /* show only on mobile */
+  }
 `;
 
 const ControlGroup = styled.div`
@@ -393,22 +458,22 @@ const ArrowButton = styled.button`
   }
 `;
 
-const WishlistButton = styled.div`
-  width: 180px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif;
-  font-size: 14px;
-  font-weight: 550;
-  border: 2px solid #1C1C1C;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+const WishlistButton = styled.button.attrs({ type: 'button' })`
+   width: 180px;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif;
+   font-size: 14px;
+   font-weight: 550;
+   border: 2px solid #1C1C1C;
+   border-radius: 8px;
+   cursor: pointer;
+   transition: background-color 0.2s, color 0.2s;
 
-  &:hover {
-    background-color: #1C1C1C;
-    color: white;
-  }
-`;
+   &:hover {
+     background-color: #1C1C1C;
+     color: white;
+   }
+ `;

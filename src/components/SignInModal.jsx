@@ -1,29 +1,36 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
+
 export default function SignInModal({ open, setShowModal }) {
-  if (!open) return null;
   const navigate = useNavigate();
-  return (
-    <div style={{
-      position: "fixed",
-      top: 0, left: 0, right: 0, bottom: 0,
-      background: "rgba(0,0,0,0.5)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      zIndex: 100000
-    }}>
-      <div style={{
-        background: "#fff",
-        borderRadius: "10px",
-        padding: "32px 24px 16px 24px",
-        minWidth: "320px",
-        boxShadow: "0 2px 16px rgba(0,0,0,0.2)",
-        textAlign: "center",
-        position: "relative"
-      }}>
+  if (!open) return null;
+
+  const overlayStyle = {
+    position: "fixed",
+    top: 0, left: 0, right: 0, bottom: 0,
+    background: "rgba(0,0,0,0.5)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 100000
+  };
+
+  const modalStyle = {
+    background: "#fff",
+    borderRadius: "10px",
+    padding: "32px 24px 16px 24px",
+    minWidth: "320px",
+    boxShadow: "0 2px 16px rgba(0,0,0,0.2)",
+    textAlign: "center",
+    position: "relative"
+  };
+
+  const modal = (
+    <div style={overlayStyle} role="dialog" aria-modal="true">
+      <div style={modalStyle}>
         <button
-          onClick={()=> setShowModal(false)}
+          onClick={() => setShowModal(false)}
           style={{
             position: "absolute",
             top: 12,
@@ -31,15 +38,17 @@ export default function SignInModal({ open, setShowModal }) {
             border: "none",
             fontSize: 25,
             cursor: "pointer",
-            color : "#000",
+            color: "#000",
             background: "none"
           }}
           aria-label="Close"
         >×</button>
-        <h2 style={{ marginBottom: 16, color:"black"}}>Please Sign In</h2>
-        <p style={{ marginBottom: 32, color:"black"}}>Sign in to add items to your wishlist.</p>
+
+        <h2 style={{ marginBottom: 16, color: "black" }}>Please Sign In</h2>
+        <p style={{ marginBottom: 32, color: "black" }}>Sign in to add items to your wishlist.</p>
+
         <button
-          onClick={() => navigate("/auth")} 
+          onClick={() => navigate("/auth")}
           style={{
             width: "100%",
             background: "#000",
@@ -56,4 +65,6 @@ export default function SignInModal({ open, setShowModal }) {
       </div>
     </div>
   );
+
+  return createPortal(modal, document.body);
 }
