@@ -217,7 +217,7 @@ export default function OutfitSection() {
             <img src="/arrow-left.svg" alt="" style={{ width: '15px', height: '15px' }} />
           </ArrowButton>
 
-          <WishlistButton onClick={handleAddCurrentToWishlist}>Add to Wishlist</WishlistButton>
+          <WishlistButton onClick={handleAddCurrentToWishlist} style={{color:"black"}} >Add to Wishlist</WishlistButton>
 
           <ArrowButton onClick={() => swiperInstance.current?.slideNext()} aria-label="Next outfit">
             <img src="/arrow-right.svg" alt="" style={{ width: '15px', height: '15px' }} />

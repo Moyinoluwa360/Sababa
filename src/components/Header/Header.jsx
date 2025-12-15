@@ -122,10 +122,9 @@ const ActionItem = styled.div`
   }
 
   img.userImg {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    object-fit: cover;
   }
 `;
 
@@ -181,7 +180,7 @@ function Header() {
               {user?.photoURL ? (
                 <img src={user.photoURL} alt="account icon" className="userImg" loading="lazy" />
               ) : (
-                <img src="/account.svg" alt="account icon" className="userImg" loading="lazy" />
+                <img src="/headerAccount.svg" alt="account icon" className="userImg" loading="lazy" />
               )}
               <div className="action-text">
                 {user ? `Hello! ${String(user.displayName || '').split(' ')[0] || 'User'}` : <span className="action-text">USER LOGIN</span>}
