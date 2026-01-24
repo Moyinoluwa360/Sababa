@@ -120,3 +120,15 @@ export const saveContactMessage = async (formData) => {
     return false;
   }
 };
+
+export const saveNewsLetterEmail = async (email) => {
+  try {
+    const newsLetterRef = collection(db, "newsletter-email");
+    await addDoc(newsLetterRef,{
+      email: email,
+      sentAt: serverTimestamp()
+    })
+  } catch (error) {
+      throw error.code
+  }
+}
