@@ -1,4 +1,6 @@
 import React from 'react';
+import {saveNewsLetterEmail} from "../firebase/firestore"
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const FooterContainer = styled.footer`
@@ -242,6 +244,17 @@ const SocialLinks = styled.div`
 `;
 
 function Footer() {
+  const [email, setEmail] = useState("");
+
+  const saveEmailToNewsletter = async (email)=>{
+    try {
+      await saveNewsLetterEmail(email);
+      setEmail("");
+      alert("Thank you for subscribing to our newsletter!");
+    } catch (error) {
+      console.error("Error saving email:", error);
+    }
+  }
   return (
     <FooterContainer>
       <FooterContent>
@@ -256,8 +269,13 @@ function Footer() {
           </FooterNewsDescription>
 
           <NewsletterForm>
-            <NewsletterInput placeholder="Enter your email" />
-            <SubmitButton>Submit</SubmitButton>
+            <NewsletterInput 
+              type="email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email" />
+
+            <SubmitButton onClick={() => saveEmailToNewsletter(email)}>Submit</SubmitButton>
           </NewsletterForm>
         </FooterMain>
 
