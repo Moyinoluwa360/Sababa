@@ -188,7 +188,7 @@ function Header() {
             </ActionItem>
           </Link>
 
-          <Link to="/wishlist" style={{ textDecoration: 'none' }}>
+          <Link to="wishlist" style={{ textDecoration: 'none' }}>
             <ActionItem aria-label="Wishlist">
               <img src="/headerHeart.svg" alt="liked icon" />
               <span className="action-text">WISHLIST</span>
