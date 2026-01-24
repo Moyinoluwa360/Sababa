@@ -163,14 +163,18 @@ export default function OutfitSection() {
           <GenderOption
             isActive={currentGender === 'men'}
             onClick={() => setCurrentGender('men')}
+            style={currentGender == "men"?{color:"#1C1C1C"}:null}
           >
-            Men
+            <span>Men</span>
+            {currentGender == "men" ? (<div style={{fontWeight:"bolder", fontSize:"25px", margin:"none", textAlign:"center"}} >.</div>) : null}
           </GenderOption>
           <GenderOption
             isActive={currentGender === 'women'}
             onClick={() => setCurrentGender('women')}
+            style={currentGender == "women"?{color:"#1C1C1C"}:null}
           >
-            Women
+            <span>Women</span>
+            {currentGender == "women" ? (<div style={{fontWeight:"bolder", fontSize:"25px", margin:"none", textAlign:"center"}} >.</div>) : null}
           </GenderOption>
         </GenderSelector>
       </Header>
@@ -191,7 +195,7 @@ export default function OutfitSection() {
            {outfitsList.map((outfit, idx) => {
              const alignment = idx % 2 === 0 ? 'bottom' : 'top';
              return (
-               <SwiperSlide key={`outfit-${outfit.id || idx}`}>
+               <SwiperSlide key={`outfit-${outfit.id || idx}`} >
                  <HomeOotwCard
                    img={outfit.outfitImage}
                    day={outfit.day}
@@ -329,6 +333,14 @@ const GenderOption = styled.div`
   font-weight: 550;
   font-size: 16px;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  div{
+    background-color: black;
+    padding: 0%;
+    margin: 0%;
+    line-height: 0;
+  }
 
   @media (max-width: 850px) {
     height: 100%;
@@ -353,7 +365,7 @@ const GenderOption = styled.div`
 
 const Gallery = styled.div`
   width: 100%;
-  height: 456px;
+  height: 400px;
   position: relative;
 
   @media (max-width: 480px) {

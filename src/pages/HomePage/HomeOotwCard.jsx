@@ -35,7 +35,6 @@ function HomeOotwCard({ img, day, position, outfitData, onClick }) {
 
 /* Desktop-first styling that matches the OutfitCard visuals; mobile adjustments kept smaller */
 const CardWrapper = styled.div`
-  display: block;
   width: 240px;
   height: 100%;
   cursor: pointer;
@@ -49,7 +48,7 @@ const CardWrapper = styled.div`
 
 const ImgCardContainer = styled.div`
   width: 100%;
-  height: 360px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,7 +67,9 @@ const ImgCardContainer = styled.div`
    Mobile: shorter image height to fit compact layout. */
 const CardImage = styled.img`
   width: 100%;
-  height: 100%;
+  height: auto;
+  flex: 1 1 auto;
+  min-height: 0;
   border-radius: 20px;
   object-fit: cover;
   object-position: center;
@@ -82,7 +83,7 @@ const DayLabel = styled.span`
   color: #1C1C1C;
   text-transform: capitalize;
   width: 100%;
-  text-align: left;
+  text-align: center;
   padding: 0 8px;
 
   @media (max-width: 480px) {
