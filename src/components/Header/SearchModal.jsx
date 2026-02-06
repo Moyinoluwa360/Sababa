@@ -92,11 +92,18 @@ export const SearchModal = ({ isOpen, onClose }) => {
                     onError={(e) => (e.target.src = "/placeholder-image.svg")}
                   />
                   <PiecesList>
-                    {result.matchingPieces.map((piece, idx) => (
-                      <PieceItem key={`${result.outfitId}-p-${idx}`}>
-                        {piece.description}
-                      </PieceItem>
-                    ))}
+                    {result.matchingPieces.length > 0 && (() => {
+                      const piece = result.matchingPieces[0];
+                      const words = piece.description.split(" ");
+                      const truncatedDesc = words.length > 10 
+                        ? words.slice(0, 10).join(" ") + "..." 
+                        : piece.description;
+                      return (
+                        <PieceItem key={`${result.outfitId}-p-0`}>
+                          {truncatedDesc}
+                        </PieceItem>
+                      );
+                    })()}
                   </PiecesList>
                 </ResultItem>
               ))}
@@ -216,10 +223,9 @@ const PieceItem = styled.div`
   font-size: 14px;
   color: #222;
   margin-bottom: 6px;
-  line-height: 1.35;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.4;
+  word-break: break-word;
+  overflow-wrap: break-word;
   max-width: 100%;
   padding-right: 8px;
   
