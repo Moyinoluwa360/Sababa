@@ -154,7 +154,7 @@ function Header() {
               <NavItem>WOMEN</NavItem>
             </Link>
             <NavItem>
-              <a href="#for_inspiration_btn_header" style={{ color: '#787C7F', textDecoration: 'none' }}>
+              <a href="/home#for_inspiration_btn_header" style={{ color: '#787C7F', textDecoration: 'none' }}>
                 INSPIRATIONS
               </a>
             </NavItem>
