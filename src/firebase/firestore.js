@@ -49,8 +49,15 @@ export const getAllOutfits = async () => {
     const querySnapshot = await getDocs(query(
       collection(db, "outfits"),
       orderBy("createdAt", "desc")));
-    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() , createdAt: doc.data().createdAt.toMillis(),  // number
-      updatedAt: doc.data().updatedAt.toMillis(),}));
+    return querySnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt ?? null,
+        updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate().toISOString() : data.updatedAt ?? null,
+      };
+    });
   } catch (error) {
     console.error('Error getting all outfits:', error);
     throw error;
