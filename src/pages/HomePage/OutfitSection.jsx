@@ -155,8 +155,8 @@ export default function OutfitSection() {
     <Container id='for_inspiration_btn_header' >
       <Header>
         <HeaderContent>
-          <Title>Outfit of the Week - Summer Essentials</Title>
-          <Subtitle>Your go-to fit for effortless summer days.</Subtitle>
+          <Title>Outfit of the Week</Title>
+          <Subtitle>Your go-to fit for effortless stylish days.</Subtitle>
         </HeaderContent>
                             
         <GenderSelector>
