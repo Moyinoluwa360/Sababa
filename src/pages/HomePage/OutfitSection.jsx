@@ -163,7 +163,7 @@ export default function OutfitSection() {
           <GenderOption
             isActive={currentGender === 'men'}
             onClick={() => setCurrentGender('men')}
-            style={currentGender == "men"?{color:"#1C1C1C"}:null}
+            style={currentGender == "men"?{color:"#ffffff"}:null}
           >
             <span>Men</span>
             {currentGender == "men" ? (<div style={{fontWeight:"bolder", fontSize:"25px", margin:"none", textAlign:"center"}} >.</div>) : null}
@@ -171,7 +171,7 @@ export default function OutfitSection() {
           <GenderOption
             isActive={currentGender === 'women'}
             onClick={() => setCurrentGender('women')}
-            style={currentGender == "women"?{color:"#1C1C1C"}:null}
+            style={currentGender == "women"?{color:"#ffffff"}:null}
           >
             <span>Women</span>
             {currentGender == "women" ? (<div style={{fontWeight:"bolder", fontSize:"25px", margin:"none", textAlign:"center"}} >.</div>) : null}
