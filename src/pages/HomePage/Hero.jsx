@@ -78,7 +78,7 @@ function HeroSection() {
         <HeroTitle>Shop Every Item in the Look,<br/> Outfits made shoppable.</HeroTitle>
         <Link to={"alloutfits"} style={{ textDecoration: 'none' }}>
           <ExploreButton >
-            Explore Outfits
+            Men & Women
             <img src="/arrow-up-right.svg" alt="arrow icon" style={{ width: '14px', height: '14px' }} loading='lazy' />
           </ExploreButton>
         </Link>
