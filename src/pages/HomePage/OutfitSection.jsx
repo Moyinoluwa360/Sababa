@@ -166,7 +166,7 @@ export default function OutfitSection() {
             style={currentGender == "men"?{color:"#ffffff"}:null}
           >
             <span>Men</span>
-            {currentGender == "men" ? (<div style={{fontWeight:"bolder", fontSize:"25px", margin:"none", textAlign:"center"}} >.</div>) : null}
+            {currentGender == "men" ? (<div className='dotIndicator' style={{fontWeight:"bolder", fontSize:"25px", margin:"none", textAlign:"center"}} >.</div>) : null}
           </GenderOption>
           <GenderOption
             isActive={currentGender === 'women'}
@@ -174,7 +174,7 @@ export default function OutfitSection() {
             style={currentGender == "women"?{color:"#ffffff"}:null}
           >
             <span>Women</span>
-            {currentGender == "women" ? (<div style={{fontWeight:"bolder", fontSize:"25px", margin:"none", textAlign:"center"}} >.</div>) : null}
+            {currentGender == "women" ? (<div className='dotIndicator' style={{fontWeight:"bolder", fontSize:"25px", margin:"none", textAlign:"center"}} >.</div>) : null}
           </GenderOption>
         </GenderSelector>
       </Header>
@@ -348,6 +348,11 @@ const GenderOption = styled.div`
     padding: 0%;
     margin: 0%;
     line-height: 0;
+  }
+  .dotIndicator{
+    @media (max-width: 480px){
+      display: none;
+    }
   }
 
   @media (max-width: 850px) {
