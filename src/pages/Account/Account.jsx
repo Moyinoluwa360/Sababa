@@ -4,11 +4,17 @@ import {AccountHeader} from "./AccountHeader";
 import { NavigationItems } from "./AccountNav";
 import { AccountFooter } from "./AccountFooter";
 import useWindowWidth from "../../components/useWindowWidth";
-import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export function AccountPage() {
   const [currentNav, setCurrentNav] = useState("Profile")
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <PageContainer>
       <AccountHeader currentNav ={currentNav} />
