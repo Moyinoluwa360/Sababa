@@ -180,6 +180,14 @@ export default function OutfitSection() {
       </Header>
 
       <Gallery>
+        {/* swiper custom navigation left */}
+        <div className='swiper-prev swipe-arrows' onClick={() => swiperInstance.current?.slidePrev()}>
+          <img src="/arrow-left.svg" alt="previous" style={{ width: '17px', height: '17px' }} />
+        </div>
+        {/* swiper custom navigation right */}
+        <div className='swiper-next swipe-arrows' onClick={() => swiperInstance.current?.slideNext()}>
+          <img src="/arrow-right.svg" alt="next" style={{ width: '17px', height: '17px' }} />
+        </div>
         <Swiper
           // include currentGender in key so Swiper remounts when gender changes (keeps visual state correct)
           key={`${isMobileMode ? 'mobile' : 'desktop'}-${currentGender}`}
@@ -403,11 +411,41 @@ const Gallery = styled.div`
   @media (min-width: 481px) {
     .swiper-button-next,
     .swiper-button-prev {
-      display: block;
-      color: #000;
+      display: none;
       /* position tweaks if needed */
     }
   }
+
+  .swipe-arrows {
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.15);
+      box-shadow: -1px -1px 4px 0 rgba(255, 255, 255, 0.20) inset,1px 1px 4px 0 rgba(255, 255, 255, 0.20) inset;
+      backdrop-filter: blur(10px);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+       background: rgba(43, 43, 43, 0.15);
+      }
+      @media (max-width: 480px) {
+        display: none;
+      }
+
+    }
+    .swiper-prev {
+      left: 15px;
+    }
+    .swiper-next {
+      right: 20px;
+    }
 
   .swiper-pagination-bullet-active {
     background-color: black !important;
