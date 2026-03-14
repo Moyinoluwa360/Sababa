@@ -35,6 +35,10 @@ export function OutfitGallery({outfit}) {
             right="12px"
             OOTDNUM={outfitNumber}
           />
+          <ShareOutfit>
+            Share {width < 610 ? "" : "this outfit"}
+            <img src="/share.svg" alt="Share outfit" style={{ width: '16px', height: '16px' }} />
+          </ShareOutfit>
         </ImageContainer>
       </MainImageColumn>
       <BreakdownSection>
@@ -43,7 +47,7 @@ export function OutfitGallery({outfit}) {
         </div>
         {/* swiper custom navigation left */}
         <div className='swiper-prev swipe-arrows' onClick={() => swiperRef.current?.slidePrev()}>
-          <img src="/arrow-left.svg" alt="previous" style={{ width: '15px', height: '15px' }} />
+          <img src="/arrow-left.svg" alt="previous" />
         </div>
         {/* swiper custom navigation right */}
         <div className='swiper-next swipe-arrows' onClick={() => swiperRef.current?.slideNext()}>
@@ -92,6 +96,31 @@ const GallerySection = styled.section`
     margin-bottom: 25px;
   }
 `
+const ShareOutfit = styled.div`
+  background: rgba(209, 209, 209, 0.15);
+  box-shadow: -1px -1px 4px 0 rgba(255, 255, 255, 0.20) inset,1px 1px 4px 0 rgba(255, 255, 255, 0.20) inset;
+  backdrop-filter: blur(2px);
+  border: none;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  padding: 6px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 160px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  border-radius: 20px;
+  gap: 5px;
+  @media (max-width: 610px) {
+    width: 80px;
+    height: 35px;
+  }
+`
+
 const MainImageColumn = styled.div`
   height: 452px;
   width: 338px;

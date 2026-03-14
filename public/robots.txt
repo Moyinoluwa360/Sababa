@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.sababafashion.com/sitemap.xml
