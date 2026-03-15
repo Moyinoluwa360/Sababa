@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const PieceCard = ({piece}) => {
   return (
       <CardWrapper>
-        <CardImageContainer>
+        <CardImageContainer href={piece.productLink} target={"_blank"} rel={"noopener noreferrer"}>
           <CardImage loading="lazy" src={piece.image} alt={`${piece.description}`} />
         </CardImageContainer>
         <BuyPieceBtn className='buyBtn' href={piece.productLink} target={"_blank"} rel={"noopener noreferrer"} >Buy from {piece.websiteName}</BuyPieceBtn>
@@ -26,7 +26,7 @@ const CardWrapper = styled.article`
   }
 `;
 
-const CardImageContainer = styled.div`
+const CardImageContainer = styled.a`
   flex: 1; /* Takes up all available space except button */
   width: 100%;
   border-radius: 4px;
