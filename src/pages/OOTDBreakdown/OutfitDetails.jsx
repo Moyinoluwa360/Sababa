@@ -2,41 +2,81 @@
 import styled from "styled-components";
 import BreadcrumbNav from "../../components/BreadcrumbNav";
 import { OutfitGallery } from "./OutfitGallery";
-import {Details } from "./Details";
+import { Details } from "./Details";
 import useWindowWidth from "../../components/useWindowWidth";
 import { useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export function OutfitDetails() {
   const location = useLocation();
-  const { id } = useParams();
+  const { id, gender, day } = useParams();
   const outfits = useSelector((state) => state.outfits.outfits);
-  const outfit = outfits.find(outfit => outfit.id == id)
-  const { outfitNumber, ootdType, ootwData } = location.state || {};
+  const menOOTW = useSelector((state) => state.outfits.menOOTW);
+  const womenOOTW = useSelector((state) => state.outfits.womenOOTW);
+  const windowWidth = useWindowWidth();
+  const outfit = outfits.find((item) => String(item.id) === String(id));
+  const { outfitNumber: outfitNumberFromState, ootdType: ootdTypeFromState, ootwData: ootwDataFromState } = location.state || {};
+
+  const normalizedGender = (gender || outfit?.gender || "").toString().toLowerCase();
+  const filteredOutfits = outfits.filter((item) => {
+    const g = (item.gender || "").toString().toLowerCase();
+    if (!normalizedGender) return true;
+    if (normalizedGender === "men" || normalizedGender === "male") {
+      return g === "men" || g === "male";
+    }
+    if (normalizedGender === "women" || normalizedGender === "female") {
+      return g === "women" || g === "female";
+    }
+    return g === normalizedGender;
+  });
+  const derivedIndex = filteredOutfits.findIndex((item) => String(item.id) === String(id));
+  const derivedOutfitNumber = derivedIndex >= 0 ? filteredOutfits.length - derivedIndex : undefined;
+  const resolvedOutfitNumber = outfitNumberFromState ?? derivedOutfitNumber;
+
+  const isOotwRoute = Boolean(day);
+  const normalizedDay = (day || "").toString().toLowerCase();
+  const ootwFromStore = isOotwRoute
+    ? [...(menOOTW || []), ...(womenOOTW || [])].find(
+        (item) => (item?.day || "").toString().toLowerCase() === normalizedDay
+      )
+    : undefined;
+  const resolvedOotwData = ootwDataFromState || ootwFromStore;
+  const isOotw = ootdTypeFromState === "ootw" || isOotwRoute;
+  const resolvedOutfit = isOotw ? resolvedOotwData : outfit;
+
+  const hasOutfitNumber = resolvedOutfitNumber !== undefined && resolvedOutfitNumber !== null;
+  const dayTitle = resolvedOutfit?.day
+    ? String(resolvedOutfit.day).charAt(0).toUpperCase() + String(resolvedOutfit.day).slice(1)
+    : "Outfit of the Week";
+  const titleText = isOotw
+    ? dayTitle
+    : hasOutfitNumber
+      ? windowWidth > 481
+        ? `Outfit Of The Day ${resolvedOutfitNumber}`
+        : `OOTD ${resolvedOutfitNumber}`
+      : windowWidth > 481
+        ? "Outfit Of The Day"
+        : "OOTD";
+  const likeNumber = isOotw
+    ? (resolvedOutfit?.id ?? resolvedOutfit?.day)
+    : (resolvedOutfitNumber ?? resolvedOutfit?.id);
   return (
     <main className="ootd-container">
       <BreadcrumbNav/>
       <PageTitle>
         <div className="pTitle">
-          {
-            ootdType == "ootw"
-            ?
-            ootwData.day.charAt(0).toUpperCase() + ootwData.day.slice(1)
-            :
-            useWindowWidth() > 481 ? `Outfit Of The Day ${outfitNumber}` : `OOTD ${outfitNumber}`
-          }
-          
+          {titleText}
         </div>
         <div className="titleDes">
-          {ootdType == "ootw"? "Outfit of the Week - Summer Essentials": "Discover looks you love and shop each item with ease."}
+          {isOotw ? "Outfit of the Week - Summer Essentials" : "Discover looks you love and shop each item with ease."}
         </div>
       </PageTitle>
       <MainSection>
         {
-          outfit || ootwData ? (
+          resolvedOutfit ? (
             <>
-              <OutfitGallery outfit = {ootdType == "ootw" ? ootwData :  outfit} />
-              <Details outfit = {ootdType == "ootw" ? ootwData : outfit} />
+              <OutfitGallery outfit={resolvedOutfit} outfitNumber={likeNumber} />
+              <Details outfit={resolvedOutfit} />
             </>
           ) : (
             <div style={{textAlign:"center"}} >Loading...</div>

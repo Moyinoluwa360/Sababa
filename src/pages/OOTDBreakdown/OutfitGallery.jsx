@@ -3,7 +3,6 @@ import React from "react";
 import styled from "styled-components";
 import PieceCard from "./PieceCard";
 import LikeButton from "../../components/likeButton";
-import { useLocation} from "react-router-dom";
 import { useRef } from "react";
 // slider package react slick
 
@@ -14,11 +13,9 @@ import 'swiper/css/navigation';
 import 'swiper/css';
 import useWindowWidth from "../../components/useWindowWidth";
 
-export function OutfitGallery({outfit}) {
+export function OutfitGallery({outfit, outfitNumber}) {
   const swiperRef = useRef(null);
   let width = useWindowWidth()
-  let location = useLocation();
-  const { outfitNumber } = location.state || {};
   return (
     <GallerySection>
       <MainImageColumn>

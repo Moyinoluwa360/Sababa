@@ -163,7 +163,8 @@ export default function OutfitSection() {
           <GenderOption
             isActive={currentGender === 'men'}
             onClick={() => setCurrentGender('men')}
-            style={currentGender == "men"?{color:"#ffffff"}:null}
+            //nested if in else of this line
+            style={currentGender == "men" && screenWidth > 480 ? {color:"#000000"}:currentGender == "men" && screenWidth < 480 ? {color:"#ffffff"} : null }
           >
             <span>Men</span>
             {currentGender == "men" ? (<div className='dotIndicator' style={{fontWeight:"bolder", fontSize:"25px", margin:"none", textAlign:"center"}} >.</div>) : null}
@@ -171,7 +172,8 @@ export default function OutfitSection() {
           <GenderOption
             isActive={currentGender === 'women'}
             onClick={() => setCurrentGender('women')}
-            style={currentGender == "women"?{color:"#ffffff"}:null}
+            //nested if in else of this line
+            style={currentGender == "women" && screenWidth > 480 ? {color:"#000000"}:currentGender == "men" && screenWidth < 480 ? {color:"#ffffff"} : null }
           >
             <span>Women</span>
             {currentGender == "women" ? (<div className='dotIndicator' style={{fontWeight:"bolder", fontSize:"25px", margin:"none", textAlign:"center"}} >.</div>) : null}
