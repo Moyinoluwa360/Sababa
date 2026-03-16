@@ -20,8 +20,8 @@ function HomeOotwCard({ img, day, position, outfitData, onClick }) {
               outfit={outfitData}
               OOTDNUM={outfitData?.id}
               ariaLabel={`Like ${outfitData?.id}`}
-              bottom="12px"
-              right="12px"
+              bottom="0"
+              right="0"
               onShowModal={() => setShowModal(true)}
             />
           </LikeWrapper>
@@ -95,8 +95,10 @@ const DayLabel = styled.span`
    This preserves your desktop visual and moves wishlist control to the bottom Controls on mobile. */
 const LikeWrapper = styled.div`
   position: absolute;
-  top: 12px;
+  bottom: 40px;
   right: 12px;
+  width: 40px;
+  height: 40px;
   z-index: 6;
   display: block;
 
