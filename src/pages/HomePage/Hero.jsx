@@ -6,13 +6,13 @@ const HeroContainer = styled.div`
   position: relative;
   width: 100%;
   height: 580px;
-  background: url('https://api.builder.io/api/v1/image/assets/TEMP/14585158b6f5ee76652d70acedab7b443cb46d7f?width=2880') center/cover;
+  background: url('/heroImg.svg') center;
   background-blend-mode: normal, darken, normal;
   display: flex;
   align-items: center;
   justify-content: center;
   @media (max-width: 480px) {
-    background: url('/mobileHeroImg.svg') center/cover;
+    background: url('/mobileHeroImg.svg') center;
     height: 480px;
   }
 `;
