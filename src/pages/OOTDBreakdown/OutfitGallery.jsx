@@ -1,9 +1,10 @@
-"use client";
-import React from "react";
+﻿"use client";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PieceCard from "./PieceCard";
 import LikeButton from "../../components/likeButton";
 import { useRef } from "react";
+import SignInModal from '../../components/SignInModal';
 // slider package react slick
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -15,25 +16,152 @@ import useWindowWidth from "../../components/useWindowWidth";
 
 export function OutfitGallery({outfit, outfitNumber}) {
   const swiperRef = useRef(null);
+  const shareTimeoutRef = useRef(null);
+  const [shareFeedback, setShareFeedback] = useState("");
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [isImageOpen, setIsImageOpen] = useState(false);
   let width = useWindowWidth()
+  const isMobile = width < 610;
+
+  const showShareFeedback = (message) => {
+    setShareFeedback(message);
+    if (shareTimeoutRef.current) {
+      clearTimeout(shareTimeoutRef.current);
+    }
+    shareTimeoutRef.current = setTimeout(() => {
+      setShareFeedback("");
+      shareTimeoutRef.current = null;
+    }, 2000);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (shareTimeoutRef.current) {
+        clearTimeout(shareTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isImageOpen) return;
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsImageOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isImageOpen]);
+
+  const copyToClipboard = async (text) => {
+    if (!text) return false;
+    if (navigator?.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (error) {
+        console.error("Clipboard write failed", error);
+      }
+    }
+
+    try {
+      const tempInput = document.createElement("textarea");
+      tempInput.value = text;
+      tempInput.setAttribute("readonly", "");
+      tempInput.style.position = "absolute";
+      tempInput.style.left = "-9999px";
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      const copied = document.execCommand("copy");
+      document.body.removeChild(tempInput);
+      return copied;
+    } catch (error) {
+      console.error("Clipboard fallback failed", error);
+      return false;
+    }
+  };
+
+  const handleShareOutfit = async () => {
+    const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+    if (!shareUrl) return;
+
+    const isMobileDevice =
+      typeof navigator !== "undefined" &&
+      (navigator.userAgentData?.mobile ||
+        /Android|iPhone|iPad|iPod|IEMobile|BlackBerry|Opera Mini|Mobile/i.test(
+          navigator.userAgent || ""
+        ));
+
+    if (isMobileDevice && navigator?.share) {
+      try {
+        await navigator.share({
+          title: "Sababa Outfit",
+          text: "Check out this outfit on Sababa.",
+          url: shareUrl,
+        });
+        showShareFeedback("Shared!");
+        return;
+      } catch (error) {
+        if (error?.name === "AbortError") {
+          return;
+        }
+        console.error("Share failed, falling back to copy", error);
+      }
+    }
+
+    const copied = await copyToClipboard(shareUrl);
+    showShareFeedback(copied ? "Link copied!" : "Copy failed");
+  };
+
+  const shareLabel = shareFeedback || (isMobile ? "Share" : "Share this outfit");
   return (
     <GallerySection>
       <MainImageColumn>
-        <ImageContainer>
+        <ImageContainer
+          onClick={() => setIsImageOpen(true)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              setIsImageOpen(true);
+            }
+          }}
+          role="button"
+          tabIndex={0}
+          aria-label="Open outfit image"
+        >
           <MainImage
             loading="lazy"
             src={outfit.outfitImage}
             alt="Main outfit"
           />
-          <LikeButton
-            outfit = {outfit}
-            ariaLabel={`Like ${outfit.id}`}
-            bottom="12px"
-            right="12px"
-            OOTDNUM={outfitNumber}
-          />
-          <ShareOutfit>
-            Share {width < 610 ? "" : "this outfit"}
+          <LikeButtonWrapper onClick={(event) => event.stopPropagation()}>
+            <LikeButton
+              outfit = {outfit}
+              ariaLabel={`Like ${outfit.id}`}
+              bottom="12px"
+              right="12px"
+              OOTDNUM={outfitNumber}
+              onShowModal={() => setShowSignInModal(true)}
+            />
+          </LikeButtonWrapper>
+          {/* Modal rendered outside Link */}
+            {showSignInModal && (
+              <SignInModal 
+                open={showSignInModal} 
+                setShowModal={setShowSignInModal} 
+              />
+            )}
+          <ShareOutfit
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              handleShareOutfit();
+            }}
+            aria-live="polite"
+          >
+            {shareLabel}
             <img src="/share.svg" alt="Share outfit" style={{ width: '16px', height: '16px' }} />
           </ShareOutfit>
         </ImageContainer>
@@ -75,6 +203,22 @@ export function OutfitGallery({outfit, outfitNumber}) {
             }
         </Swiper>
       </BreakdownSection>
+      {isImageOpen ? (
+        <ImageOverlay
+          role="dialog"
+          aria-modal="true"
+          aria-label="Outfit image"
+          onClick={() => setIsImageOpen(false)}
+        >
+          <ImageModal onClick={(event) => event.stopPropagation()}>
+            <FullImage
+              src={outfit.outfitImage}
+              alt="Full outfit"
+              onClick={() => setIsImageOpen(false)}
+            />
+          </ImageModal>
+        </ImageOverlay>
+      ) : null}
     </GallerySection>
   );
 }
@@ -93,7 +237,7 @@ const GallerySection = styled.section`
     margin-bottom: 25px;
   }
 `
-const ShareOutfit = styled.div`
+const ShareOutfit = styled.button`
   background: rgba(209, 209, 209, 0.15);
   box-shadow: -1px -1px 4px 0 rgba(255, 255, 255, 0.20) inset,1px 1px 4px 0 rgba(255, 255, 255, 0.20) inset;
   backdrop-filter: blur(2px);
@@ -101,6 +245,7 @@ const ShareOutfit = styled.div`
   position: absolute;
   left: 10px;
   top: 10px;
+  z-index: 2;
   padding: 6px 10px;
   display: flex;
   justify-content: center;
@@ -112,6 +257,7 @@ const ShareOutfit = styled.div`
   font-family: Inter, sans-serif;
   border-radius: 20px;
   gap: 5px;
+  cursor: pointer;
   @media (max-width: 610px) {
     width: 80px;
     height: 35px;
@@ -143,6 +289,7 @@ const ImageContainer = styled.div`
   height: 100%;
   width: 100%;
   overflow: hidden;
+  cursor: zoom-in;
   
   .mainLikeButton {
     @media (max-width: 300px) {
@@ -161,6 +308,41 @@ const MainImage = styled.img`
   @media (max-width: 750px) {
     border-radius: 20px;
   }
+`;
+
+const LikeButtonWrapper = styled.div`
+  position: relative;
+  z-index: 2;
+`;
+
+const ImageOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+`;
+
+const ImageModal = styled.div`
+  max-width: 90vw;
+  max-height: 8cqmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+    position: relative;
+`;
+
+const FullImage = styled.img`
+  max-width: 90vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
 `;
 
 const BreakdownSection = styled.section` 
@@ -236,3 +418,5 @@ const BreakdownSection = styled.section`
       right: 10px;
     }
 `;
+
+
