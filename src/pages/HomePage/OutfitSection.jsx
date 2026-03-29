@@ -173,7 +173,7 @@ export default function OutfitSection() {
             isActive={currentGender === 'women'}
             onClick={() => setCurrentGender('women')}
             //nested if in else of this line
-            style={currentGender == "women" && screenWidth > 480 ? {color:"#000000"}:currentGender == "men" && screenWidth < 480 ? {color:"#ffffff"} : null }
+            style={currentGender == "women" && screenWidth > 480 ? {color:"#000000"}:currentGender == "women" && screenWidth < 480 ? {color:"#ffffff"} : null}
           >
             <span>Women</span>
             {currentGender == "women" ? (<div className='dotIndicator' style={{fontWeight:"bolder", fontSize:"25px", margin:"none", textAlign:"center"}} >.</div>) : null}
@@ -364,7 +364,7 @@ const GenderOption = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${props => props.isActive ? 'white' : '#787C7F'};
+    color: ${props => props.isActive ? 'white' : '#000000'};
     background-color: ${props => props.isActive ? 'black' : '#ffffffff'};
 
     &:first-child {
