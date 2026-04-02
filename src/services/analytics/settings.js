@@ -1,5 +1,6 @@
-export const POSTHOG_API_KEY = import.meta.env.POSTHOG_PROJECT_TOKEN;
-export const POSTHOG_HOST = import.meta.env.POSTHOG_HOST;
+export const POSTHOG_API_KEY = import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN;
+
+export const POSTHOG_HOST = import.meta.env.VITE_PUBLIC_POSTHOG_HOST;
 
 // Set VITE_ENABLE_ANALYTICS=false in .env to disable analytics without code changes.
 export const ANALYTICS_ENABLED =
