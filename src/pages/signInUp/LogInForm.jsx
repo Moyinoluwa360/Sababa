@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { signInWithEmail, signInWithGoogle } from '../../firebase/auth';
+import { useAnalytics } from '../../services/analytics';
 
 export function LogInForm(props) {
+  const { track } = useAnalytics();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -31,14 +33,19 @@ export function LogInForm(props) {
     e.preventDefault();
     const validationError = validateForm();
     if (validationError) {
+      track('login_validation_failed', {
+        reason: validationError,
+      });
       setError(validationError);
       return;
     }
 
     try {
       await signInWithEmail(formData.email, formData.password);
+      track('login_success', { method: 'email' });
       alert('Form submitted successfully!');
     } catch (err) {
+      track('login_failed', { method: 'email' });
       setError('Invalid email or password');
     }
   };
@@ -53,7 +60,10 @@ export function LogInForm(props) {
         <div className="other-sign-in-options">
           <div className="other-sign-in-opt">
             <div className="other-sign-in-option-btn Google-sign-in"
-              onClick={()=>{signInWithGoogle()}}
+              onClick={()=>{
+                track('login_attempt', { method: 'google' });
+                signInWithGoogle();
+              }}
             >
               <span>
                 <img src="/google.svg" alt="Sign in with Google" loading='lazy'/>
