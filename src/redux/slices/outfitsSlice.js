@@ -13,7 +13,15 @@ export const fetchMenOOTW = createAsyncThunk(
   'outfits/fetchMenOOTW',
   async () => {
     const outfits = await getAllMenOotw();
-    return outfits;
+    return (outfits || []).map((item) => {
+      const idPart = item?.id ?? item?.day ?? '';
+      return {
+        ...item,
+        gender: 'men',
+        ootdType: 'ootw',
+        wishlistKey: `ootw:men:${idPart}`,
+      };
+    });
   }
 );
 
@@ -21,7 +29,15 @@ export const fetchWomenOOTW = createAsyncThunk(
   'outfits/fetchWomenOOTW',
   async () => {
     const outfits = await getAllWomenOotw();
-    return outfits;
+    return (outfits || []).map((item) => {
+      const idPart = item?.id ?? item?.day ?? '';
+      return {
+        ...item,
+        gender: 'women',
+        ootdType: 'ootw',
+        wishlistKey: `ootw:women:${idPart}`,
+      };
+    });
   }
 );
 

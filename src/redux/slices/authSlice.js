@@ -14,7 +14,12 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      const { uid, email, displayName, photoURL } = action.payload;
+      const { uid, email, displayName, photoURL } = action.payload || {};
+      if (!uid) {
+        state.user = null;
+        state.isLoading = false;
+        return;
+      }
       state.user = { uid, email, displayName, photoURL };
       state.isLoading = false;
       state.error = null;
@@ -33,12 +38,16 @@ const authSlice = createSlice({
 
 // Thunk to set user and load wishlist and cart
 export const setPostAuthData = (user) => async (dispatch) => {
+  if (!user || !user.uid) {
+    dispatch(authSlice.actions.clearUser());
+    dispatch(authSlice.actions.setError(null));
+    return;
+  }
+
   dispatch(authSlice.actions.setUser(user));
   dispatch(authSlice.actions.setError(null))
-  if (user && user.uid) {
-    await dispatch(fetchWishlistFromFirestore(user.uid));
-    await dispatch(fetchOutfits());
-  }
+  await dispatch(fetchWishlistFromFirestore(user.uid));
+  await dispatch(fetchOutfits());
 };
 
 export const { setUser, setLoading, setError, clearUser } = authSlice.actions;

@@ -4,15 +4,23 @@ import { doc, setDoc } from "firebase/firestore";
 import { store } from "../redux/store";
 import { setPostAuthData, clearUser, setError, setLoading } from "../redux/slices/authSlice";
 import { getUser } from "./firestore";
+import { clearWishlist } from "../redux/slices/wishlistSlice";
 
 // Auth state listener
 export const initAuthListener = () => {
   return auth.onAuthStateChanged(async (user) => {
     if (user) {
-       const userData = await getUser(user.uid);
-      store.dispatch(setPostAuthData(userData));
+      const userData = await getUser(user.uid);
+      const safeUserData = userData || {
+        uid: user.uid,
+        email: user.email || "",
+        displayName: user.displayName || "Anonymous",
+        photoURL: user.photoURL || null,
+      };
+      store.dispatch(setPostAuthData(safeUserData));
     } else {
       store.dispatch(clearUser());
+      store.dispatch(clearWishlist());
     }
   });
 };
@@ -86,8 +94,15 @@ export const signInWithEmail = async (email, password) => {
 
     // Fetch user data from Firestore
     const userData = await getUser(userId);
-    
-    store.dispatch(setPostAuthData(userData));
+
+    const safeUserData = userData || {
+      uid: result.user.uid,
+      email: result.user.email || email,
+      displayName: result.user.displayName || "Anonymous",
+      photoURL: result.user.photoURL || null,
+    };
+
+    store.dispatch(setPostAuthData(safeUserData));
     store.dispatch(setLoading(false));
   } catch (error) {
     store.dispatch(setError(error.code.split("/")[1] || "Sign in failed"));

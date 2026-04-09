@@ -1,24 +1,29 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { updateWishlistInFirestore } from "../redux/slices/wishlistSlice";
 import { toggleWishlist } from '../redux/slices/wishlistSlice';
+
+const getWishlistIdentity = (item) => {
+  if (!item) return '';
+  if (item.wishlistKey) return item.wishlistKey;
+
+  const isOotw = item.ootdType === 'ootw' || !!item.day;
+  if (isOotw) {
+    const gender = (item.gender || 'unknown').toString().toLowerCase();
+    const idPart = item.id ?? item.day ?? '';
+    return `ootw:${gender}:${idPart}`;
+  }
+
+  return String(item.id ?? '');
+};
 
 const LikeButton = ({ariaLabel, outfit, top, OOTDNUM, bottom, right, left, onShowModal }) => {
   const dispatch = useDispatch();
   const wishlist = useSelector(state => state.wishlist.items);
   const wishLoading = useSelector(state => state.wishlist.wishLoading);
   const user = useSelector(state => state.auth.user);
-  const liked = wishlist.some(item => item.id === outfit.id);
-  const prevWishlistRef = useRef(wishlist);
-  
-  // Save to Firestore when wishlist changes
-  useEffect(() => {
-    if (user && user.uid && prevWishlistRef.current !== wishlist) {
-      dispatch(updateWishlistInFirestore({ userId: user.uid, wishlist }));
-      prevWishlistRef.current = wishlist;
-    }
-  }, [wishlist, user, dispatch]);
+  const currentIdentity = getWishlistIdentity(outfit);
+  const liked = wishlist.some(item => getWishlistIdentity(item) === currentIdentity);
 
   const handleLike = () => {
     dispatch(toggleWishlist({...outfit, OOTDNUM}));

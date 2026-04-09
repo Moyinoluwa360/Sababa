@@ -1,6 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getUser, updateUser } from '../../firebase/firestore';
 
+const getWishlistIdentity = (item) => {
+  if (!item) return '';
+  if (item.wishlistKey) return item.wishlistKey;
+
+  // OOTW can have overlapping ids across men/women collections.
+  const isOotw = item.ootdType === 'ootw' || !!item.day;
+  if (isOotw) {
+    const gender = (item.gender || 'unknown').toString().toLowerCase();
+    const idPart = item.id ?? item.day ?? '';
+    return `ootw:${gender}:${idPart}`;
+  }
+
+  return String(item.id ?? '');
+};
+
 // Async thunk to fetch wishlist from Firestore
 export const fetchWishlistFromFirestore = createAsyncThunk(
   'wishlist/fetchFromFirestore',
@@ -28,9 +43,10 @@ const wishlistSlice = createSlice({
   reducers: {
     toggleWishlist: (state, action) => {
       const outfit = action.payload;
-      const exists = state.items.some(item => item.id === outfit.id);
+      const targetIdentity = getWishlistIdentity(outfit);
+      const exists = state.items.some(item => getWishlistIdentity(item) === targetIdentity);
       if (exists) {
-        state.items = state.items.filter(item => item.id !== outfit.id);
+        state.items = state.items.filter(item => getWishlistIdentity(item) !== targetIdentity);
       } else {
         state.items.push(outfit);
       }

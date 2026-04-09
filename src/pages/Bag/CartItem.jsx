@@ -4,7 +4,6 @@ import styled from "styled-components";
 import LikeButton from "../../components/likeButton";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleWishlist } from "../../redux/slices/wishlistSlice";
-import { updateWishlistInFirestore } from "../../redux/slices/wishlistSlice";
 import { removeFromCart, changeQuantityByType, updateCartInFirestore } from "../../redux/slices/cartSlice";
 
 const CartItem = ({product}) => {
@@ -26,14 +25,6 @@ const CartItem = ({product}) => {
   
     const handleLike = () => {
       dispatch(toggleWishlist(product));
-      if (user && user.uid) {
-        setTimeout(() => {
-          const updatedWishlist = liked
-            ? wishlist.filter(item => item.id !== product.id)
-            : [...wishlist, product];
-          dispatch(updateWishlistInFirestore({ userId: user.uid, wishlist: updatedWishlist }));
-        }, 0);
-      }
     };
 
     const handleRemove = () => {

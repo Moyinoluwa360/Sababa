@@ -35,13 +35,19 @@ export default function WhislistGrid({wish}) {
         </GenderToggle>
       </GenderContainer>
       <Wrapper>
-        {filteredWish.slice().reverse().map((outfit) => (
-          <OutfitCard
-            key={outfit.id}
-            outfit={outfit}
-            OOTDNUM={outfit.OOTDNUM}
-          />
-        ))}
+        {filteredWish.length > 0 ? (
+          filteredWish.slice().reverse().map((outfit) => (
+            <OutfitCard
+              key={outfit.id}
+              outfit={outfit}
+              OOTDNUM={outfit.OOTDNUM}
+            />
+          ))
+        ) : (
+          <EmptyByGender>
+            No outfit is wishlisted for {activeGender === 'men' ? 'men' : 'women'} yet.
+          </EmptyByGender>
+        )}
       </Wrapper>
     </>
   );
@@ -92,10 +98,18 @@ const Wrapper = styled.div`
   width: 100%;
   justify-content: center;
   gap: 12px;
+  align-items: center;
   padding-left: 5px;
   padding-right: 5px; 
   @media (max-width: 480px){
     gap: 12px;
   }
+`;
+
+const EmptyByGender = styled.p`
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  text-align: center;
 `;
 
