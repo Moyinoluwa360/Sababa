@@ -283,14 +283,14 @@ const MainImageColumn = styled.div`
 const ImageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
+  border-radius: 20px;
   position: relative;
   align-items: flex-end;
   height: 100%;
   width: 100%;
   overflow: hidden;
+  border: 1px solid #E0E0E0;
   cursor: zoom-in;
-  
   .mainLikeButton {
     @media (max-width: 300px) {
       height: 27px;
@@ -304,7 +304,8 @@ const MainImage = styled.img`
   inset: 0;
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   @media (max-width: 750px) {
     border-radius: 20px;
   }

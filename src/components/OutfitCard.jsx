@@ -84,10 +84,12 @@ const CardWrapper = styled.article`
 const CardImageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
+  border-radius: 20px;
   position: relative;
   width: inherit;
   height: 90%;
+  overflow: hidden;
+  background: #f5f5f5;
   padding: 260px 44px 12px;
   align-items: flex-end;
   
@@ -101,7 +103,7 @@ const CardImage = styled.img`
   inset: 0;
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   border-radius: 20px;
 `;
